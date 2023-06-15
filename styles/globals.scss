@@ -1,0 +1,61 @@
+
+@import "~@fontsource/raleway/300.css";
+@import "~@fontsource/raleway/400.css";
+@import "~@fontsource/raleway/500.css";
+@import "~@fontsource/raleway/600.css";
+@import "~@fontsource/raleway/700.css";
+@import "~@fontsource/raleway/800.css";
+
+
+@import "~@fontsource/playfair-display/400.css";
+@import "~@fontsource/playfair-display/500.css";
+@import "~@fontsource/playfair-display/600.css";
+@import "~@fontsource/playfair-display/700.css";
+@import "~@fontsource/playfair-display/800.css";
+
+
+@import "@styles/abstracts/_colors.module.scss";
+
+// rem trick
+
+html {
+	font-size: 62.5%;
+	background: $white;
+	font-family: 'Raleway', sans-serif;
+	color: $primary;
+}
+
+body {
+	font-size: 1.6rem;
+}
+
+html, body, div#__next {
+	min-height: 100vh;
+	min-width: 100vw;
+	height: fit-content;
+	width: fit-content;
+	padding: 0;
+	margin: 0;
+}
+
+
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+
+* {
+	box-sizing: border-box;
+	-ms-overflow-style: none;
+}
+
+
+div#__next {
+
+	& > main {
+		width: 100%;
+		height: 100%;
+	}
+}

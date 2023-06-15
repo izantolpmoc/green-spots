@@ -1,0 +1,8 @@
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+
+h1.title {
+    @include header-1-bold;
+    color: $primary;
+}
