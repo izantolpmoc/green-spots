@@ -5,6 +5,7 @@ import prisma from '../lib/prisma'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useEffect } from 'react'
 
 const Home = () => {
 
@@ -17,6 +18,10 @@ const Home = () => {
 	// user auth
 
 	const { data: session, status } = useSession()
+
+	useEffect(() => {
+		console.log("session", session)
+	}, [session])
 
 	// render
 

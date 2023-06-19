@@ -13,7 +13,18 @@ export const authOptions = {
         }),
     ],
     adapter: PrismaAdapter(prisma),
-    secret: process.env.SECRET
+    secret: process.env.SECRET,
+    callbacks: {
+        // @ts-ignore
+        session: async ({session, user}) => {
+            if(session.user) {
+                session.user.isModerator = user.isModerator
+                session.user.isAdmin = user.isAdmin
+            }
+            return session
+            
+        }
+    }
 }
 
 export default NextAuth(authOptions)
