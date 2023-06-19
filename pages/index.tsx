@@ -1,10 +1,8 @@
 import styles from '@styles/pages/home.module.scss'
 import Head from 'next/head'
 
-import prisma from '../lib/prisma'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useEffect } from 'react'
 
 const Home = () => {
