@@ -1,22 +1,62 @@
 const apiKey = process.env.IMAGGA_APIKEY as string;
 const apiSecret = process.env.IMAGGA_APISECRET as string;
+const apiUrl = process.env.IMAGGA_APIURL as string;
 
-const imageUrl = 'https://imagga.com/static/images/tagging/wind-farm-538576_640.jpg';
-const url = 'https://api.imagga.com/v2/tags?image_url=' + encodeURIComponent(imageUrl);
+export const validateImage = async (uri: string) => {
 
-const getTagsFromImage = async () => {
+    const url = apiUrl + encodeURIComponent(uri);
+
     try {
         const response = await fetch(url, {
+            method: 'GET',
             headers: {
-                'username': apiKey,
-                'password': apiSecret
+                'Authorization': 'Basic ' + Buffer.from(apiKey + ':' + apiSecret).toString('base64'),
             }
-        });
+        })
 
-        console.log(response.body);
+        const data = await response.json();
+
+        if(!data.result) {
+            return false;
+        }
+
+        return checkTags(data.result.tags);
     } catch (error) {
         console.log(error);
     }
+
+    return false;
 };
 
-getTagsFromImage();
+const checkTags = (tags: string[]) => {
+    const validTags = [
+        "forest",
+        "park",
+        "tree",
+        "trees",
+        "nature",
+        "outdoors",
+        "woods",
+        "wood",
+        "plant",
+        "leaf",
+        "environment",
+        "landscape",
+        "scenic",
+        "rural",
+        "wilderness",
+        "scenery",
+        "mountain",
+        "sky",
+        "grass",
+        "summer",
+        "travel",
+        "woody plant",
+        "season",
+        "sun",
+        "autumn",
+        "sunlight"
+    ];
+
+    return tags.some((tag: any) => validTags.includes(tag.tag.en) && tag.confidence > 60);
+}
