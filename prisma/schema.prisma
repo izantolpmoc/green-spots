@@ -101,6 +101,8 @@ model User {
   accounts      Account[]
   reviews       Review[]
   sessions      Session[]
+  isModerator   Boolean   @default(false)
+  isAdmin       Boolean   @default(false)
 }
 
 model VerificationToken {
