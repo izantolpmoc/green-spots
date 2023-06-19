@@ -4,6 +4,7 @@ import Head from 'next/head'
 import prisma from '../lib/prisma'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const Home = () => {
 
@@ -47,6 +48,7 @@ const Home = () => {
 					) : status === 'authenticated' ? (
 						<>
 							<p>Bonjour {session.user?.name} ! ({session.user?.email})</p>
+							<img src={session.user?.image || ""} alt="avatar" />
 							<Link href="/api/auth/signout">
 								Se déconnecter
 							</Link>
