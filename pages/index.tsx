@@ -1,6 +1,10 @@
 import styles from '@styles/pages/home.module.scss'
 import Head from 'next/head'
 
+import prisma from '../lib/prisma'
+import { useSession } from 'next-auth/react'
+import Link from 'next/link'
+
 const Home = () => {
 
 
@@ -8,6 +12,10 @@ const Home = () => {
 
 	const metaTitle = "GREEN SPOTS"
 	const metaDescription = "GREEN SPOTS permet de trouver les meilleurs spots de nature autour de vous."
+
+	// user auth
+
+	const { data: session, status } = useSession()
 
 	// render
 
@@ -33,6 +41,22 @@ const Home = () => {
 			</Head>
 			<main>
 				<h1 className={styles.title}>GREEN SPOTS</h1>
+				{
+					status === 'loading' ? (
+						<p>Chargement...</p>
+					) : status === 'authenticated' ? (
+						<>
+							<p>Bonjour {session.user?.name} ! ({session.user?.email})</p>
+							<Link href="/api/auth/signout">
+								Se déconnecter
+							</Link>
+						</>
+					) : (
+						<Link href="/api/auth/signin">
+							Se connecter
+						</Link>
+					)
+				}
 			</main>
 		</>
 		
