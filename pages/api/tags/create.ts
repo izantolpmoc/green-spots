@@ -41,10 +41,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       })
   }
 
-  const { name, description } = inputData.data     
+  const { name, description } = inputData.data    
 
   try {
-    // access db records with prisma functions
+    // Check if a tag with the same name exists
+    const existingTag = await prisma.tag.findUnique({
+      where: {
+        name: name,
+      },
+    });
+
+    if(existingTag) {
+      return res.status(400).json({ error: { message: "A tag with this name already exists" } });
+    }
+
     const tag = await prisma.tag.create({
       data: {
         name,

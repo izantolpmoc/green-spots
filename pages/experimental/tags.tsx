@@ -28,7 +28,7 @@ const Experimental = () => {
 		try {
 			const res = await fetch(`/api/tags/update`, {
 				method: 'POST',
-				body: JSON.stringify({ id: "clj2pszg10008vubswsi1afki", name: "Station de vélib", description: "Une station de vélib est disponible à proximité."}),
+				body: JSON.stringify({ id: "replaceWithTagId", name: "Station de vélib", description: "Une station de vélib est disponible à proximité."}),
 				headers: {
 					'Content-Type': 'application/json'
 				}
@@ -39,6 +39,19 @@ const Experimental = () => {
 			console.log(err);
 		}
 	}
+
+		// delete tag test
+		const DeleteTag = async () => {
+			try {
+				const res = await fetch(`/api/tags/delete/replaceWithTagId`, {
+					method: 'DELETE'
+			});
+				const data = await res.json();
+				console.log(data);
+			} catch (err) {
+				console.log(err);
+			}
+		}
 
     return (
         <>
@@ -68,6 +81,7 @@ const Experimental = () => {
 			</form>
 
 			<button type="button" onClick={UpdateTag}>Update tag with a set of values.</button>
+			<button type="button" onClick={DeleteTag}>Delete a tag from the database</button>
 			</div>
         </>
     )

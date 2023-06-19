@@ -20,8 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const session = await getServerSession(req, res, authOptions);
 
-    // if(!session || !session.user.isAdmin || !session.user.isModerator) {
-    if(!session) {
+    if(!session || !session.user.isAdmin || !session.user.isModerator) {
         res.status(401);
         res.end();
         return;
