@@ -7,12 +7,13 @@ const Experimental = () => {
 
     // create tag
 	const CreateTag = async () => {
-		console.log(tagName, tagDescription)
-		if(!tagName) return;
 		try {
 			const res = await fetch(`/api/tags/create`, {
 				method: 'POST',
 				body: JSON.stringify({ name: tagName, description: tagDescription}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
 		});
 			const data = await res.json();
 			console.log(data);
@@ -22,11 +23,15 @@ const Experimental = () => {
 
 	}
 
-	// find tags by name (returns a list of tags that contains the selected string)
-	const FindTag = async () => {
+	// update tag test
+	const UpdateTag = async () => {
 		try {
-			const res = await fetch(`/api/tags/${tagName}`, {
-				method: 'GET'
+			const res = await fetch(`/api/tags/update`, {
+				method: 'POST',
+				body: JSON.stringify({ id: "clj2pszg10008vubswsi1afki", name: "Station de vélib", description: "Une station de vélib est disponible à proximité."}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
 		});
 			const data = await res.json();
 			console.log(data);
@@ -62,11 +67,7 @@ const Experimental = () => {
 				<button type="button" onClick={CreateTag}>Ajouter</button>
 			</form>
 
-			<div>
-				<h1>Find tags by Name</h1>
-				<input type="text" name="tagName" onChange={(e) => setTagName(e.target.value)} />
-				<button type="button" onClick={FindTag}>Chercher</button>
-			</div>
+			<button type="button" onClick={UpdateTag}>Update tag with a set of values.</button>
 			</div>
         </>
     )
