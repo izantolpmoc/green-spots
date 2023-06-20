@@ -6,7 +6,6 @@ import { z } from 'zod'
 // all attributes are optional because we are updating
 
 const spotUpdateSchema = z.object({
-    id: z.string().uuid(),
     newName: z.string().min(1).max(255).optional(),
     description: z.string().min(1).max(240).optional(),
     image: z.string().url().optional(),
@@ -29,12 +28,21 @@ const spotUpdateSchema = z.object({
  */
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
 
-    // only allow POST requests
+    // only allow PUT requests
 
     if(req.method !== 'PUT') {
         res.status(405).json({message: 'Method not allowed'})
         return
     }
+
+    // make sure the id is provided
+
+    if(!req.query.id) {
+        res.status(400).json({message: 'Invalid request: id is required'})
+        return
+    }
+
+    const id = req.query.id?.toString()
 
     // validate the incoming request body
 
@@ -64,12 +72,32 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
             error: { message: "Invalid request", errors: [{path: ['tags'], message: 'One or more tags do not exist'}] }
         })
     }
+
+    // filter opening hours to only include those that don't exist in the database (checking for values using AND operator)
+
+    const existingOpeningHours = await prisma.openingHours.findMany({
+        where: {
+            AND: openingHours?.map(openingHour => ({
+                openingTime: openingHour.openingTime,
+                closingTime: openingHour.closingTime,
+                startDate: new Date(openingHour.startDate),
+                endDate: new Date(openingHour.endDate)
+            }))
+        }
+    })
+
+    const newOpeningHours = openingHours?.filter(openingHour => !existingOpeningHours.some(existingOpeningHour =>
+        existingOpeningHour.openingTime === openingHour.openingTime &&
+        existingOpeningHour.closingTime === openingHour.closingTime &&
+        existingOpeningHour.startDate.getTime() === new Date(openingHour.startDate).getTime() &&
+        existingOpeningHour.endDate.getTime() === new Date(openingHour.endDate).getTime()
+    ))
     
     // create the spot in the database using prisma
 
     const updatedSpot = await prisma.spot.update({
         where: {
-            id: req.query.id?.toString() || ''
+            id: id
         },
         data: {
             name: newName,
@@ -81,12 +109,26 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
                 connect: tags?.map(tag => ({name: tag}))
             },
             openingHours: {
-                create: openingHours?.map(openingHour => ({
-                    openingTime: openingHour.openingTime,
-                    closingTime: openingHour.closingTime,
-                    startDate: openingHour.startDate,
-                    endDate: openingHour.endDate
-                }))
+                // delete opening hours that are not in the request
+                deleteMany: {
+                    OR: openingHours?.map(openingHour => ({
+                        AND: [
+                            { openingTime: { not: openingHour.openingTime } },
+                            { closingTime: { not: openingHour.closingTime } },
+                            { startDate: { not: new Date(openingHour.startDate) } },
+                            { endDate: { not: new Date(openingHour.endDate) } }
+                        ]
+                    }))
+                },
+                // create new opening hours which values are not in the database
+                createMany: {
+                    data: newOpeningHours?.map(({openingTime, closingTime, startDate, endDate}) => ({
+                        openingTime,
+                        closingTime,
+                        startDate: new Date(startDate),
+                        endDate: new Date(endDate)
+                    })) || []
+                }
             }
         },
         include: {
