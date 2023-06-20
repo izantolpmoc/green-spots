@@ -69,8 +69,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 				comment,
 				rating,
 				spotId,
-				//userId: session.user.id,
-				userId: 'clj2o3m0m0000qku5evq8g70j'
+				userId: session.user.id
 			},
 		});
 		res.status(200).json({ review });

@@ -17,6 +17,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		},
 	});
 
+    // check if review exists in database
+
+    if(!review) {
+        res.status(404).json({message: 'Review not found'})
+        return
+    }
+
     const session = await getServerSession(req, res, authOptions);
 
     if(!session?.user.isAdmin && session?.user.id !== review?.userId) 
