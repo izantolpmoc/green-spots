@@ -76,8 +76,18 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
                 connect: tags.map(tag => ({name: tag}))
             },
             openingHours: {
-                create: openingHours
+                // openingHours is an array of objects, so we need to map over it
+                create: openingHours.map(({openingTime, closingTime, startDate, endDate}) => ({
+                    openingTime,
+                    closingTime,
+                    startDate: new Date(startDate),
+                    endDate: new Date(endDate)
+                }))
             }
+        },
+        include: {
+            tags: true,
+            openingHours: true
         }
     })
 
