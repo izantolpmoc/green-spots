@@ -1,21 +1,73 @@
 import { OpeningHours, Review, Spot, Tag } from "@prisma/client"
 import prisma from "../prisma"
 
+
+export interface SpotWithAttributes extends Spot {
+    tags: Tag[];
+    openingHours: OpeningHours[];
+    reviews: Review[];
+}
+
 /**
  * Get all the spots from the database
+ * @param query The search query
+ * @param tags The tags to filter by
  * @returns list of spots
  */
-export const getSpots = async () => {
+export const getSpots = async (query?: string, tags?: string[]) => {
 
-    const spots = await prisma.spot.findMany({
+    
+    let searchQuery: any = {}
+
+    // full text search (if query provided)
+
+    if (query) {
+        searchQuery = {
+            where: {
+                OR: [
+                    {
+                        name: {
+                            contains: query
+                        }
+                    },
+                    {
+                        description: {
+                            contains: query
+                        }
+                    }
+                ]
+            }
+        }
+    }
+
+    // filter by tags (if provided)
+
+    if (tags) {
+        searchQuery = {
+            ...searchQuery,
+            where: {
+                ...searchQuery.where,
+                tags: {
+                    some: {
+                        name: {
+                            in: tags
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // run the query & return the results
+
+    return await prisma.spot.findMany({
+        ...searchQuery,
         include: {
             tags: true,
             openingHours: true,
             reviews: true
         }
-    })
-
-    return spots
+    }) as SpotWithAttributes[]
 }
 
 
@@ -26,7 +78,7 @@ export const getSpots = async () => {
  * @param longitude The longitude of the center of the search area
  * @returns 
  */
-export const sortSpotsByDistance = (spots: Spot[], latitude: number, longitude: number) => {
+export const sortSpotsByDistance = (spots: SpotWithAttributes[], latitude: number, longitude: number) => {
     return spots.sort((a, b) => {
         const aDistance = Math.sqrt(Math.pow(a.latitude - latitude, 2) + Math.pow(a.longitude - longitude, 2))
         const bDistance = Math.sqrt(Math.pow(b.latitude - latitude, 2) + Math.pow(b.longitude - longitude, 2))
@@ -66,14 +118,6 @@ export const getNearbySpots = async (latitude: number, longitude: number, maxDis
     .then(spots => sortSpotsByDistance(spots, latitude, longitude))
 }
 
-
-
-export interface SpotWithAttributes extends Spot {
-    tags: Tag[];
-    openingHours: OpeningHours[];
-    reviews: Review[];
-}
-
 /**
  * Sort a list of spots by rating (descending)
  * @param spots The list of spots to sort
@@ -94,6 +138,6 @@ export const sortSpotsByRating = (spots: SpotWithAttributes[]) => {
  * @param longitude The longitude of the point to get the distance from
  * @returns 
  */
-export const distanceFromSpot = (spot: Spot, latitude: number, longitude: number) => {
+export const distanceFromSpot = (spot: SpotWithAttributes, latitude: number, longitude: number) => {
     return Math.sqrt(Math.pow(spot.latitude - latitude, 2) + Math.pow(spot.longitude - longitude, 2))
 }
