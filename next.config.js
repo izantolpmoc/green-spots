@@ -8,6 +8,11 @@ const withPWA = require("next-pwa")({
 
 const nextConfig = withPWA({
   reactStrictMode: true,
+  api: {
+    bodyParser: {
+      sizeLimit: '12mb',
+    },
+  },
 });
 
 module.exports = nextConfig;

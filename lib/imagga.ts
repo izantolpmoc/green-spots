@@ -4,7 +4,9 @@ const apiUrl = process.env.IMAGGA_APIURL as string;
 
 export const validateImage = async (uri: string) => {
 
-    const url = apiUrl + encodeURIComponent(uri);
+    const url = apiUrl + "?image_url=" + encodeURIComponent(uri);
+
+    console.log("URL : " + url)
 
     try {
         const response = await fetch(url, {
@@ -20,12 +22,10 @@ export const validateImage = async (uri: string) => {
             return false;
         }
 
-        return checkTags(data.result.tags);
+        return await checkTags(data.result.tags);
     } catch (error) {
         console.log(error);
     }
-
-    return false;
 };
 
 const checkTags = (tags: string[]) => {
