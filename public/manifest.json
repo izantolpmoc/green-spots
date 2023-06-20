@@ -1,11 +1,11 @@
 {
     "lang": "fr",
-    "name": "Green Spots Progressive Web App",
-    "short_name": "Green Spots",
+    "name": "GREEN SPOTS Progressive Web App",
+    "short_name": "GREEN SPOTS",
     "display": "standalone",
     "orientation": "portrait",
-    "scope": "/",
-    "start_url": "/",
+    "scope": "/app",
+    "start_url": "/app",
     "icons": [
       {
         "src": "icons/icon-72x72.png",
