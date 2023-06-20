@@ -6,10 +6,19 @@ import { z } from 'zod'
 
 const spotSchema = z.object({
     name: z.string().min(1).max(255),
-    description: z.string().min(1).max(240),
-    image: z.string().url(),
+    description: z.string().min(1).max(240).optional(),
+    // geolocation
     latitude: z.number().min(-90).max(90),
     longitude: z.number().min(-180).max(180),
+    // full address
+    address: z.string().min(1).max(255),
+    city: z.string().min(1).max(255),
+    region: z.string().min(1).max(255),
+    postalCode: z.string().min(1).max(255),
+    country: z.string().min(1).max(255).optional(),
+    // other
+    website: z.string().url().optional(),
+    image: z.string().url(),
     tags: z.array(z.string()),
     openingHours: z.array(z.object({
         openingTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
@@ -45,7 +54,7 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
         })
     }
 
-    const { name, description, image, latitude, longitude, tags, openingHours } = inputData.data
+    const { name, description, latitude, longitude, address, city, region, postalCode, country, website, image, tags, openingHours } = inputData.data
 
     // make sure all the tags exist in the database
 
@@ -69,9 +78,15 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
         data: {
             name,
             description,
-            image,
             latitude,
             longitude,
+            address,
+            city,
+            region,
+            postalCode,
+            country,
+            website,
+            image,
             tags: {
                 connect: tags.map(tag => ({name: tag}))
             },
