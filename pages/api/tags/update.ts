@@ -11,7 +11,7 @@ const tagSchema = z.object({
 });
 
 /**
- * POST /api/tags/update
+ * PUT /api/tags/update
  * Update an existing tag in the database
  * @param req 
  * @param res 
@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // only allow POST requests
 
-    if (req.method !== "POST") 
+    if (req.method !== "PUT") 
         return res.status(405).json({message: 'Method not allowed'});// validate the incoming request body
 
     const inputData = tagSchema.safeParse(req.body)

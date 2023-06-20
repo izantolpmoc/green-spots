@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Experimental = () => {
+const Tags = () => {
 
 	const [tagName, setTagName] = useState('');
 	const [tagDescription, setTagDescription] = useState('');
@@ -27,7 +27,7 @@ const Experimental = () => {
 	const UpdateTag = async () => {
 		try {
 			const res = await fetch(`/api/tags/update`, {
-				method: 'POST',
+				method: 'PUT',
 				body: JSON.stringify({ id: "replaceWithTagId", name: "Station de vélib", description: "Une station de vélib est disponible à proximité."}),
 				headers: {
 					'Content-Type': 'application/json'
@@ -89,4 +89,4 @@ const Experimental = () => {
 }
 
 
-export default Experimental
+export default Tags
