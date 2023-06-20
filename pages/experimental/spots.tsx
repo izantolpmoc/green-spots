@@ -1,7 +1,6 @@
 import prisma from "@lib/prisma"
 import { Tag } from "@prisma/client"
 import { useState } from "react"
-import { setTextRange } from "typescript"
 
 interface Props {
     dbTags: Tag[] 
@@ -14,22 +13,6 @@ const Spots = (
 
 
     // render
-
-    // create a form for the following zod schema
-    // const spotSchema = z.object({
-    //     name: z.string().min(1).max(255),
-    //     description: z.string().min(1).max(240),
-    //     image: z.string().url(),
-    //     latitude: z.number().min(-90).max(90),
-    //     longitude: z.number().min(-180).max(180),
-    //     tags: z.array(z.string()),
-    //     openingHours: z.array(z.object({
-    //         openingTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
-    //         closingTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
-    //         startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-    //         endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-    //     }))
-    // })
 
     // create all the states for the form
 
@@ -95,6 +78,9 @@ const Spots = (
                         console.log(body)
                         // post the form
                         fetch("/api/spots/create", {
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
                             method: "POST",
                             body: JSON.stringify(body)
                         }).then(res => res.json()).then(res => {

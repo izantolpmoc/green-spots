@@ -36,7 +36,7 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
 
     // validate the incoming request body
 
-    const inputData = spotSchema.safeParse(JSON.parse(req.body))
+    const inputData = spotSchema.safeParse(req.body)
 
     if(!inputData.success) {
         const { errors } = inputData.error
