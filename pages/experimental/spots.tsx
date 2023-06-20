@@ -9,6 +9,7 @@ interface Props {
 const Spots = (
     { dbTags }: Props
 ) => {
+    
     // render
 
     function handleImage(event: any) {

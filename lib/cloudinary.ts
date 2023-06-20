@@ -7,28 +7,28 @@ export const cloudinaryConfig = {
     api_secret: process.env.CLOUDINARY_API_SECRET,
 }
 
-   export const uploadImage = async (base64: string) => {  
+export const uploadImage = async (base64: string) => {  
 
-        cloudinaryV2.config(cloudinaryConfig)
+    cloudinaryV2.config(cloudinaryConfig)
 
-        const uploadDir = 'spots/'
-    
-        const imageConfig = {
-                quality: 100,
-                folder: uploadDir,
-        }
-        
-        const result = await cloudinaryV2.uploader.upload(base64, imageConfig)
-        
-        return result;
+    const uploadDir = 'spots/'
+
+    const imageConfig = {
+            quality: 100,
+            folder: uploadDir,
     }
     
-   export const deleteImage = async (public_id: string) => {
+    const result = await cloudinaryV2.uploader.upload(base64, imageConfig)
+    
+    return result;
+}
 
-        cloudinaryV2.config(cloudinaryConfig)
+export const deleteImage = async (public_id: string) => {
 
-        // @ts-ignore
-        const response = await cloudinaryV2.api.delete_resources(public_id).then(console.log)
+    cloudinaryV2.config(cloudinaryConfig)
 
-        return response;
-    }
+    // @ts-ignore
+    const response = await cloudinaryV2.api.delete_resources(public_id).then(console.log)
+
+    return response;
+}
