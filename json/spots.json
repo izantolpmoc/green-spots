@@ -1,0 +1,564 @@
+[
+    {
+    "name": "Jardin municipal des Plantes",
+    "description": "",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "Avenue de la RÃ©publique",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+            "openingTime": "08:00:00",
+            "closingTime": "18:00:00",
+            "start_date": "11-01",
+            "end_date": "03-15"
+        },
+        {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "03-16",
+            "end_date": "06-15"
+        },
+        {
+            "openingTime": "08:00:00",
+            "closingTime": "20:00:00",
+            "start_date": "06-16",
+            "end_date": "09-15"
+        },
+        {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "09-16",
+            "end_date": "10-31"
+        }
+    ]
+    },
+    {
+    "name": "Parc dÃ©partemental des Hautes BruyÃ¨res",
+    "description": "D'une superficie d'environ 20 hectares, ce parc est situÃ© le long de l'autoroute A6, sur le haut de Villejuif, Ã  l'emplacement des anciennes carriÃ¨res de sable et de gypse. Il abrite 85 jardins familiaux ainsi qu'un jardin de plantes mÃ©dicinales.",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "Avenue de Verdun",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "17:00:00",
+        "start_date": "01-01",
+        "end_date": "01-31"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "18:00:00",
+        "start_date": "02-01",
+        "end_date": "02-28"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "19:00:00",
+        "start_date": "03-01",
+        "end_date": "03-31"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "20:00:00",
+        "start_date": "04-01",
+        "end_date": "04-30"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "20:00:00",
+        "start_date": "09-01",
+        "end_date": "09-30"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "21:00:00",
+        "start_date": "05-01",
+        "end_date": "05-31"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "21:00:00",
+        "start_date": "06-01",
+        "end_date": "06-30"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "21:00:00",
+        "start_date": "07-01",
+        "end_date": "07-31"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "21:00:00",
+        "start_date": "08-01",
+        "end_date": "08-31"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "19:00:00",
+        "start_date": "10-01",
+        "end_date": "10-31"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "17:00:00",
+        "start_date": "11-01",
+        "end_date": "11-30"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "17:00:00",
+        "start_date": "12-01",
+        "end_date": "12-31"
+        }
+    ]
+    },
+    {
+    "name": "Parc du 8 mai 1945",
+    "description": "D'une superficie d'environ 2 hectares, ce parc est situÃ© au Nord-ouest de la ville. Il Ã©tait autrefois utilisÃ© comme dÃ©pÃ´t par la prÃ©fecture de police de Paris. En 1975, la municipalitÃ© a refusÃ© le projet du ministÃ¨re de l'IntÃ©rieur visant Ã  construire des logements, et a obtenu sa transformation en parc. Le parc a ouvert en 1980.",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "Rue Alexandre-Dumas",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "17:00:00",
+        "start_date": "11-01",
+        "end_date": "03-15"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "19:00:00",
+        "start_date": "03-16",
+        "end_date": "06-15"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "20:00:00",
+        "start_date": "06-16",
+        "end_date": "09-15"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "19:00:00",
+        "start_date": "09-16",
+        "end_date": "10-31"
+        }
+    ]
+    },
+    {
+    "name": "Parc des Lilas",
+    "description": "",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "8 rue du Dr Antomarchi",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "18:00:00",
+        "start_date": "01-01",
+        "end_date": "03-15"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "19:00:00",
+        "start_date": "03-16",
+        "end_date": "06-15"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "20:00:00",
+        "start_date": "06-16",
+        "end_date": "09-15"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "19:00:00",
+        "start_date": "09-16",
+        "end_date": "10-31"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "18:00:00",
+        "start_date": "11-01",
+        "end_date": "12-31"
+        }
+    ]
+    },
+    {
+    "name": "Parc Normandie-Niemen",
+    "description": "",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "185 boulevard Maxime-Gorki",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "18:00:00",
+        "start_date": "11-01",
+        "end_date": "03-15"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "19:00:00",
+        "start_date": "03-16",
+        "end_date": "06-15"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "20:00:00",
+        "start_date": "06-16",
+        "end_date": "09-15"
+        },
+        {
+        "openingTime": "08:00:00",
+        "closingTime": "19:00:00",
+        "start_date": "09-16",
+        "end_date": "10-31"
+        }
+    ]
+    },
+    {
+    "name": "Jardin Jane et Paulette Nardal",
+    "description": "SituÃ© sur un terrain du Syndicat des Eaux d'Ile de France (Sedif), ce jardin de 3700m2 est proche de l'IGR et a Ã©tÃ© ouvert au public en mai 2022.",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "34 avenue du PrÃ©sident Salvador Allende",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+            "openingTime": "08:00:00",
+            "closingTime": "18:00:00",
+            "start_date": "11-01",
+            "end_date": "03-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "03-16",
+            "end_date": "06-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "20:00:00",
+            "start_date": "06-16",
+            "end_date": "09-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "09-16",
+            "end_date": "10-31"
+            }
+    ]
+    },
+    {
+    "name": "Parc Pablo-Neruda",
+    "description": "Ce parc rÃ©novÃ© se trouve en centre-ville, derriÃ¨re l'hÃ´tel de ville. On peut y accÃ©der par les rues Paul-Bert et RenÃ©-Hamon. Les travaux de rÃ©novation ont Ã©tÃ© effectuÃ©s dÃ©but 2022.",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "Rue Paul Bert",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+            "openingTime": "08:00:00",
+            "closingTime": "18:00:00",
+            "start_date": "11-01",
+            "end_date": "03-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "03-16",
+            "end_date": "06-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "20:00:00",
+            "start_date": "06-16",
+            "end_date": "09-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "09-16",
+            "end_date": "10-31"
+            }
+    ]
+    },
+    {
+    "name": "Parc Emile-Zola",
+    "description": "SituÃ© au 5 rue Emile-Zola.",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "Rue Emile Zola",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+            "openingTime": "08:00:00",
+            "closingTime": "18:00:00",
+            "start_date": "11-01",
+            "end_date": "03-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "03-16",
+            "end_date": "06-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "20:00:00",
+            "start_date": "06-16",
+            "end_date": "09-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "09-16",
+            "end_date": "10-31"
+            }
+    ]
+    },
+    {
+    "name": "Square Condorcet",
+    "description": "SituÃ© Ã  l'angle des rues Emile Zola et Condorcet.",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "Adresse non spÃ©cifiÃ©e",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": []
+    },
+    {
+    "name": "Square de la Charmoie",
+    "description": "",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "Square de la Charmoie",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+            "openingTime": "08:00:00",
+            "closingTime": "18:00:00",
+            "start_date": "11-01",
+            "end_date": "03-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "03-16",
+            "end_date": "06-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "20:00:00",
+            "start_date": "06-16",
+            "end_date": "09-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "09-16",
+            "end_date": "10-31"
+            }
+    ]
+    },
+    {
+    "name": "Square Jean-Ferrat",
+    "description": "Au 114 rue Jean-JaurÃ¨s.",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "114 rue Jean-JaurÃ¨s",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+            "openingTime": "08:00:00",
+            "closingTime": "18:00:00",
+            "start_date": "11-01",
+            "end_date": "03-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "03-16",
+            "end_date": "06-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "20:00:00",
+            "start_date": "06-16",
+            "end_date": "09-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "09-16",
+            "end_date": "10-31"
+            }
+    ]
+    },
+    {
+    "name": "Square des Guipons",
+    "description": "SituÃ© au 9 rue des Guipons, ce square comprend un parcours dÃ©diÃ© aux personnes malvoyantes, avec des plantes odorantes et des panneaux Ã©crits en braille.",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "9 rue des Guipons",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+            "openingTime": "08:00:00",
+            "closingTime": "18:00:00",
+            "start_date": "11-01",
+            "end_date": "03-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "03-16",
+            "end_date": "06-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "20:00:00",
+            "start_date": "06-16",
+            "end_date": "09-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "09-16",
+            "end_date": "10-31"
+            }
+    ]
+    },
+    {
+    "name": "Square Pasteur",
+    "description": "Au 81 rue Pasteur.",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "81 rue Pasteur",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+            "openingTime": "08:00:00",
+            "closingTime": "18:00:00",
+            "start_date": "11-01",
+            "end_date": "03-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "03-16",
+            "end_date": "06-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "20:00:00",
+            "start_date": "06-16",
+            "end_date": "09-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "09-16",
+            "end_date": "10-31"
+            }
+    ]
+
+    },
+    {
+    "name": "Square des Sapeurs-Pompiers",
+    "description": "",
+    "latitude": 0,
+    "longitude": 0,
+    "address": "20 boulevard Chastenet-de-GÃ©ry",
+    "city": "Villejuif",
+    "region": "Ile-de-France",
+    "postal_code": "94800",
+    "website": "",
+    "tags": [],
+    "openingHours": [
+        {
+            "openingTime": "08:00:00",
+            "closingTime": "18:00:00",
+            "start_date": "11-01",
+            "end_date": "03-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "03-16",
+            "end_date": "06-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "20:00:00",
+            "start_date": "06-16",
+            "end_date": "09-15"
+            },
+            {
+            "openingTime": "08:00:00",
+            "closingTime": "19:00:00",
+            "start_date": "09-16",
+            "end_date": "10-31"
+            }
+    ]
+    }
+]
