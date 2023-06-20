@@ -4,9 +4,7 @@ const apiUrl = process.env.IMAGGA_APIURL as string;
 
 export const validateImage = async (uri: string) => {
 
-    const url = apiUrl + "?image_url=" + encodeURIComponent(uri);
-
-    console.log("URL : " + url)
+    const url = apiUrl + "?image_url=" + encodeURIComponent();
 
     try {
         const response = await fetch(url, {
