@@ -19,7 +19,8 @@
       "@pages/*": ["./pages/*"],
       "@styles/*": ["./styles/*"],
       "@lib/*": ["./lib/*"],
-      "@json/*": ["./json/*"]
+      "@json/*": ["./json/*"],
+      "@public/*": ["./public/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "middleware.ts", "lib/temp/script-temp.ts", "lib/temp/post-spots.mts"],

@@ -1,0 +1,22 @@
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+@import "@styles/abstracts/_variables.module.scss";
+
+.navItem {
+
+    @include flex-container(column, nowrap, center, center);
+
+    width: 60px;
+    height: 60px;
+
+    svg, span {
+        color: $black-200;
+    }
+
+    &.current {
+        svg, span {
+            color: $primary;
+        }
+    }
+}

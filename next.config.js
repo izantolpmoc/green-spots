@@ -10,4 +10,4 @@ const nextConfig = withPWA({
   reactStrictMode: true,
 });
 
-module.exports = nextConfig;
+module.exports = nextConfig
