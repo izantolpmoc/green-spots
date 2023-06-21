@@ -1,39 +1,38 @@
 [
     {
       "name": "Jardin municipal des Plantes",
-      "description": "",
+      "description": "Non spécifié",
       "latitude": 48.788454,
       "longitude": 2.364743,
       "address": "Avenue de la République",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "11-01",
-          "end_date": "03-15"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-03-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-16",
-          "end_date": "06-15"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-16",
+          "endDate": "2000-06-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "06-16",
-          "end_date": "09-15"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-06-16",
+          "endDate": "2000-09-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "09-16",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-09-16",
+          "endDate": "2000-10-31"
         }
       ]
     },
@@ -45,81 +44,80 @@
       "address": "Rue de Verdun",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "17:00:00",
-          "start_date": "01-01",
-          "end_date": "01-31"
+          "openingTime": "08:00",
+          "closingTime": "17:00",
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-31"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "02-01",
-          "end_date": "02-28"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-02-01",
+          "endDate": "2000-02-28"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-01",
-          "end_date": "03-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-01",
+          "endDate": "2000-03-31"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "04-01",
-          "end_date": "04-30"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-04-01",
+          "endDate": "2000-04-30"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "09-01",
-          "end_date": "09-30"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-09-01",
+          "endDate": "2000-09-30"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "21:00:00",
-          "start_date": "05-01",
-          "end_date": "05-31"
+          "openingTime": "08:00",
+          "closingTime": "21:00",
+          "startDate": "2000-05-01",
+          "endDate": "2000-05-31"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "21:00:00",
-          "start_date": "06-01",
-          "end_date": "06-30"
+          "openingTime": "08:00",
+          "closingTime": "21:00",
+          "startDate": "2000-06-01",
+          "endDate": "2000-06-30"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "21:00:00",
-          "start_date": "07-01",
-          "end_date": "07-31"
+          "openingTime": "08:00",
+          "closingTime": "21:00",
+          "startDate": "2000-07-01",
+          "endDate": "2000-07-31"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "21:00:00",
-          "start_date": "08-01",
-          "end_date": "08-31"
+          "openingTime": "08:00",
+          "closingTime": "21:00",
+          "startDate": "2000-08-01",
+          "endDate": "2000-08-31"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "10-01",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-10-01",
+          "endDate": "2000-10-31"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "17:00:00",
-          "start_date": "11-01",
-          "end_date": "11-30"
+          "openingTime": "08:00",
+          "closingTime": "17:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-11-30"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "17:00:00",
-          "start_date": "12-01",
-          "end_date": "12-31"
+          "openingTime": "08:00",
+          "closingTime": "17:00",
+          "startDate": "2000-12-01",
+          "endDate": "2000-12-31"
         }
       ]
     },
@@ -131,115 +129,112 @@
       "address": "Rue Alexandre-Dumas",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "17:00:00",
-          "start_date": "11-01",
-          "end_date": "03-15"
+          "openingTime": "08:00",
+          "closingTime": "17:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-03-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-16",
-          "end_date": "06-15"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-16",
+          "endDate": "2000-06-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "06-16",
-          "end_date": "09-15"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-06-16",
+          "endDate": "2000-09-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "09-16",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-09-16",
+          "endDate": "2000-10-31"
         }
       ]
     },
     {
       "name": "Parc des Lilas",
-      "description": "",
+      "description": "Non spécifié",
       "latitude": 48.783593,
       "longitude": 2.364032,
       "address": "Impasse des Lozaits",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "01-01",
-          "end_date": "03-15"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-01-01",
+          "endDate": "2000-03-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-16",
-          "end_date": "06-15"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-16",
+          "endDate": "2000-06-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "06-16",
-          "end_date": "09-15"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-06-16",
+          "endDate": "2000-09-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "09-16",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-09-16",
+          "endDate": "2000-10-31"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "11-01",
-          "end_date": "12-31"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-12-31"
         }
       ]
     },
     {
       "name": "Parc Normandie-Niemen",
-      "description": "",
+      "description": "Non spécifié",
       "latitude": 48.7873824,
       "longitude": 2.3676527,
       "address": "185 boulevard Maxime-Gorki",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "11-01",
-          "end_date": "03-15"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-03-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-16",
-          "end_date": "06-15"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-16",
+          "endDate": "2000-06-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "06-16",
-          "end_date": "09-15"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-06-16",
+          "endDate": "2000-09-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "09-16",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-09-16",
+          "endDate": "2000-10-31"
         }
       ]
     },
@@ -251,33 +246,32 @@
       "address": "34 avenue du Président Salvador Allende",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "11-01",
-          "end_date": "03-15"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-03-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-16",
-          "end_date": "06-15"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-16",
+          "endDate": "2000-06-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "06-16",
-          "end_date": "09-15"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-06-16",
+          "endDate": "2000-09-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "09-16",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-09-16",
+          "endDate": "2000-10-31"
         }
       ]
     },
@@ -289,147 +283,143 @@
       "address": "Rue Paul Bert",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "11-01",
-          "end_date": "03-15"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-03-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-16",
-          "end_date": "06-15"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-16",
+          "endDate": "2000-06-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "06-16",
-          "end_date": "09-15"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-06-16",
+          "endDate": "2000-09-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "09-16",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-09-16",
+          "endDate": "2000-10-31"
         }
       ]
     },
     {
       "name": "Parc Emile-Zola",
-      "description": "",
+      "description": "Non spécifié",
       "latitude": 48.800875,
       "longitude": 2.400386375,
       "address": "Rue Emile Zola",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "11-01",
-          "end_date": "03-15"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-03-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-16",
-          "end_date": "06-15"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-16",
+          "endDate": "2000-06-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "06-16",
-          "end_date": "09-15"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-06-16",
+          "endDate": "2000-09-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "09-16",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-09-16",
+          "endDate": "2000-10-31"
         }
       ]
     },
     {
       "name": "Square de la Charmoie",
-      "description": "",
+      "description": "Non spécifié",
       "latitude": 48.79086875,
       "longitude": 2.3657656499999997,
       "address": "Square de la Charmoie",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "11-01",
-          "end_date": "03-15"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-03-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-16",
-          "end_date": "06-15"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-16",
+          "endDate": "2000-06-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "06-16",
-          "end_date": "09-15"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-06-16",
+          "endDate": "2000-09-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "09-16",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-09-16",
+          "endDate": "2000-10-31"
         }
       ]
     },
     {
       "name": "Square Jean-Ferrat",
-      "description": "",
+      "description": "Non spécifié",
       "latitude": 48.7896547,
       "longitude": 2.3667538,
       "address": "114 rue Jean-Jaurès",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "11-01",
-          "end_date": "03-15"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-03-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-16",
-          "end_date": "06-15"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-16",
+          "endDate": "2000-06-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "06-16",
-          "end_date": "09-15"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-06-16",
+          "endDate": "2000-09-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "09-16",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-09-16",
+          "endDate": "2000-10-31"
         }
       ]
     },
@@ -441,109 +431,106 @@
       "address": "9 rue des Guipons",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "11-01",
-          "end_date": "03-15"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-03-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-16",
-          "end_date": "06-15"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-16",
+          "endDate": "2000-06-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "06-16",
-          "end_date": "09-15"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-06-16",
+          "endDate": "2000-09-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "09-16",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-09-16",
+          "endDate": "2000-10-31"
         }
       ]
     },
     {
       "name": "Square Pasteur",
-      "description": "",
+      "description": "Non spécifié",
       "latitude": 48.8049936,
       "longitude": 2.3661579,
       "address": "81 rue Pasteur",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "11-01",
-          "end_date": "03-15"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-03-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-16",
-          "end_date": "06-15"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-16",
+          "endDate": "2000-06-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "06-16",
-          "end_date": "09-15"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-06-16",
+          "endDate": "2000-09-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "09-16",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-09-16",
+          "endDate": "2000-10-31"
         }
       ]
     },
     {
       "name": "Square des Sapeurs-Pompiers",
-      "description": "",
+      "description": "Non spécifié",
       "latitude": 48.8026564,
       "longitude": 2.3572373,
       "address": "20 boulevard Chastenet-de-Géry",
       "city": "Villejuif",
       "region": "Ile-de-France",
-      "postal_code": "94800",
-      "website": "",
+      "postalCode": "94800",
       "tags": [],
       "openingHours": [
         {
-          "openingTime": "08:00:00",
-          "closingTime": "18:00:00",
-          "start_date": "11-01",
-          "end_date": "03-15"
+          "openingTime": "08:00",
+          "closingTime": "18:00",
+          "startDate": "2000-11-01",
+          "endDate": "2000-03-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "03-16",
-          "end_date": "06-15"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-03-16",
+          "endDate": "2000-06-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "20:00:00",
-          "start_date": "06-16",
-          "end_date": "09-15"
+          "openingTime": "08:00",
+          "closingTime": "20:00",
+          "startDate": "2000-06-16",
+          "endDate": "2000-09-15"
         },
         {
-          "openingTime": "08:00:00",
-          "closingTime": "19:00:00",
-          "start_date": "09-16",
-          "end_date": "10-31"
+          "openingTime": "08:00",
+          "closingTime": "19:00",
+          "startDate": "2000-09-16",
+          "endDate": "2000-10-31"
         }
       ]
     }

@@ -1,4 +1,4 @@
-import { getCoordinatesByAddress } from './open-street-map';
+import { getCoordinatesByAddress } from '../open-street-map';
 import * as fs from 'fs';
 
 /// THIS CAN BE DELETED BUT KEEP IT FOR NOW CAN BE USEFUL LATER
