@@ -1,11 +1,11 @@
 import styles from '@styles/pages/home.module.scss'
 import Head from 'next/head'
 
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import Button from '@components/button'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 const Home = () => {
 	
@@ -53,9 +53,11 @@ const Home = () => {
 						<>
 							<p>Bonjour {session.user?.name} ! ({session.user?.email})</p>
 							<img src={session.user?.image || ""} alt="avatar" />
-							<Link href="/api/auth/signout">
+							<Button
+								icon={faRightFromBracket}
+								onClick={() => signOut()}>
 								Se déconnecter
-							</Link>
+							</Button>
 						</>
 					) : (
 						<Link href="/api/auth/signin">
