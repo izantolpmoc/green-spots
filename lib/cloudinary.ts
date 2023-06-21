@@ -8,6 +8,13 @@ export const cloudinaryConfig = {
 }
 
 
+/**
+ * We give a base64 image and we upload it to cloudinary this return everything about data upload
+ * 
+ * @async
+ * @param {string} base64
+ * @returns {result of upload}
+ */
 export const uploadImage = async (base64: string) => {  
 
     cloudinaryV2.config(cloudinaryConfig)
@@ -24,6 +31,13 @@ export const uploadImage = async (base64: string) => {
     return result;
 }
 
+/**
+ * We give it the location of the image and it deletes it from cloudinary
+ *
+ * @async
+ * @param {string} public_id
+ * @returns {nothing because is good}
+ */
 export const deleteImage = async (public_id: string) => {
 
     cloudinaryV2.config(cloudinaryConfig)

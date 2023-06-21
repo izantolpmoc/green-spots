@@ -9,7 +9,6 @@ const apiSightEngineSecret = process.env.SIGHTENGINE_APISECRET as string;
 
 /**
  * Check if the text has no link & no personal data & no profanity if is ok return true
- * @date 21/06/2023 - 09:58:52
  *
  * @async
  * @param {string} text
