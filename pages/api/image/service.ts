@@ -2,8 +2,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { uploadImage, deleteImage } from '@lib/cloudinary'
 import { validateImage } from '@lib/imagga';
-import { url } from 'inspector';
-
 
 type Data = {
     base64?: string,
@@ -26,7 +24,6 @@ export default async function handler (
 
         let check = await validateImage(url)
 
-        /// If true is equal to success 
         if(check) {
             return res.status(200).json({ base64: base64, result: url})
         } else {
