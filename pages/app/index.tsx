@@ -70,15 +70,17 @@ const Home = () => {
 					alignItems: "center",
 					justifyContent: "center",
 					padding: "40px",
-					background: "#000"
+					// green to blue gradient
+					background: "linear-gradient(90deg, rgba(0,255,0,1) 0%, rgba(0,0,255,1) 100%)"
 				}}>
 
 
 					<Button 
 						dark
 						icon={faArrowLeft}
+						role="secondary"
+						action='big'
 						onClick={() => console.log("click")}>
-						Bouton
 					</Button>
 
 				</div>
