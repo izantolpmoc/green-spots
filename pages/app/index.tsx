@@ -1,8 +1,6 @@
 import styles from '@styles/pages/home.module.scss'
 import Head from 'next/head'
 
-import { useSession } from 'next-auth/react'
-
 const Home = () => {
 	
 	// meta data
@@ -10,9 +8,6 @@ const Home = () => {
 	const metaTitle = "GREEN SPOTS"
 	const metaDescription = "GREEN SPOTS permet de trouver les meilleurs spots de nature autour de vous."
 
-	// user auth
-
-	const { data: session } = useSession()
 
 	// render
 
