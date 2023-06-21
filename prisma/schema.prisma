@@ -44,7 +44,7 @@ model OpeningHours {
 model Spot {
   id           String         @id @default(cuid())
   name         String         @unique
-  description  String?
+  description  String?        @db.Text
   latitude     Float
   longitude    Float
   image        String

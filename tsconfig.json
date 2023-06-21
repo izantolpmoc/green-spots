@@ -22,6 +22,6 @@
       "@json/*": ["./json/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "middleware.ts", "lib/script-temp.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "middleware.ts", "lib/temp/script-temp.ts", "lib/temp/post-spots.mts"],
   "exclude": ["node_modules"]
 }
