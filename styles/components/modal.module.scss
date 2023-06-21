@@ -5,7 +5,7 @@
 .dialog {
     background: $white;
     height: fit-content;
-    width: clamp(50%, 600px, 90%);
+    width: clamp(50%, 600px, 100%);
     border: none;
     margin: auto;
     border-radius: 16px;
@@ -15,7 +15,7 @@
     align-items: center;
 
     &.large {
-        width: clamp(50%, 800px, 90%);
+        width: clamp(50%, 800px, 100%);
     }
 
     &.fullWidth {

@@ -2,7 +2,6 @@ import styles from '@styles/pages/home.module.scss'
 import Head from 'next/head'
 
 import { useSession } from 'next-auth/react'
-import { useState } from 'react'
 
 const Home = () => {
 	
@@ -14,9 +13,6 @@ const Home = () => {
 	// user auth
 
 	const { data: session } = useSession()
-
-	// modal
-	const [showModal, setShowModal] = useState(false);
 
 	// render
 
