@@ -3,9 +3,10 @@ import Head from 'next/head'
 
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Button from '@components/button'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import Modal from '@components/modal'
 
 const Home = () => {
 	
@@ -21,6 +22,9 @@ const Home = () => {
 	useEffect(() => {
 		console.log("session", session)
 	}, [session])
+
+	// modal
+	const [showModal, setShowModal] = useState(false);
 
 	// render
 
@@ -74,15 +78,19 @@ const Home = () => {
 					background: "linear-gradient(90deg, rgba(0,255,0,1) 0%, rgba(0,0,255,1) 100%)"
 				}}>
 
-
+					
 					<Button 
-						dark
 						icon={faArrowLeft}
-						role="secondary"
-						action='big'
-						onClick={() => console.log("click")}>
+						onClick={() => setShowModal(true)}>
+						Bouton
 					</Button>
+					
+					<div id="modal-root"></div>
 
+					<Modal openModal={showModal} onClose={() => setShowModal(false)}>
+						<div style={{textAlign: 'center'}}>My modal content</div>
+					</Modal>
+					
 				</div>
 
 			</main>
