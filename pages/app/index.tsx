@@ -6,8 +6,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 
 const Home = () => {
-
-
+	
 	// meta data
 
 	const metaTitle = "GREEN SPOTS"

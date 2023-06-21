@@ -9,16 +9,40 @@ interface Props {
 const Spots = (
     { dbTags }: Props
 ) => {
-
-
-
+    
     // render
+
+    function handleImage(event: any) {
+        
+        const file = event.target.files[0];
+        const reader = new FileReader();
+      
+        reader.onload = async function(e: any) {
+            const base64Image = e.target.result;
+
+            const response = await fetch('/api/image/service', {
+                method: 'POST',
+                body: JSON.stringify({
+                    base64: base64Image
+                })
+            })
+
+            const data = await response.json();
+
+            if (data.result == false) return setImageErrror(true);
+
+            setImage(data.result);
+        };
+      
+        reader.readAsDataURL(file);
+    }
 
     // create all the states for the form
 
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [image, setImage] = useState("")
+    const [imageError, setImageErrror] = useState(false);
     const [latitude, setLatitude] = useState(0)
     const [longitude, setLongitude] = useState(0)
     const [tags, setTags] = useState<string[]>([])
@@ -44,7 +68,11 @@ const Spots = (
                 <label htmlFor="description">Description</label>
                 <input type="text" id="description" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
                 <label htmlFor="image">Image</label>
-                <input type="text" id="image" name="image" value={image} onChange={(e) => setImage(e.target.value)} />
+                <input type="file" id="image" accept="image/*" onChange={(e) => handleImage(e)}></input>
+                <div>
+                    {image && <img src={image} alt="Uploaded Image" />}
+                    {imageError && <p>The image doesn't seem to be conforme or isn't in the right format. Please try again!</p>}
+                </div>
                 <label htmlFor="latitude">Latitude</label>
                 <input type="number" id="latitude" name="latitude" value={latitude} onChange={(e) => setLatitude(Number(e.target.value))} />
                 <label htmlFor="longitude">Longitude</label>
