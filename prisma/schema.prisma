@@ -45,18 +45,15 @@ model Spot {
   id           String         @id @default(cuid())
   name         String         @unique
   description  String?
-  // geolocation
   latitude     Float
   longitude    Float
-  // full address
+  image        String
   address      String         @db.Text
   city         String
-  region       String
-  postalCode   String
   country      String         @default("France")
-
+  postalCode   String
+  region       String
   website      String?
-  image        String
   tags         Tag[]
   reviews      Review[]
   openingHours OpeningHours[]

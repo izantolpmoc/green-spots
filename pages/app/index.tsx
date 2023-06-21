@@ -4,6 +4,8 @@ import Head from 'next/head'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useEffect } from 'react'
+import Button from '@components/button'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 const Home = () => {
 	
@@ -61,6 +63,26 @@ const Home = () => {
 						</Link>
 					)
 				}
+
+				<div style={{
+					display: "flex",
+					flexDirection: "column",
+					alignItems: "center",
+					justifyContent: "center",
+					padding: "40px",
+					background: "#000"
+				}}>
+
+
+					<Button 
+						dark
+						icon={faArrowLeft}
+						onClick={() => console.log("click")}>
+						Bouton
+					</Button>
+
+				</div>
+
 			</main>
 		</>
 		
