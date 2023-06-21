@@ -3,8 +3,7 @@ const apiSecret = process.env.IMAGGA_APISECRET as string;
 const apiUrl = process.env.IMAGGA_APIURL as string;
 
 /**
- * analyse if the image can be validated
- *
+ * Validate image (make sure it doesn't contain anything inappropriate
  * @async
  * @param {string} uri
  * @returns {function execute}
@@ -34,8 +33,7 @@ export const validateImage = async (uri: string) => {
 };
 
 /**
- * Check via tags if the image is valid or not
- *
+ * Check if the image is safe using the list valid tags
  * @param {string[]} tags
  * @returns {true/false}
  */
