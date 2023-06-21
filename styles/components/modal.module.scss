@@ -1,74 +1,41 @@
 @import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
 @import "@styles/abstracts/_colors.module.scss";
 
-.overlay {
+.dialog {
+    background: $white;
+    height: fit-content;
+    width: clamp(50%, 600px, 100vw);
+    border: none;
+    border-radius: 16px;
+    padding: 16px;
+    max-width: 600px;
 
-    &.open {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(0, 0, 0, 0.5);   
+    @include spread-shadow($black, 0.1);
+
+    &.large {
+        max-width: 800px;
     }
 
-    .wrapper {
+    &.fullWidth {
+        max-width: 100%;
+    }
 
-        &.open {
-            width: 100dvw;
-            height: 100dvh;
-            display: flex;
-            align-items: center;
-        }
+    &.fullHeight {
+        height: 100%;
+    }
+    
+    &.dark {
+        background: $bg-black;
+    }
 
-        .content {
-            background: white;
-            height: fit-content;
-            width: 100%;
-            border: none;
-            border-radius: 15px;
-            padding: 15px;
-            max-width: 600px;
+    .header {
+        display: flex;
+        justify-content: flex-start;
+        font-size: 25px;
 
-            transition: transform 0.6s ease-in-out;
-            transform: translateY(100vh);
-
-            &.open {
-                transform: translateY(0);
-            }
-
-            &.large {
-                max-width: 800px;
-            }
-
-            &.fullWidth {
-                max-width: 100%;
-            }
-
-            &.fullHeight {
-                height: 100%;
-            }
-            
-            &.dark {
-                background: $bg-black;
-            }
-
-            .header {
-                display: flex;
-                justify-content: flex-start;
-                font-size: 25px;
-
-                &.btnRight {
-                    justify-content: flex-end;
-                }
-            }
-
-            .body {
-                padding-top: 10px;
-            }
+        &.btnRight {
+            justify-content: flex-end;
         }
     }
 }

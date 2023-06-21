@@ -2,9 +2,6 @@ import styles from '@styles/pages/home.module.scss'
 import Head from 'next/head'
 
 import { useSession } from 'next-auth/react'
-import Button from '@components/button'
-import Modal from '@components/modal'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 
 const Home = () => {
@@ -45,18 +42,6 @@ const Home = () => {
 			</Head>
 			<main id={styles.main}>
 				hello
-
-				<Button 
-					icon={faArrowLeft}
-					onClick={() => setShowModal(true)}>
-					Bouton
-				</Button>
-				
-				<div id="modal-root"></div>
-
-				<Modal openModal={showModal} onClose={() => setShowModal(false)}>
-					<div style={{textAlign: 'center'}}>My modal content</div>
-				</Modal>
 			</main>
 		</>
 		
