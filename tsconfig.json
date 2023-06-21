@@ -18,9 +18,10 @@
       "@components/*": ["./components/*"],
       "@pages/*": ["./pages/*"],
       "@styles/*": ["./styles/*"],
-      "@lib/*": ["./lib/*"]
+      "@lib/*": ["./lib/*"],
+      "@json/*": ["./json/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "middleware.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "middleware.ts", "lib/script-temp.ts"],
   "exclude": ["node_modules"]
 }
