@@ -8,9 +8,18 @@ import { z } from 'zod'
 const spotUpdateSchema = z.object({
     newName: z.string().min(1).max(255).optional(),
     description: z.string().min(1).max(240).optional(),
-    image: z.string().url().optional(),
+    // geolocation
     latitude: z.number().min(-90).max(90).optional(),
     longitude: z.number().min(-180).max(180).optional(),
+    // full address
+    address: z.string().min(1).max(255).optional(),
+    city: z.string().min(1).max(255).optional(),
+    region: z.string().min(1).max(255).optional(),
+    postalCode: z.string().min(1).max(255).optional(),
+    country: z.string().min(1).max(255).optional(),
+    // other
+    website: z.string().url().optional(),
+    image: z.string().url().optional(),
     tags: z.array(z.string()).optional(),
     openingHours: z.array(z.object({
         openingTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
@@ -55,7 +64,7 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
         })
     }
 
-    const { newName, description, image, latitude, longitude, tags, openingHours } = inputData.data
+    const { newName, description, latitude, longitude, address, city, region, postalCode, country, website, image, tags, openingHours } = inputData.data
 
     // make sure all the tags exist in the database
 
@@ -102,9 +111,15 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
         data: {
             name: newName,
             description,
-            image,
             latitude,
             longitude,
+            address,
+            city,
+            region,
+            postalCode,
+            country,
+            website,
+            image,
             tags: {
                 connect: tags?.map(tag => ({name: tag}))
             },
