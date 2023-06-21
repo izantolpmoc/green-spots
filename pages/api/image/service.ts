@@ -36,6 +36,6 @@ export default async function handler (
         }
 
     } catch(e) {
-        res.status(400).send({ base64: base64, result: (e as Error).message})
+        res.status(500).send({ base64: base64, result: (e as Error).message})
     }
 }
