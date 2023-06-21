@@ -8,8 +8,7 @@ const apiSightEngineSecret = process.env.SIGHTENGINE_APISECRET as string;
 
 
 /**
- * Check if the text has no link & no personal data & no profanity if is ok return true
- *
+ * Make sure the text doesn't contain links, personal data or profanity
  * @async
  * @param {string} text
  * @returns {Promise<boolean>}
@@ -48,9 +47,7 @@ export const validateText = async (text: string): Promise<boolean> => {
 }
 
 /**
- * Here is a simply translate via Deepl FR -> EN
- * @date 21/06/2023 - 09:58:52
- *
+ * Use DeepL to translate from FR to EN
  * @async
  * @param {string} text
  * @returns {Promise<string>}
