@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 type Props = {
     onClose: () => void;
     children: ReactNode;
-    title?: string;
     large?: boolean;
     fullWidth?: boolean;
     fullHeight?: boolean;
@@ -16,7 +15,7 @@ type Props = {
     dark?: boolean;
 }
 
-const Modal = ({ onClose, children, title, large, fullWidth, fullHeight, btnRight, dark }: Props) => {
+const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark }: Props) => {
 
     const dropIn = {
         hidden: {
@@ -31,7 +30,7 @@ const Modal = ({ onClose, children, title, large, fullWidth, fullHeight, btnRigh
             },
         },
         exit: {
-            y: "0",
+            y: "100vh",
             opacity: 0,
             transition: {
                 duration: 0.6
@@ -76,7 +75,6 @@ const Modal = ({ onClose, children, title, large, fullWidth, fullHeight, btnRigh
                     dark={dark}
                 />
             </div>
-            {title && <h1>{title}</h1>}
             <div className={styles.body}>{children}</div>
             </motion.dialog>
         </Backdrop>

@@ -5,20 +5,21 @@
 .dialog {
     background: $white;
     height: fit-content;
-    width: clamp(50%, 600px, 100vw);
+    width: clamp(50%, 600px, 90%);
     border: none;
+    margin: auto;
     border-radius: 16px;
     padding: 16px;
-    max-width: 600px;
-
-    @include spread-shadow($black, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     &.large {
-        max-width: 800px;
+        width: clamp(50%, 800px, 90%);
     }
 
     &.fullWidth {
-        max-width: 100%;
+        width: 100vw;
     }
 
     &.fullHeight {
@@ -30,6 +31,7 @@
     }
 
     .header {
+        width: 100%;
         display: flex;
         justify-content: flex-start;
         font-size: 25px;
