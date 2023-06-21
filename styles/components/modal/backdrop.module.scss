@@ -1,0 +1,19 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+.backdrop {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: $black-400;
+    overflow-y: hidden;
+
+    backdrop-filter: blur(10px);
+
+    @include flex-container(row, nowrap, center, center);
+
+}

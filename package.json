@@ -23,6 +23,7 @@
     "cloudinary": "^1.37.2",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
+    "framer-motion": "^10.12.16",
     "next": "13.4.5",
     "next-auth": "^4.22.1",
     "next-pwa": "^5.6.0",
