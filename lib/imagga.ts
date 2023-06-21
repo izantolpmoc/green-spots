@@ -2,6 +2,14 @@ const apiKey = process.env.IMAGGA_APIKEY as string;
 const apiSecret = process.env.IMAGGA_APISECRET as string;
 const apiUrl = process.env.IMAGGA_APIURL as string;
 
+/**
+ * analyse if the image can be validated
+ * @date 21/06/2023 - 09:57:31
+ *
+ * @async
+ * @param {string} uri
+ * @returns {function execute}
+ */
 export const validateImage = async (uri: string) => {
 
     const url = apiUrl + "?image_url=" + encodeURIComponent(uri);
@@ -26,6 +34,13 @@ export const validateImage = async (uri: string) => {
     }
 };
 
+/**
+ * Check via tags if the image is valid or not
+ * @date 21/06/2023 - 09:57:31
+ *
+ * @param {string[]} tags
+ * @returns {true/false}
+ */
 const checkTags = (tags: string[]) => {
     const validTags = [
         "forest",

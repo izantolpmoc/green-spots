@@ -10,6 +10,7 @@ type Data = {
     result?: string | boolean
 }
 
+/// To extend the limit size of the payload to 12mo (only here)
 export const config = { api: { bodyParser: { sizeLimit: '12mb' } } }
 
 export default async function handler (
@@ -25,6 +26,7 @@ export default async function handler (
 
         let check = await validateImage(url)
 
+        /// If true is equal to success 
         if(check) {
             return res.status(200).json({ base64: base64, result: url})
         } else {

@@ -7,6 +7,7 @@ export const cloudinaryConfig = {
     api_secret: process.env.CLOUDINARY_API_SECRET,
 }
 
+
 export const uploadImage = async (base64: string) => {  
 
     cloudinaryV2.config(cloudinaryConfig)
@@ -14,8 +15,8 @@ export const uploadImage = async (base64: string) => {
     const uploadDir = 'spots/'
 
     const imageConfig = {
-            quality: 100,
-            folder: uploadDir,
+        quality: 100,
+        folder: uploadDir,
     }
     
     const result = await cloudinaryV2.uploader.upload(base64, imageConfig)
