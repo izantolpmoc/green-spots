@@ -9,7 +9,7 @@ import React, { LegacyRef } from "react";
 import { MouseEventHandler } from "react";
 
 interface Props {
-    children: any;
+    children?: any;
     onClick: (event?: any) => void;
     onMouseOver?: (event?: any) => void;
     onMouseLeave?: (event?: any) => void;
@@ -71,14 +71,11 @@ const Button = ({
             type={type}>
             { 
                 icon ? 
-                <FontAwesomeIcon 
-                    icon={icon} 
-                    width={action === "small" ? "14px" : "20px"}
-                /> 
+                <FontAwesomeIcon icon={icon}/> 
                 :
                 <></>
             }
-            { children }
+            { children ? children : <></> }
         </button>
     )
 }
