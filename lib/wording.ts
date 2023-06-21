@@ -1,11 +1,21 @@
+/// API CONFIG DEEPL
 const apiDeeplKey = process.env.DEEPL_APIKEY as string;
 const apiDeeplUrl = process.env.DEEPL_APIURL as string;
+/// API CONFIG SIGHTENGINE
 const apiSightEngineKey = process.env.SIGHTENGINE_APIKEY as string;
 const apiSightEngineUrl = process.env.SIGHTENGINE_APIURL as string;
 const apiSightEngineSecret = process.env.SIGHTENGINE_APISECRET as string;
 
+
+/**
+ * Make sure the text doesn't contain links, personal data or profanity
+ * @async
+ * @param {string} text
+ * @returns {Promise<boolean>}
+ */
 export const validateText = async (text: string): Promise<boolean> => {
 
+    /// we translate the text in first
     const wordingInEnglish = await translateText(text);
 
     const params = new URLSearchParams();
@@ -36,6 +46,12 @@ export const validateText = async (text: string): Promise<boolean> => {
     return false;
 }
 
+/**
+ * Use DeepL to translate from FR to EN
+ * @async
+ * @param {string} text
+ * @returns {Promise<string>}
+ */
 const translateText = async (text: string): Promise<string> => {
     const sourceLang = 'FR';
     const targetLang = 'EN';

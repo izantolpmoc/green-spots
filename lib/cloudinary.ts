@@ -7,6 +7,13 @@ export const cloudinaryConfig = {
     api_secret: process.env.CLOUDINARY_API_SECRET,
 }
 
+
+/**
+ * Upload a base64 image to Cloudinary
+ * @async
+ * @param {string} base64
+ * @returns {result of upload}
+ */
 export const uploadImage = async (base64: string) => {  
 
     cloudinaryV2.config(cloudinaryConfig)
@@ -14,8 +21,8 @@ export const uploadImage = async (base64: string) => {
     const uploadDir = 'spots/'
 
     const imageConfig = {
-            quality: 100,
-            folder: uploadDir,
+        quality: 100,
+        folder: uploadDir,
     }
     
     const result = await cloudinaryV2.uploader.upload(base64, imageConfig)
@@ -23,6 +30,12 @@ export const uploadImage = async (base64: string) => {
     return result;
 }
 
+/**
+ * Delete an image from Cloudinary
+ * @async
+ * @param {string} public_id
+ * @returns {nothing because is good}
+ */
 export const deleteImage = async (public_id: string) => {
 
     cloudinaryV2.config(cloudinaryConfig)

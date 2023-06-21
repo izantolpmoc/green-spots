@@ -2,14 +2,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { uploadImage, deleteImage } from '@lib/cloudinary'
 import { validateImage } from '@lib/imagga';
-import { url } from 'inspector';
-
 
 type Data = {
     base64?: string,
     result?: string | boolean
 }
 
+/// To extend the limit size of the payload to 12mo (only here)
 export const config = { api: { bodyParser: { sizeLimit: '12mb' } } }
 
 export default async function handler (
