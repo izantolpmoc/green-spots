@@ -1,0 +1,54 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+.container {
+  @include flex-container(column, nowrap, center, center);
+  gap: 64px;
+}
+
+/* PROFIL SECTION */
+
+.user-info {
+  @include flex-container(column, nowrap, center, center);
+  gap: 8px;
+
+  .user-image {
+    border-radius: 100px;
+    height: 120px;
+  }
+
+  .group {
+    @include flex-container(row, nowrap, center, center);
+    width: auto;
+    gap: 16px;
+  }
+
+  .info {
+    color: $black;
+    white-space: nowrap;
+    font-size: $text-xl-font-size;
+  }
+
+  .sub-info {
+    color: $black-400;
+    white-space: nowrap;
+    @include flex-container(column, nowrap, center, center);
+    font-size: $text-md-font-size;
+  }
+
+  .logo {
+    height: 30px;
+    min-width: 30px;
+  }
+
+}
+
+/* Buttons */
+
+.buttons {
+  @include flex-container(column, nowrap, center, center);
+  gap: 16px;
+  width: auto;
+}

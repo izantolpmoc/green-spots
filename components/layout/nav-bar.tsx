@@ -31,7 +31,7 @@ const navItems: NavItemType[] = [
     {
         name: "Mon compte",
         icon: faUser,
-        action: () => console.log("account")
+        path: "/app/my-account"
     }
 ]
 
