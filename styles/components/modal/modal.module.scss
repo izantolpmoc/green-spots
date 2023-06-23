@@ -9,9 +9,11 @@
     border: none;
     margin: auto;
     border-radius: 16px;
-    padding: 16px;
+    padding: 16px 16px 32px;
     display: flex;
     flex-direction: column;
+
+    gap: 16px;
 
     &.large {
         width: clamp(50%, 800px, 100%);

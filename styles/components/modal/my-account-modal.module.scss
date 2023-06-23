@@ -8,14 +8,11 @@
 
 .container {
 	@include flex-container(column, nowrap, center, center);
-	margin-top: 16px;
-	gap: 48px;
+	gap: 32px;
 	height: 100%;
 }
 
 .modal {
-
-	gap: 16px;
 
 	@media (max-width: 600px) {	
 		height: 80vh;

@@ -84,7 +84,7 @@ const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark
                     />
                 </div>
             }
-            <div className={styles.body}>{children}</div>
+            {children}
             </motion.dialog>
         </Backdrop>
     );

@@ -53,7 +53,12 @@ const LoginModal = ({ showModal, onClose }: Props) => {
                                 dark
                             />
                             <div className={styles.headerContent}>
-                                <img className={styles.logo} src={showButtons ? "/icons/icon-green.svg" : "/icons/icon-white.svg"} alt="green-spots-logo" />
+                                {
+                                    showButtons ?
+                                    <img className={styles.logo} src="/icons/icon-green.svg" alt="green-spots-logo" />
+                                    :
+                                    <img className={styles.logo} src="/icons/icon-white.svg" alt="green-spots-logo" />
+                                }
                                 <h1 className={styles.title}>GREEN SPOTS</h1>
                                 <p className={styles.subtitle}>LA NATURE EN VILLE</p>
                             </div>
@@ -74,20 +79,20 @@ const LoginModal = ({ showModal, onClose }: Props) => {
                             </div>
                         :
                             <div className={styles.content}>
-                                    <div className={styles.loginButtons}>
-                                        <Button
-                                            icon={faGoogle}
-                                            role="tertiary"
-                                            className={styles.button}
-                                            fullWidth
-                                            onClick={() => signIn("google")}>
-                                            Google
-                                        </Button>
-                                    </div>
-                                    <FooterAction onClick={() => setShowButtons(false)}>
-                                        Annuler
-                                    </FooterAction>
+                                <div className={styles.loginButtons}>
+                                    <Button
+                                        icon={faGoogle}
+                                        role="tertiary"
+                                        className={styles.button}
+                                        fullWidth
+                                        onClick={() => signIn("google")}>
+                                        Google
+                                    </Button>
                                 </div>
+                                <FooterAction onClick={() => setShowButtons(false)}>
+                                    Annuler
+                                </FooterAction>
+                            </div>
                     }
                 </Modal>
             }
