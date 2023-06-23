@@ -1,0 +1,137 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_variables.module.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+.modal {
+    @media (max-width: 600px) {
+        border-radius: 16px 16px 0 0;
+        height: 100%;
+    }
+}
+
+.header {
+    background: $primary;
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    border-radius: 16px 16px 40px 40px;
+    height: 65%;
+    justify-content: space-between;
+
+    // transition effect
+    transition: all 0.8s ease;
+    transform: translateY(0); 
+
+    @include spread-shadow($black-400, 0.2);
+
+    .closeBtn {
+        align-self: flex-start;
+    }
+
+    .headerContent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .logo {
+            padding-bottom: 7rem;
+            transform: translateY(0);
+            opacity: 1;
+
+            // transition effect
+            transition: transform 0.8s ease;
+        }
+
+        .title {
+            @include typo-maker($h2-font-size, $font-weight-bold, $title-font);
+            letter-spacing: 8.5px;
+        }
+        
+        .subtitle {
+            @include typo-maker(text-md-font-size, $font-weight-regular, $main-font);
+            letter-spacing: 4.5px;
+            color: $white-400;
+            margin-bottom: 5rem;
+        }
+    }
+
+    &.showButtons {
+        height: 45%;
+        position: relative;
+
+        // transition effect
+        transform: translateY(0);
+
+        .headerContent {
+            flex: 1;
+            justify-content: center;
+            padding-bottom: 75px;
+
+            .logo {
+                position: absolute;
+                bottom: 0;
+                color: $primary;
+                background-color: $white;
+                border-radius: 50%;
+                margin: 0;
+                overflow: visible;
+                width: 150px;
+                height: 150px;
+                padding: 34px;
+
+                // transition effect
+                transform: translateY(75px);
+            }
+        }
+    }
+}
+
+.content {
+    padding: 16px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    gap: 20px;
+    justify-content: space-between;
+
+    .contentText {
+        color: $bg-black-400;
+    }
+
+    .cancelOption {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 24px;
+        color: $primary;
+        cursor: pointer;
+
+        hr {
+            flex: 1;
+            height: 1px;
+            color: $primary-200;
+        }
+    }
+
+    .loginButtons {
+        padding: 75px 0 16px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        margin-top: 16px;
+        gap: 16px;
+
+        .button {
+            color: $black;
+            border-color: $black-200;
+        }
+    }
+}

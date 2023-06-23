@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import styles from "@styles/components/modal.module.scss"
+import styles from "@styles/components/modal/modal.module.scss"
 import Button from "../button";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Backdrop from "./backdrop";
@@ -8,14 +8,17 @@ import { motion } from "framer-motion";
 type Props = {
     onClose: () => void;
     children: ReactNode;
+    className?: string;
     large?: boolean;
     fullWidth?: boolean;
     fullHeight?: boolean;
     btnRight?: boolean;
     dark?: boolean;
+    removePadding?: boolean;
+    customHeader?: ReactNode;
 }
 
-const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark }: Props) => {
+const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark, removePadding, customHeader, className }: Props) => {
 
     const dropIn = {
         hidden: {
@@ -46,6 +49,8 @@ const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark
         classNames += ' ' + (fullWidth ? styles['fullWidth'] : '')
         classNames += ' ' + (fullHeight ? styles['fullHeight'] : '')
         classNames += ' ' + (dark ? styles['dark'] : '')
+        classNames += ' ' + (removePadding ? styles['removePadding'] : '')
+        classNames += ' ' + (className ? className : '')
         return classNames
     }
 
@@ -66,15 +71,19 @@ const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark
                 animate="visible"
                 exit="exit"
             >
-            <div className={getHeaderClassNames()}>
-                <Button
-                    onClick={onClose}
-                    icon={faXmark}
-                    action="big"
-                    role="tertiary"
-                    dark={dark}
-                />
-            </div>
+            {
+                customHeader ? 
+                customHeader : 
+                <div className={getHeaderClassNames()}>
+                    <Button
+                        onClick={onClose}
+                        icon={faXmark}
+                        action="big"
+                        role="tertiary"
+                        dark={dark}
+                    />
+                </div>
+            }
             <div className={styles.body}>{children}</div>
             </motion.dialog>
         </Backdrop>

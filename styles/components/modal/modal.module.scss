@@ -12,7 +12,6 @@
     padding: 16px;
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     &.large {
         width: clamp(50%, 800px, 100%);
@@ -30,6 +29,10 @@
         background: $bg-black;
     }
 
+    &.removePadding {
+        padding: 0;
+    }
+
     .header {
         width: 100%;
         display: flex;
@@ -39,5 +42,9 @@
         &.btnRight {
             justify-content: flex-end;
         }
+    }
+
+    .body {
+        flex: 1;
     }
 }

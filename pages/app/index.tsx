@@ -1,5 +1,8 @@
+import Button from '@components/button'
+import LoginModal from '@components/modal/login-modal'
 import styles from '@styles/pages/home.module.scss'
 import Head from 'next/head'
+import { useState } from 'react'
 
 const Home = () => {
 	
@@ -8,6 +11,7 @@ const Home = () => {
 	const metaTitle = "GREEN SPOTS"
 	const metaDescription = "GREEN SPOTS permet de trouver les meilleurs spots de nature autour de vous."
 
+	const [showModal, setShowModal] = useState(false);
 
 	// render
 
@@ -33,6 +37,8 @@ const Home = () => {
 			</Head>
 			<main id={styles.main}>
 				hello
+				<Button onClick={() => setShowModal(true)}>Open modal</Button>
+				<LoginModal showModal={showModal} setShowModal={setShowModal} ></LoginModal>
 			</main>
 		</>
 		
