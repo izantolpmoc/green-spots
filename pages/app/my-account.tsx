@@ -15,24 +15,15 @@ const MyAccount = () => {
 
     const [showModal, setShowModal] = useState(false);
 
-    const getClassNames = (item: string) => {
-        let classNames = `${styles[item]}`;
-        return classNames;
-    }
-
     const { data: session, status } = useSession();
-
-    useEffect(() => {
-        console.log("session", session)
-    }, [session])
 
     const SectionContainer = () => {
         return (
-            <section className={getClassNames("container")}>
+            <section className={styles.container}>
 
                 {sectionProfil()}
 
-                <div className={getClassNames("buttons")}>
+                <div className={styles.buttons}>
                     <Button 
                         icon={faSignOut}
                         role="secondary"
@@ -44,7 +35,6 @@ const MyAccount = () => {
 
                     <Button 
                         role="tertiary"
-                        dark={true}
                         fullWidth={true}
                         onClick={signOut}
                     >
@@ -56,14 +46,14 @@ const MyAccount = () => {
     }
     const sectionProfil = () => {
         return (
-            <section className={getClassNames("userInfo")}>
-                <img className={getClassNames("userImage")} alt="User image" src={session?.user?.image || "/assets/user.png"}/>
-                <div className={getClassNames("group")}>
-                    <div className={getClassNames("info")}>{ session?.user?.name }</div>
+            <section className={styles.userInfo}>
+                <img className={styles.userImage} alt="User image" src={session?.user?.image || "/assets/user.png"}/>
+                <div className={styles.group}>
+                    <div className={styles.info}>{ session?.user?.name }</div>
                     { /* @ts-ignore */ }
-                    { session?.user?.isModerator || session?.user?.isModerator && <img className={getClassNames("logo")} alt="Logo" src="/assets/certif.png" /> }
+                    { session?.user?.isModerator || session?.user?.isModerator && <img className={styles.logo} alt="Logo" src="/assets/certif.png" /> }
                 </div>
-                <div className={getClassNames("subInfo")}>{ session?.user?.email} </div>
+                <div className={styles.subInfo}>{ session?.user?.email} </div>
             </section>
         )
     }
