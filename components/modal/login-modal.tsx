@@ -4,9 +4,9 @@ import { AnimatePresence } from "framer-motion"
 import Modal from "./modal"
 import { useState } from "react"
 import styles from "@styles/components/modal/login-modal.module.scss"
-import { useIsMobile } from "../../hooks/breakpoints"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
-import { useRouter } from "next/router"
+import { signIn } from "next-auth/react"
+import FooterAction from "@components/layout/footer-action"
 
 type Props = {
     showModal: boolean;
@@ -14,15 +14,20 @@ type Props = {
 }
 
 const LoginModal = ({ showModal, setShowModal }: Props) => {
+
+    // state
+
     const [showButtons, setShowButtons] = useState(false);
-    const router = useRouter()
-    const isMobile = useIsMobile();
+
+    // utils
 
     const getHeaderClassNames = () => {
         let classNames = styles.header
         classNames += ' ' + (showButtons ? styles['showButtons'] : '')
         return classNames
     }
+
+    // render
 
     return (
         <AnimatePresence
@@ -37,7 +42,7 @@ const LoginModal = ({ showModal, setShowModal }: Props) => {
             onExitComplete={() => null}
         >
             {showModal && 
-                <Modal onClose={() => {setShowModal(false); setShowButtons(false)}} removePadding fullHeight={isMobile} customHeader={
+                <Modal onClose={() => {setShowModal(false); setShowButtons(false)}} removePadding className={styles.modal} customHeader={
                     <div className={getHeaderClassNames()}>
                             <Button
                                 onClick={() => {setShowModal(false); setShowButtons(false)}}
@@ -63,9 +68,9 @@ const LoginModal = ({ showModal, setShowModal }: Props) => {
                                     onClick={() => setShowButtons(true)}>
                                     Se connecter
                                 </Button>
-                                <div className={styles.cancelOption} onClick={() => {setShowModal(false); setShowButtons(false)}}>
-                                    <hr />Plus tard <hr />
-                                </div>
+                                <FooterAction onClick={() => {setShowModal(false); setShowButtons(false)}}>
+                                    Plus tard
+                                </FooterAction>
                             </div>
                         :
                             <div className={styles.content}>
@@ -75,13 +80,13 @@ const LoginModal = ({ showModal, setShowModal }: Props) => {
                                             role="tertiary"
                                             className={styles.button}
                                             fullWidth
-                                            onClick={() => router.push('/api/auth/signin')}>
+                                            onClick={() => signIn("google")}>
                                             Google
                                         </Button>
                                     </div>
-                                    <div className={styles.cancelOption} onClick={() => setShowButtons(false)}>
-                                        <hr />Annuler <hr />
-                                    </div>
+                                    <FooterAction onClick={() => setShowButtons(false)}>
+                                        Annuler
+                                    </FooterAction>
                                 </div>
                     }
                 </Modal>

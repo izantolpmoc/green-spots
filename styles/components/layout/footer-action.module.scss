@@ -1,0 +1,24 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+.container {
+    @include flex-container(row, nowrap, space-between, center);
+    gap: 24px;
+    width: 100%;
+    cursor: pointer;
+
+    hr {
+        height: 1px;
+        border: none;
+        width: 100%;
+        background-color: $primary-200;
+    }
+
+    span {
+        @include text-md-medium;
+        color: $primary;
+        white-space: nowrap;
+    }
+}

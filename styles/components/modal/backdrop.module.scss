@@ -13,6 +13,8 @@
     background: $black-400;
     overflow-y: hidden;
 
+    backdrop-filter: blur(5px);
+
     @include flex-container(row, nowrap, center, center);
 
 }

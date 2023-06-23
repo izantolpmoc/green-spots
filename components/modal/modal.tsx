@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 type Props = {
     onClose: () => void;
     children: ReactNode;
+    className?: string;
     large?: boolean;
     fullWidth?: boolean;
     fullHeight?: boolean;
@@ -17,7 +18,7 @@ type Props = {
     customHeader?: ReactNode;
 }
 
-const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark, removePadding, customHeader }: Props) => {
+const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark, removePadding, customHeader, className }: Props) => {
 
     const dropIn = {
         hidden: {
@@ -49,6 +50,7 @@ const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark
         classNames += ' ' + (fullHeight ? styles['fullHeight'] : '')
         classNames += ' ' + (dark ? styles['dark'] : '')
         classNames += ' ' + (removePadding ? styles['removePadding'] : '')
+        classNames += ' ' + (className ? className : '')
         return classNames
     }
 

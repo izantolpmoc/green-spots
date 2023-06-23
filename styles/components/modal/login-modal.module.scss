@@ -1,7 +1,15 @@
 @import "@styles/base/_reset.scss";
 @import "@styles/base/_mixins.scss";
 @import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_variables.module.scss";
 @import "@styles/abstracts/_colors.module.scss";
+
+.modal {
+    @media (max-width: 600px) {
+        border-radius: 16px 16px 0 0;
+        height: 100%;
+    }
+}
 
 .header {
     background: $primary;
@@ -123,7 +131,7 @@
 
         .button {
             color: $black;
-            border-color: $black-600;
+            border-color: $black-200;
         }
     }
 }
