@@ -138,9 +138,9 @@
         }
     }
 
-    &.dark.smallAction, &.dark.bigAction {
-        
-        backdrop-filter: blur(10px);
+    &.dark.secondary.smallAction, &.dark.secondary.bigAction {
+
+        background: $bg-black-400;
     }
 
     &.fullWidth {

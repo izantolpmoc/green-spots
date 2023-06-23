@@ -1,5 +1,6 @@
 import Button from '@components/button'
 import LoginModal from '@components/modal/login-modal'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import styles from '@styles/pages/home.module.scss'
 import Head from 'next/head'
 import { useState } from 'react'
