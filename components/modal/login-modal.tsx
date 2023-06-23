@@ -10,10 +10,10 @@ import FooterAction from "@components/layout/footer-action"
 
 type Props = {
     showModal: boolean;
-    setShowModal: (showModal: boolean) => void;
+    onClose: () => void;
 }
 
-const LoginModal = ({ showModal, setShowModal }: Props) => {
+const LoginModal = ({ showModal, onClose }: Props) => {
 
     // state
 
@@ -42,10 +42,10 @@ const LoginModal = ({ showModal, setShowModal }: Props) => {
             onExitComplete={() => null}
         >
             {showModal && 
-                <Modal onClose={() => {setShowModal(false); setShowButtons(false)}} removePadding className={styles.modal} customHeader={
+                <Modal onClose={() => {onClose(); setShowButtons(false)}} removePadding className={styles.modal} customHeader={
                     <div className={getHeaderClassNames()}>
                             <Button
-                                onClick={() => {setShowModal(false); setShowButtons(false)}}
+                                onClick={() => {onClose(); setShowButtons(false)}}
                                 icon={faXmark}
                                 action="big"
                                 role="tertiary"
@@ -68,7 +68,7 @@ const LoginModal = ({ showModal, setShowModal }: Props) => {
                                     onClick={() => setShowButtons(true)}>
                                     Se connecter
                                 </Button>
-                                <FooterAction onClick={() => {setShowModal(false); setShowButtons(false)}}>
+                                <FooterAction onClick={() => {onClose(); setShowButtons(false)}}>
                                     Plus tard
                                 </FooterAction>
                             </div>

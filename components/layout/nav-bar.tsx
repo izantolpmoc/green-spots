@@ -5,40 +5,46 @@ import NavItem from "./nav-item";
 import { NavItemType, SessionUser } from "@lib/types";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { set } from "zod";
-
-const navItems: NavItemType[] = [
-    {
-        name: "Accueil",
-        icon: faHome,
-        path: "/app"
-    },
-    {
-        name: "Recherche",
-        icon: faMagnifyingGlass,
-        path: "/app/search"
-    },
-    {
-        name: "Ajouter un spot",
-        icon: faPlus,
-        action: () => console.log("add spot")
-    },
-    {
-        name: "J'aimes",
-        icon: faHeart,
-        path: "/app/likes"
-    },
-    {
-        name: "Mon compte",
-        icon: faUser,
-        path: "/app/my-account"
-    }
-]
+import LoginModal from "@components/modal/login-modal";
+import MyAccountModal from "@components/modal/my-account-modal";
 
 const NavBar = () => {
 
     const router = useRouter()
-    const user = useSession().data?.user as SessionUser | undefined
+    const { data: session, status } = useSession()
+    const user = session?.user as SessionUser | undefined
+
+    // data
+
+    const navItems: NavItemType[] = [
+        {
+            name: "Accueil",
+            icon: faHome,
+            path: "/app"
+        },
+        {
+            name: "Recherche",
+            icon: faMagnifyingGlass,
+            path: "/app/search"
+        },
+        {
+            name: "Ajouter un spot",
+            icon: faPlus,
+            action: () => console.log("add spot")
+        },
+        {
+            name: "J'aimes",
+            icon: faHeart,
+            path: "/app/likes"
+        },
+        {
+            name: "Mon compte",
+            icon: faUser,
+            action: () => setShowAccountModal(!showAccountModal)
+        }
+    ]
+
+    // state
 
     const getInitialId = () => {
         const path = router.pathname
@@ -47,20 +53,14 @@ const NavBar = () => {
         return 0
     }
 
+
     const [currentId, setCurrentId] = useState<number>(getInitialId())
+    const [prevCurrentId, setPrevCurrentId] = useState<number>(currentId)
+    const [showAccountModal, setShowAccountModal] = useState<boolean>(false)
 
-    const handleClick = (item: NavItemType, id: number) => {
-        if (item.action) item.action()
-        else if(item.path) {
-            setCurrentId(id)
-            router.push(item.path)
-        }
-        // if (item.action) item.action()
-        // else if (item.path) router.push(item.path)
-    }
+    
 
-
-    // helpers
+    // utils
 
     const getNavItems = () => {
         // don't display the add spot button 
@@ -71,23 +71,47 @@ const NavBar = () => {
         return navItems
     }
 
+
+    // handlers
+
+    const handleClick = (item: NavItemType, id: number) => {
+        if (item.action) item.action()
+        else if(item.path) router.push(item.path)
+        setPrevCurrentId(currentId)
+        setCurrentId(id)
+    }
+
+    const handlerAccountModalClose = () => {
+        setShowAccountModal(false)
+        setCurrentId(prevCurrentId)
+    }
+
+
     // render
 
     return (
-        <nav id={styles.navBar}>
-            <ul>
+        <>
+            <nav id={styles.navBar}>
+                <ul>
+                {
+                    getNavItems().map((item: NavItemType, index: number) => (
+                        <NavItem 
+                            key={index} 
+                            item={item} 
+                            isCurrent={index === currentId}
+                            onClick={() => handleClick(item, index) }
+                        />
+                    ))
+                }
+                </ul>
+            </nav>
             {
-                getNavItems().map((item: NavItemType, index: number) => (
-                    <NavItem 
-                        key={index} 
-                        item={item} 
-                        isCurrent={index === currentId}
-                        onClick={() => handleClick(item, index) }
-                    />
-                ))
+                status === "authenticated" ?
+                <MyAccountModal showModal={showAccountModal} onClose={handlerAccountModalClose}/>
+                :
+                <LoginModal showModal={showAccountModal} onClose={handlerAccountModalClose}/>
             }
-            </ul>
-        </nav>
+        </>
     )
 }
 

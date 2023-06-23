@@ -38,7 +38,7 @@ const Home = () => {
 			<main id={styles.main}>
 				hello
 				<Button onClick={() => setShowModal(true)}>Open modal</Button>
-				<LoginModal showModal={showModal} setShowModal={setShowModal} ></LoginModal>
+				<LoginModal showModal={showModal} onClose={() => setShowModal(false)}/>
 			</main>
 		</>
 		
