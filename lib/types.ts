@@ -1,5 +1,5 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { User } from "next-auth";
+import { Session, User } from "next-auth";
 
 
 export interface NavItemType {
