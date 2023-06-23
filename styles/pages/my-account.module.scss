@@ -2,53 +2,69 @@
 @import "@styles/base/_mixins.scss";
 @import "@styles/base/_typography.scss";
 @import "@styles/abstracts/_colors.module.scss";
+@import "@styles/abstracts/_variables.module.scss";
+
+/* Main */
 
 .container {
-  @include flex-container(column, nowrap, center, center);
-  gap: 64px;
+	@include flex-container(column, nowrap, center, center);
+	margin-top: 16px;
+	gap: 48px;
+	height: 100%;
+}
+
+.modal {
+
+	gap: 16px;
+
+	@media (max-width: 600px) {	
+		height: 80vh;
+		bottom: 0;	
+	}
+		
 }
 
 /* PROFIL SECTION */
 
-.user-info {
-  @include flex-container(column, nowrap, center, center);
-  gap: 8px;
+.userInfo {
+	@include flex-container(column, nowrap, center, center);
+	gap: 8px;
 
-  .user-image {
-    border-radius: 100px;
-    height: 120px;
-  }
+	.userImage {
+		border-radius: 100px;
+		height: 120px;
+	}
 
-  .group {
-    @include flex-container(row, nowrap, center, center);
-    width: auto;
-    gap: 16px;
-  }
+	.textInfo {
+		@include flex-container(row, nowrap, center, center);
+		width: auto;
+		gap: 16px;
+	}
 
-  .info {
-    color: $black;
-    white-space: nowrap;
-    font-size: $text-xl-font-size;
-  }
+	.userName {
+		@include text-xl-semibold;
+		color: $black;
+		white-space: nowrap;
+	}
 
-  .sub-info {
-    color: $black-400;
-    white-space: nowrap;
-    @include flex-container(column, nowrap, center, center);
-    font-size: $text-md-font-size;
-  }
+	.subInfo {
+		color: $black-400;
+		white-space: nowrap;
+		@include flex-container(column, nowrap, center, center);
+		font-size: $text-md-font-size;
+	}
 
-  .logo {
-    height: 30px;
-    min-width: 30px;
-  }
+	.logo {
+		height: 30px;
+		min-width: 30px;
+	}
 
 }
 
 /* Buttons */
 
 .buttons {
-  @include flex-container(column, nowrap, center, center);
-  gap: 16px;
-  width: auto;
+	@include flex-container(column, nowrap, center, center);
+	gap: 16px;
+	width: clamp(330px, 100%, 330px);
 }

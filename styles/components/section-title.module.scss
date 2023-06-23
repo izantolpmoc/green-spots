@@ -2,30 +2,35 @@
 @import "@styles/base/_mixins.scss";
 @import "@styles/base/_typography.scss";
 @import "@styles/abstracts/_colors.module.scss";
+@import "@styles/abstracts/_variables.module.scss";
 
-.section-title {
-  @include flex-container(row, nowrap, center, center);
-  width: 100%;
-  
-    .line {
-      background-color: $primary-200;
-      width: 100%;
-      height: 1px;
+.container {
+	@include flex-container(row, nowrap, center, center);
+	width: 100%;
+	gap: 32px;
+	
+	hr {
+        height: 1px;
+        border: none;
+        width: 100%;
+        background-color: $primary-200;
     }
-  
-    .title {
-      font-size: $text-xl-font-size;
-      color: $primary;
-      white-space: nowrap;
+
+    span {
+        @include text-xl-bold;
+        color: $primary;
+        white-space: nowrap;
+		letter-spacing: 0.4rem;
+		text-transform: uppercase;
     }
-  
-    &.mobile {
-      gap: 16px;
-    }
-  
-    &.desktop {
-      gap: 32px;
-    }
+	
+	@media (max-width: $bp-sm) {
+		gap: 16px;
+
+		span {
+			@include text-md-bold;
+		}
+	}
 
 }
   

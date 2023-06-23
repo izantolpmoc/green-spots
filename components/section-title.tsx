@@ -2,25 +2,18 @@ import styles from "@styles/components/section-title.module.scss"
 import React from "react";
 
 interface Props {
-    children; any;
-    instance: "desktop" | "mobile";
+    children: any;
 }
 
 const SectionTitle = ({ 
-    children,
-    instance,
+    children
 }: Props) => {
 
-    const getClassNames = () => {
-        let classNames = `${styles["section-title"]} ${instance === "desktop" ? styles.desktop : styles.mobile}`;
-        return classNames;
-    }
-
     return ( 
-        <div className={getClassNames()}>
-            <div className={styles.line}/>
-            <p className={styles.title}>{children}</p>
-            <div className={styles.line}/>
+        <div className={styles.container}>
+            <hr/>
+            <span>{children}</span>
+            <hr/>
         </div>
     )
 }

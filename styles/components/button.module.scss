@@ -78,6 +78,11 @@
 
         @include make-primary-button($primary, $primary-600);
 
+
+        &.error {
+            @include make-primary-button($error, $error-600);
+        }
+
         &.dark {
             @include make-primary-button($secondary, $secondary-600);
         }
@@ -87,6 +92,10 @@
     &.secondary {
 
         @include make-secondary-button($primary, $primary-600, $primary-200);
+
+        &.error {
+            @include make-secondary-button($error, $error-600, $error-200);
+        }
         
         &.dark {
             @include make-secondary-button($white, $white-600, $white-100);
@@ -96,6 +105,10 @@
     &.tertiary {
 
         @include make-tertiary-button($primary, $primary-600, $primary-200);
+
+        &.error {
+            @include make-tertiary-button($error, $error-600, $error-200);
+        }
 
         &.dark {
             @include make-tertiary-button($white, $white-600, $white-100);
