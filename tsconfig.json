@@ -20,7 +20,7 @@
       "@styles/*": ["./styles/*"],
       "@lib/*": ["./lib/*"],
       "@json/*": ["./json/*"],
-      "@public/*": ["./public/*"],
+      "@public/*": ["./public/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "middleware.ts", "lib/temp/script-temp.ts", "lib/temp/post-spots.mts"],

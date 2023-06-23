@@ -34,8 +34,8 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@prisma/client": "^4.16.0",
+    "@prisma/client": "^4.16.1",
     "@types/got": "^9.6.12",
-    "prisma": "^4.16.0"
+    "prisma": "^4.16.1"
   }
 }

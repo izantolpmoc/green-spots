@@ -1,0 +1,36 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+@import "@styles/abstracts/_variables.module.scss";
+
+.container {
+	@include flex-container(row, nowrap, center, center);
+	width: 100%;
+	gap: 32px;
+	
+	hr {
+        height: 1px;
+        border: none;
+        width: 100%;
+        background-color: $primary-200;
+    }
+
+    span {
+        @include text-xl-bold;
+        color: $primary;
+        white-space: nowrap;
+		letter-spacing: 0.4rem;
+		text-transform: uppercase;
+    }
+	
+	@media (max-width: $bp-sm) {
+		gap: 16px;
+
+		span {
+			@include text-md-bold;
+		}
+	}
+
+}
+  

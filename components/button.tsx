@@ -19,6 +19,7 @@ interface Props {
     active?: boolean;
     fullWidth?: boolean;
     action?: "small" | "big";
+    error?: boolean;
     dark?: boolean;
     hidden?: boolean;
     className?: string;
@@ -37,6 +38,7 @@ const Button = ({
         active = true, 
         fullWidth,
         action,
+        error,
         dark,
         hidden,
         className
@@ -49,6 +51,7 @@ const Button = ({
         classNames += (fullWidth ? ' ' + styles.fullWidth : '')
         classNames += (action ? ' ' + styles[`${action}Action`] : '')
         classNames += (dark ? ' ' + styles.dark : '')
+        classNames += (error ? ' ' + styles.error : '')
         classNames += className ? ' ' + className : ''
         return classNames
     }
