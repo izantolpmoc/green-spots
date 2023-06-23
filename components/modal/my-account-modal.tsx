@@ -8,7 +8,8 @@ import styles from "@styles/components/modal/my-account-modal.module.scss";
 import { useSession, signOut } from 'next-auth/react'
 import { SessionUser } from "@lib/types";
 import { useState } from "react";
-import ConfirmModal from "./confirm-modal";
+import Toast from "@components/toast";
+import AccountDeletionModal from "./account-deletion-modal";
 
 interface Props {
     showModal: boolean;
@@ -25,18 +26,34 @@ const MyAccountModal = (
     // handle account deletion
 
     const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false)
+    const [showDeletionSuccessToast, setShowDeletionSuccessToast] = useState(false)
+    const [showDeletionErrorToast, setShowDeletionErrorToast] = useState(false)
 
     const handleDeleteAccount = () => setShowDeleteAccountModal(true)
 
     const onAccountDeletion = async () => {
         if(!user) return
+
+        setShowDeleteAccountModal(false)
         
         // make an api call to delete the account
 
-        const result = await fetch(`/api/user/${user.id}`, {
+        const result = await fetch(`/api/users/${user.id}`, {
             method: 'DELETE'
         })
-        signOut()
+
+        if(result.status === 200) {
+            // show a toast
+            setShowDeletionSuccessToast(true)
+            // wait 2 seconds
+            setTimeout(() => {
+                // sign out the user
+                signOut()
+            }, 3000)
+        } else {
+            setShowDeletionErrorToast(true)
+            console.log(await result.text())
+        }
 
     }
 
@@ -83,7 +100,7 @@ const MyAccountModal = (
                                     role="tertiary"
                                     error
                                     fullWidth
-                                    onClick={handleDeleteAccount}
+                                    onClick={() => handleDeleteAccount()}
                                 >
                                     Supprimer mon compte
                                 </Button>
@@ -92,12 +109,23 @@ const MyAccountModal = (
                     </Modal>
                 }
             </AnimatePresence>
-            <ConfirmModal 
+            <AccountDeletionModal 
                 showModal={showDeleteAccountModal}
                 onClose={() => setShowDeleteAccountModal(false)}
-                onConfirm={onAccountDeletion}>
-                Êtes-vous sûr de vouloir supprimer votre compte ?
-            </ConfirmModal>
+                onConfirm={onAccountDeletion}
+            />
+            <Toast 
+                showToast={showDeletionSuccessToast}
+                onHide={() => setShowDeletionSuccessToast(false)}>
+                Votre compte a bien été supprimé.
+            </Toast>
+            <Toast
+                error
+                showToast={showDeletionErrorToast}
+                onHide={() => setShowDeletionErrorToast(false)}>
+                Une erreur est survenue.
+            </Toast>
+
         </>
     ) : <></>
 }
