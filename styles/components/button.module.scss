@@ -98,7 +98,7 @@
         @include make-tertiary-button($primary, $primary-600, $primary-200);
 
         &.dark {
-            @include make-tertiary-button($error, $error-600, $error-100);
+            @include make-tertiary-button($white, $white-600, $white-100);
         }
 
     }
