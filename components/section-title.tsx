@@ -2,12 +2,12 @@ import styles from "@styles/components/section-title.module.scss"
 import React from "react";
 
 interface Props {
-    title: string;
+    children; any;
     instance: "desktop" | "mobile";
 }
 
 const SectionTitle = ({ 
-    title,
+    children,
     instance,
 }: Props) => {
 
@@ -19,7 +19,7 @@ const SectionTitle = ({
     return ( 
         <div className={getClassNames()}>
             <div className={styles.line}/>
-            <p className={styles.title}>{title}</p>
+            <p className={styles.title}>{children}</p>
             <div className={styles.line}/>
         </div>
     )
