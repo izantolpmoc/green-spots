@@ -56,14 +56,14 @@ const MyAccount = () => {
     }
     const sectionProfil = () => {
         return (
-            <section className={getClassNames("user-info")}>
-                <img className={getClassNames("user-image")} alt="User image" src={session?.user?.image || "/assets/user.png"}/>
+            <section className={getClassNames("userInfo")}>
+                <img className={getClassNames("userImage")} alt="User image" src={session?.user?.image || "/assets/user.png"}/>
                 <div className={getClassNames("group")}>
                     <div className={getClassNames("info")}>{ session?.user?.name }</div>
                     { /* @ts-ignore */ }
                     { session?.user?.isModerator || session?.user?.isModerator && <img className={getClassNames("logo")} alt="Logo" src="/assets/certif.png" /> }
                 </div>
-                <div className={getClassNames("sub-info")}>{ session?.user?.email} </div>
+                <div className={getClassNames("subInfo")}>{ session?.user?.email} </div>
             </section>
         )
     }
@@ -77,11 +77,6 @@ const MyAccount = () => {
                     ) : status === 'authenticated' ? (
                         <>
                              <BrowserView>
-                                <Button 
-                                    icon={faArrowLeft}
-                                    onClick={() => setShowModal(!showModal)}>
-                                    COUCOU JE MANGE LA GLACE ?
-                                </Button>
                             
                                 <AnimatePresence
                                     initial={false}
@@ -90,10 +85,7 @@ const MyAccount = () => {
                                 >
                                     {showModal && 
                                         <Modal onClose={() => setShowModal(false)}>
-                                            <SectionTitle 
-                                                title="My Account"  
-                                                instance="desktop"
-                                            />
+                                            <SectionTitle instance="desktop">MON COMPTE</SectionTitle>
                                             <SectionContainer />
                                         </Modal>
                                     }
@@ -101,10 +93,7 @@ const MyAccount = () => {
                             </BrowserView>
 
                             <MobileView>
-                                <SectionTitle 
-                                    title="My Account"
-                                    instance="mobile"
-                                />
+                                <SectionTitle instance="mobile">MON COMPTE</SectionTitle>
                                 <SectionContainer />
                             </MobileView>
                         </>
