@@ -1,11 +1,21 @@
 import Button from '@components/button'
-import LoginModal from '@components/modal/login-modal'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import SpotDetailsModal from '@components/modal/spot-details-modal'
+import { getSpots } from '@lib/helpers/spots'
+import { Spot } from '@lib/types'
 import styles from '@styles/pages/home.module.scss'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { serialize, deserialize } from 'superjson'
+import { SuperJSONResult } from 'superjson/dist/types'
 
-const Home = () => {
+interface Props {
+	spot: SuperJSONResult
+}
+
+const Home = (
+	{ spot }: Props
+) => {
 	
 	// meta data
 
@@ -13,6 +23,8 @@ const Home = () => {
 	const metaDescription = "GREEN SPOTS permet de trouver les meilleurs spots de nature autour de vous."
 
 	const [showModal, setShowModal] = useState(false);
+
+	const [data, setData] = useState(spot ? deserialize(spot) : null);
 
 	// render
 
@@ -38,12 +50,30 @@ const Home = () => {
 			</Head>
 			<main id={styles.main}>
 				hello
-				<Button onClick={() => setShowModal(true)}>Open modal</Button>
-				<LoginModal showModal={showModal} onClose={() => setShowModal(false)}/>
+
+				<Button
+				onClick={() => setShowModal(true)}
+				>Open spot details modal</Button>
+				{data && <SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spot={data}></SpotDetailsModal>}
 			</main>
 		</>
 		
 	)
+}
+
+
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+
+	const rawData = (await getSpots())[1]
+
+	const spot = serialize(rawData);
+
+
+	return {
+		props : {
+			spot
+		}
+	}
 }
 
 export default Home

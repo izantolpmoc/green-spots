@@ -6,42 +6,17 @@ import Modal from "./modal"
 import styles from "@styles/components/modal/spot-details-modal.module.scss"
 import { useIsMobile } from "../../hooks/breakpoints"
 import StarRating from "@components/star-rating"
+import { Spot } from "@lib/types"
 
-
-export type SpotDetails = {
-    name: string,
-    description: string,
-    latitude: number,
-    longitude:number,
-    address: string,
-    city: string,
-    region: string,
-    postalCode: number,
-    tags: [
-        {
-            name: string;
-            description: string;
-        }
-    ],
-    reviews: [],
-    openingHours: [
-        {
-            openingTime: string,
-            closingTime: string,
-            startDate: string,
-            endDate: string
-        }
-    ]
-};
-type Props = {
+interface Props {
     showModal: boolean;
     setShowModal: (showModal: boolean) => void;
-    spot: SpotDetails | any
+    spot: Spot
 }
 
 const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
     const isMobile = useIsMobile();
-    const tags = spot.tags.map((tag:any, key:string) => <li className={styles.tag} key={key}>{tag.name}</li>)
+    const tags = spot.tags.map((tag, key) => <li className={styles.tag} key={key}>{tag.name}</li>)
 
     return (
         <AnimatePresence
