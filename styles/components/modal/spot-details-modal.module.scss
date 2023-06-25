@@ -3,6 +3,7 @@
 @import "@styles/base/_typography.scss";
 @import "@styles/abstracts/_colors.module.scss";
 @import "@styles/abstracts/_variables.module.scss";
+@import "@styles/components/button.module.scss";
 
 .modal {
     background-color: $black;
@@ -133,4 +134,13 @@
         gap: 16px;
         @include flex-container(column, nowrap, center, center);
     }
+}
+
+.mapLink {
+
+    @extend .active;
+    @extend .dark;
+    @extend .primary;
+    @extend .fullWidth;
+    @extend .button;
 }

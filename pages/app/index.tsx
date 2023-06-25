@@ -56,9 +56,7 @@ const Home = (
 			<main id={styles.main}>
 				<SectionTitle>Autour de moi</SectionTitle>
 
-				<Button
-				onClick={() => setShowModal(true)}
-				>Open spot details modal</Button>
+				<Button onClick={() => setShowModal(true)}>Open spot details modal</Button>
 				{data && <SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spot={data}></SpotDetailsModal>}
 			</main>
 		</>
