@@ -8,6 +8,7 @@ import { useIsMobile } from "../../hooks/breakpoints"
 import StarRating from "@components/star-rating"
 import { Spot } from "@lib/types"
 import { useState } from "react"
+import { RWebShare } from "react-web-share"
 
 interface Props {
     showModal: boolean;
@@ -71,13 +72,22 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
                                         role="secondary"
                                         dark
                                     />
-                                    <Button
-                                        onClick={() => setShowModal(false)}
-                                        icon={faShare}
-                                        action="big"
-                                        role="secondary"
-                                        dark
-                                    />
+                                    <RWebShare
+                                        data={{
+                                            text: spot.description,
+                                            url: window.location.href,
+                                            title: spot.name,
+                                        }}
+                                        onClick={() => console.log("shared successfully!")}
+                                    >
+                                        <Button
+                                            onClick={() => console.log("shared successfully!")}
+                                            icon={faShare}
+                                            action="big"
+                                            role="secondary"
+                                            dark
+                                        />
+                                    </RWebShare>
                                     </div>
                                 }
                             </div>
@@ -103,12 +113,12 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
                                         Y aller
                                     </Button>
                                     
-                                        <Button
-                                            onClick={() => setDisplayDetailsView(!displayDetailsView)}
-                                            role="secondary"
-                                            dark
-                                            fullWidth>
-                                            {displayDetailsView ? "Minimiser" : "Plus d'informations"}
+                                    <Button
+                                        onClick={() => setDisplayDetailsView(!displayDetailsView)}
+                                        role="secondary"
+                                        dark
+                                        fullWidth>
+                                        {displayDetailsView ? "Minimiser" : "Plus d'informations"}
                                     </Button>
                                 </div>
                             }
@@ -156,13 +166,22 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
                                         role="secondary"
                                         dark
                                     />
-                                    <Button
-                                        onClick={() => setShowModal(false)}
-                                        icon={faShare}
-                                        action="big"
-                                        role="secondary"
-                                        dark
-                                    />
+                                    <RWebShare
+                                        data={{
+                                            text: spot.description,
+                                            url: window.location.href,
+                                            title: spot.name,
+                                        }}
+                                        onClick={() => console.log("shared successfully!")}
+                                    >
+                                        <Button
+                                            onClick={() => console.log("shared successfully!")}
+                                            icon={faShare}
+                                            action="big"
+                                            role="secondary"
+                                            dark
+                                        />
+                                    </RWebShare>                                  
                                 </div>
                                 }
                         </div>
