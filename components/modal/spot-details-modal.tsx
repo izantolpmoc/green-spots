@@ -9,6 +9,7 @@ import StarRating from "@components/star-rating"
 import { Spot } from "@lib/types"
 import { useEffect, useState } from "react"
 import { RWebShare } from "react-web-share"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 interface Props {
     showModal: boolean;
@@ -17,25 +18,31 @@ interface Props {
 }
 
 const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
+    
     // state
 
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile()
+
     // mobile details view
+    
     const [displayDetailsView, setDisplayDetailsView] = useState(false);
     const [distance, setDistance] = useState("2.7");
     const [shareableUrl, setShareableUrl] = useState('');
 
     useEffect(() => {
         // This will only run on the client side, where window is available
+
         if (typeof window !== 'undefined') {
             const url = new URL(window.location.href);
             const params = new URLSearchParams(url.search);
             
             // Only add 'open' and 'id' if they don't already exist in the URL
+
             if (!params.has('open')) params.append('open', 'true');
             if (!params.has('id')) params.append('id', spot.id);
 
             // Use the updated params in the url
+
             url.search = params.toString();
             
             setShareableUrl(url.toString());
@@ -122,14 +129,13 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
 
                             {isMobile &&
                                 <div className={styles.actionButtons}>
-                                    <Button
-                                        onClick={() => console.log("do something")}
-                                        icon={faMap}
-                                        role="primary"
-                                        dark
-                                        fullWidth>
-                                        Y aller
-                                    </Button>
+                                    <a
+                                        className={styles.mapLink}
+                                        target="_blank"
+                                        href={`https://maps.google.com/?q=${spot.name} ${spot.address} ${spot.postalCode} ${spot.city}`}>
+                                        <FontAwesomeIcon icon={faMap} />
+                                        <span>Y aller</span>
+                                    </a>
                                     
                                     <Button
                                         onClick={() => setDisplayDetailsView(!displayDetailsView)}
@@ -147,14 +153,13 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
 
                             {!isMobile &&
                                 <div className={styles.actionButtons}>
-                                    <Button
-                                        onClick={() => console.log("do something")}
-                                        icon={faMap}
-                                        role="primary"
-                                        dark
-                                        fullWidth>
-                                        Y aller
-                                    </Button>
+                                    <a
+                                        className={styles.mapLink}
+                                        target="_blank"
+                                        href={`https://maps.google.com/?q=${spot.name} ${spot.address} ${spot.postalCode} ${spot.city}`}>
+                                        <FontAwesomeIcon icon={faMap} />
+                                        <span>Y aller</span>
+                                    </a>
                                 </div>
                             }
                         
