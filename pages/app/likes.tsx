@@ -1,3 +1,4 @@
+import SectionTitle from "@components/section-title"
 
 
 
@@ -8,7 +9,7 @@ const Likes = () => {
 
     return (
         <main>
-            hello
+            <SectionTitle>J&apos;aimes</SectionTitle>
         </main>
     )
 }

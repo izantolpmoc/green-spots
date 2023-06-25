@@ -1,5 +1,6 @@
 import Button from '@components/button'
 import SpotDetailsModal from '@components/modal/spot-details-modal'
+import SectionTitle from '@components/section-title'
 import { getSpots } from '@lib/helpers/spots'
 import styles from '@styles/pages/home.module.scss'
 import { GetServerSideProps } from 'next'
@@ -48,7 +49,7 @@ const Home = (
 				<meta property="twitter:image" content="https://www.greenspots.fr/favicon/favicon-180x180.png" />
 			</Head>
 			<main id={styles.main}>
-				hello
+				<SectionTitle>Autour de moi</SectionTitle>
 
 				<Button
 				onClick={() => setShowModal(true)}

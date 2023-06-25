@@ -2,7 +2,7 @@ import styles from "@styles/components/section-title.module.scss"
 import React from "react";
 
 interface Props {
-    children: any;
+    children?: any;
 }
 
 const SectionTitle = ({ 
