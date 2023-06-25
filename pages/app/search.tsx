@@ -1,11 +1,11 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import SectionTitle from "@components/section-title"
 
 
 const Search = () => {
 
     return (
         <main>
-            hello
+            <SectionTitle>Recherche</SectionTitle>
         </main>
     )
 }
