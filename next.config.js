@@ -10,4 +10,16 @@ const nextConfig = withPWA({
   reactStrictMode: true,
 });
 
-module.exports = nextConfig
+module.exports = {
+  ...nextConfig,
+  experimental: {
+    swcPlugins: [
+      [
+        'next-superjson-plugin',
+        {
+          excluded: []
+        }
+      ]
+    ]
+  }
+}
