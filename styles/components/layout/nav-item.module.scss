@@ -5,18 +5,58 @@
 
 .navItem {
 
-    @include flex-container(column, nowrap, center, center);
+    @include flex-container(row, nowrap, flex-start, center);
+    gap: 16px;
 
-    width: 60px;
-    height: 60px;
+    .iconContainer {
+
+        @include flex-container(column, nowrap, center, center);
+
+        width: 60px;
+        height: 60px;
+
+    }
 
     svg, span {
         color: $black-200;
+    }
+
+    span {
+        @include text-md-semibold;
+        display: none;
     }
 
     &.current {
         svg, span {
             color: $primary;
         }
+
+    }
+
+    @media (min-width: $bp-md) {
+
+        &.current {
+            background: $primary-100;
+        }
+
+        width: 100%;
+
+
+        .currentIndicator {
+            display: none;
+        }
+
+        .iconContainer {
+            width: fit-content;
+            height: fit-content;
+        }
+
+        span {
+            display: initial;
+        }
+
+        padding: 16px;
+        border-radius: 8px;
+        
     }
 }

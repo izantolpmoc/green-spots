@@ -16,8 +16,12 @@
     &.active {
         @include button-styler($main-color, $white);
         
-        &:hover {
+        &:not(.dark):hover {
             @include spread-shadow-colored($main-color);
+        }
+
+        &.dark:hover {
+            background: rgba($main-color, 0.8);
         }
     }
 }
@@ -85,6 +89,7 @@
 
         &.dark {
             @include make-primary-button($secondary, $secondary-600);
+            backdrop-filter: blur(10px);
         }
 
     }
@@ -141,6 +146,10 @@
     &.dark.secondary.smallAction, &.dark.secondary.bigAction {
 
         background: $bg-black-400;
+
+        &:hover {
+            background: $bg-black;
+        }
     }
 
     &.fullWidth {

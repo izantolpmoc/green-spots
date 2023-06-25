@@ -31,13 +31,16 @@ const NavItem = (
         <li 
             onClick={onClick}
             className={getClassNames()}>
-            <FontAwesomeIcon icon={item.icon} />
-            {
-                isCurrent ?
-                <FontAwesomeIcon icon={faCircle} width="4" height="4" />
-                :
-                <></>
-            }
+                <div className={styles.iconContainer}>
+                    <FontAwesomeIcon icon={item.icon} />
+                    {
+                        isCurrent ?
+                        <FontAwesomeIcon icon={faCircle} width="4" height="4" className={styles.currentIndicator} />
+                        :
+                        <></>
+                    }
+                </div>
+                <span>{item.name}</span>
         </li>
     )
 }

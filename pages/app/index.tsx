@@ -23,7 +23,7 @@ const Home = (
 
 	const [showModal, setShowModal] = useState(false);
 
-	const [data, setData] = useState(spot ? deserialize(spot) : null);
+	const [data] = useState(spot ? deserialize(spot) : null);
 
 	// render
 

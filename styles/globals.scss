@@ -15,6 +15,7 @@
 
 
 @import "@styles/abstracts/_colors.module.scss";
+@import "@styles/abstracts/_variables.module.scss";
 
 // rem trick
 
@@ -55,5 +56,9 @@ div#__next {
 	& > main {
 		width: 100%;
 		height: 100%;
+
+		@media (min-width: $bp-md) {
+			padding-left: calc($side-padding-md + 230px + 16px);
+		}
 	}
 }
