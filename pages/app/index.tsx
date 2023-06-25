@@ -1,11 +1,10 @@
 import Button from '@components/button'
 import SpotDetailsModal from '@components/modal/spot-details-modal'
 import { getSpots } from '@lib/helpers/spots'
-import { Spot } from '@lib/types'
 import styles from '@styles/pages/home.module.scss'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { serialize, deserialize } from 'superjson'
 import { SuperJSONResult } from 'superjson/dist/types'
 

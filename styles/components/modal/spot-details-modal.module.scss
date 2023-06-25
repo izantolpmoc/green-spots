@@ -10,6 +10,7 @@
 
     @media (max-width: $bp-sm) {
         height: 100%;
+        border-radius: 0;
     }
 
     .detailsView {
@@ -17,6 +18,7 @@
         border-radius: 0 0 16px 16px;
         @include flex-container(column, nowrap);
         gap: 16px;
+        overflow-x: auto;
 
         ul {
             list-style: none;
@@ -48,6 +50,16 @@
             }
         }
 
+        .actionIcons {
+            @include flex-container(row, nowrap, flex-end);
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
     }
 }
 
