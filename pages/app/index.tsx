@@ -4,16 +4,17 @@ import { getSpots } from '@lib/helpers/spots'
 import styles from '@styles/pages/home.module.scss'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { serialize, deserialize } from 'superjson'
 import { SuperJSONResult } from 'superjson/dist/types'
 
 interface Props {
-	spot: SuperJSONResult
+	spot: SuperJSONResult,
+	open: boolean
 }
 
 const Home = (
-	{ spot }: Props
+	{ spot, open }: Props
 ) => {
 	
 	// meta data
@@ -21,9 +22,13 @@ const Home = (
 	const metaTitle = "GREEN SPOTS"
 	const metaDescription = "GREEN SPOTS permet de trouver les meilleurs spots de nature autour de vous."
 
-	const [showModal, setShowModal] = useState(false);
+	const [showModal, setShowModal] = useState(open);
 
 	const [data, setData] = useState(spot ? deserialize(spot) : null);
+
+	useEffect(() => {
+		setShowModal(open);  // set the modal state based on the open prop
+	}, [open]);
 
 	// render
 
@@ -63,14 +68,17 @@ const Home = (
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
 
-	const rawData = (await getSpots())[1]
+	const { id, open = 'false' } = context.query;
+
+	// get the spot by its id or the first one by default
+	const rawData = id ? (await getSpots()).find(spot => spot.id == id) : (await getSpots())[0];
 
 	const spot = serialize(rawData);
 
-
 	return {
 		props : {
-			spot
+			spot,
+			open: open === 'true'
 		}
 	}
 }
