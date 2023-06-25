@@ -23,6 +23,7 @@ export interface Review {
 }
 
 export interface Spot {
+    id: string;
     name: string;
     description: string;
     latitude: number;

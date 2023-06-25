@@ -7,7 +7,7 @@ import styles from "@styles/components/modal/spot-details-modal.module.scss"
 import { useIsMobile } from "../../hooks/breakpoints"
 import StarRating from "@components/star-rating"
 import { Spot } from "@lib/types"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { RWebShare } from "react-web-share"
 
 interface Props {
@@ -23,6 +23,24 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
     // mobile details view
     const [displayDetailsView, setDisplayDetailsView] = useState(false);
     const [distance, setDistance] = useState("2.7");
+    const [shareableUrl, setShareableUrl] = useState('');
+
+    useEffect(() => {
+        // This will only run on the client side, where window is available
+        if (typeof window !== 'undefined') {
+            const url = new URL(window.location.href);
+            const params = new URLSearchParams(url.search);
+            
+            // Only add 'open' and 'id' if they don't already exist in the URL
+            if (!params.has('open')) params.append('open', 'true');
+            if (!params.has('id')) params.append('id', spot.id);
+
+            // Use the updated params in the url
+            url.search = params.toString();
+            
+            setShareableUrl(url.toString());
+        }
+    }, [spot]);
 
 
     // utils 
@@ -75,7 +93,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
                                     <RWebShare
                                         data={{
                                             text: spot.description,
-                                            url: window.location.href,
+                                            url: shareableUrl,
                                             title: spot.name,
                                         }}
                                         onClick={() => console.log("shared successfully!")}
@@ -169,7 +187,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
                                     <RWebShare
                                         data={{
                                             text: spot.description,
-                                            url: window.location.href,
+                                            url: shareableUrl,
                                             title: spot.name,
                                         }}
                                         onClick={() => console.log("shared successfully!")}
