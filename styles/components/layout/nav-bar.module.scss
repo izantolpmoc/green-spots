@@ -22,4 +22,23 @@
         @include flex-container(row, nowrap, center, center);
 
     }
+
+    @media (min-width: $bp-md) {
+
+        height: calc(100vh - 50px);
+        top: 50px;
+        left: $side-padding-md;
+
+        width: 230px;
+        padding: 16px 16px 0 0;
+        box-shadow: none;
+
+        ul {
+            @include flex-container(column, nowrap, flex-start, flex-start);
+        }
+
+        border-radius: 0;
+
+        border-right: 1px solid $black-100;
+    }
 }
