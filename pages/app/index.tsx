@@ -61,29 +61,15 @@ const Home = (
 
 			{ data && <>
 				<SpotCard 
-					displayMode='grid'
-					// @ts-ignore
-					imageUrl={data.image}
-					// @ts-ignore
-					spotCity={data.city}
-					// @ts-ignore
-					spotName={data.name}
-					spotRating={4.5}
-					spotDistance={"1.2 km"}
+					displayMode='card'
+					spot={data}
 					onClick={() => setShowModal(true)}
 				/>
 				<SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spot={data}></SpotDetailsModal>
 
 				<SpotCard 
 					displayMode='list'
-					// @ts-ignore
-					imageUrl={data.image}
-					// @ts-ignore
-					spotCity={data.city}
-					// @ts-ignore
-					spotName={data.name}
-					spotRating={4.5}
-					spotDistance={"1.2 km"}
+					spot={data}
 					onClick={() => setShowModal(true)}
 				/>
 				<SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spot={data}></SpotDetailsModal>

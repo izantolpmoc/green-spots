@@ -37,7 +37,7 @@ const SpotCard = ({
             style={
                 displayMode === "card"
                 ? {
-                    backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgb(0, 0, 0) 100%), url(${imageUrl})`,
+                    backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgb(0, 0, 0) 100%), url(${spot.image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                     }
@@ -49,7 +49,7 @@ const SpotCard = ({
                 <div
                 className={styles.image}
                 style={{
-                    background: `linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgb(0, 0, 0) 100%), url(${imageUrl}) `,
+                    background: `linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgb(0, 0, 0) 100%), url(${spot.image}) `,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                 }}
@@ -60,7 +60,7 @@ const SpotCard = ({
                 <span className={styles.name}>{spot.name}</span>
                 <div className={styles.subHeader}>
                     <StarRating average={getSpotRating()}/>
-                    { displayMode === "card" && <span className={styles.distance}>À {getSpotDistance}</span> }
+                    { displayMode === "card" && <span className={styles.distance}>À {getSpotDistance()}</span> }
                 </div>
             </div>
             { displayMode === "list" && (
