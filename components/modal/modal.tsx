@@ -4,6 +4,7 @@ import Button from "../button";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Backdrop from "./backdrop";
 import { motion } from "framer-motion";
+import { useSwipeable } from "react-swipeable";
 
 type Props = {
     onClose: () => void;
@@ -16,10 +17,25 @@ type Props = {
     dark?: boolean;
     removePadding?: boolean;
     customHeader?: ReactNode;
+    onSwipeRight?: () => void;
+    onSwipeLeft?: () => void;
 }
 
-const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark, removePadding, customHeader, className }: Props) => {
+const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark, removePadding, customHeader, className, onSwipeRight, onSwipeLeft }: Props) => {
 
+    const handlers = useSwipeable({
+        onSwipedRight: () => {
+            if (onSwipeRight) {
+            onSwipeRight();
+            }
+        },
+        onSwipedLeft: () => {
+            if (onSwipeLeft) {
+            onSwipeLeft();
+            }
+        },
+    });
+        
     const dropIn = {
         hidden: {
             y: "100vh",
@@ -70,6 +86,7 @@ const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark
                 initial="hidden"
                 animate="visible"
                 exit="exit"
+                {...handlers}
             >
             {
                 customHeader ? 
