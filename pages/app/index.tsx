@@ -8,6 +8,7 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { serialize, deserialize } from 'superjson'
 import { SuperJSONResult } from 'superjson/dist/types'
+import SpotCard from '@components/spot-card'
 
 interface Props {
 	spot: SuperJSONResult,
@@ -28,6 +29,7 @@ const Home = (
 	const [data] = useState(spot ? deserialize(spot) : null);
 
 	useEffect(() => {
+		console.log(data)
 		setShowModal(open);  // set the modal state based on the open prop
 	}, [open]);
 
@@ -56,8 +58,37 @@ const Home = (
 			<main id={styles.main}>
 				<SectionTitle>Autour de moi</SectionTitle>
 
-				<Button onClick={() => setShowModal(true)}>Open spot details modal</Button>
-				{data && <SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spot={data}></SpotDetailsModal>}
+
+			{ data && <>
+				<SpotCard 
+					displayMode='grid'
+					// @ts-ignore
+					imageUrl={data.image}
+					// @ts-ignore
+					spotCity={data.city}
+					// @ts-ignore
+					spotName={data.name}
+					spotRating={4.5}
+					spotDistance={"1.2 km"}
+					onClick={() => setShowModal(true)}
+				/>
+				<SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spot={data}></SpotDetailsModal>
+
+				<SpotCard 
+					displayMode='list'
+					// @ts-ignore
+					imageUrl={data.image}
+					// @ts-ignore
+					spotCity={data.city}
+					// @ts-ignore
+					spotName={data.name}
+					spotRating={4.5}
+					spotDistance={"1.2 km"}
+					onClick={() => setShowModal(true)}
+				/>
+				<SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spot={data}></SpotDetailsModal>
+				</>
+			}
 			</main>
 		</>
 		

@@ -1,0 +1,110 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+@import "@styles/abstracts/_variables.module.scss";
+
+.card {
+    box-shadow: 0px 20px 60px #00000033;
+    overflow: hidden;
+    border-radius: 8px;
+    padding: 16px;
+
+    &.list {
+
+        @include flex-container(row, nowrap, center, center);
+        height: 100px;
+
+        .image {
+            @include flex-container(row, nowrap, center, center);
+            width: 80px;
+            height: 100%;
+            border-radius: 8px;
+            padding-left: 16px;
+        }
+
+        .mainHeader {
+            @include flex-container(column-reverse, nowrap, center, flex-start);
+            align-self: stretch;
+            gap: 4px;
+            text-transform: uppercase;
+            width: 100%;
+            padding-left: 16px;
+
+            .city {
+                @include text-xs-bold;
+                letter-spacing: 0.6rem;
+                color: $black-400;
+            }
+    
+            .name {
+                @include text-sm-regular;
+                letter-spacing: 0.6rem;
+                color: $primary;
+            }
+
+            .subHeader {
+                width: 100% !important;
+                @include flex-container(row, nowrap, space-between, center);
+                color: $gold;
+            }
+        }
+
+        .containerIcon {
+            @include flex-container(row, nowrap, center, center);
+            width: 50px;
+            height: 50%;
+            background-color: $error-100;
+            border-radius: 50%;
+        }
+
+        .icon {
+            width: 14px;
+            height: 14px;
+            color: $error;
+        }
+    }
+
+    &.grid {
+
+        @include flex-container(row, nowrap, center, center);
+
+        @media (max-width: $bp-md) {
+            width: 60%;
+            height: 200px;
+        }
+
+        @media (min-width: $bp-md) {
+            width: 400px;
+            height: 300px;
+        }
+
+        .mainHeader {
+            @include flex-container(column, nowrap, flex-end, flex-start);
+            align-self: stretch;
+            gap: 4px;
+            text-transform: uppercase;
+            width: 100%;
+        
+            .city {
+                @include text-xs-bold;
+                letter-spacing: 0.6rem;
+                color: $white-800;
+            }
+    
+            .name {
+                @include text-sm-regular;
+                letter-spacing: 0.6rem;
+                color: $white;
+            }
+    
+            .subHeader {
+                width: 100% !important;
+                @include text-sm-regular;
+                @include flex-container(row, nowrap, space-between, center);
+                color: $gold;
+            }
+        }
+    }
+}
+

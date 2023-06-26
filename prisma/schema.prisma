@@ -57,7 +57,7 @@ model Spot {
   tags         Tag[]
   reviews      Review[]
   openingHours OpeningHours[]
-  likedBy      User[]        
+  likedBy      User[]
 }
 
 model Account {
@@ -121,4 +121,13 @@ model SpotToTag {
   @@unique([A, B], map: "_SpotToTag_AB_unique")
   @@index([B], map: "_SpotToTag_B_index")
   @@map("_SpotToTag")
+}
+
+model SpotToUser {
+  A String
+  B String
+
+  @@unique([A, B], map: "_SpotToUser_AB_unique")
+  @@index([B], map: "_SpotToUser_B_index")
+  @@map("_SpotToUser")
 }
