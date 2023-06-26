@@ -3,8 +3,8 @@ import { faArrowLeft, faMap, faShare, faXmark, faHeart as filledHeart } from "@f
 import { faComments, faHeart } from "@fortawesome/free-regular-svg-icons"
 import { AnimatePresence } from "framer-motion"
 import Modal from "./modal"
-import styles from "@styles/components/modal/spot-details-modal.module.scss"
-import useDeviceType, { DeviceType } from "../../hooks/use-device-type"
+import styles from "@styles/components/modals/spot-details-modal.module.scss"
+import useDeviceType from "../../hooks/use-device-type"
 import StarRating from "@components/star-rating"
 import { SessionUser, Spot } from "@lib/types"
 import { useEffect, useState } from "react"
@@ -26,7 +26,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
     // state
 
     const deviceType = useDeviceType();
-    const isMobile = deviceType === DeviceType.Mobile;
+    const isMobile = deviceType === 'mobile';
     const currentUser = useSession().data?.user as SessionUser | undefined;
 
     // mobile details view

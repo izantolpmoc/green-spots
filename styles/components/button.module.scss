@@ -20,7 +20,7 @@
             @include spread-shadow-colored($main-color);
         }
 
-        &.dark:hover {
+        &.dark:hover, &.dark:active {
             background: rgba($main-color, 0.8);
         }
     }
@@ -35,7 +35,7 @@
 
         @include button-styler($main-color-background, $main-color);
 
-        &:hover {
+        &:hover, &:active {
         
             &.dark {
                 border: 1px solid $main-color-background;
@@ -61,7 +61,7 @@
 
         @include button-styler(none, $main-color);
 
-        &:hover {
+        &:hover, &:active {
             background: $main-color-background;
         }
 
@@ -147,7 +147,7 @@
 
         background: $bg-black-400;
 
-        &:hover {
+        &:hover, &:active {
             background: $bg-black;
         }
     }

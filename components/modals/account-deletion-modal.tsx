@@ -4,7 +4,7 @@ import SectionTitle from "@components/section-title";
 import Button from "@components/button";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-import styles from "@styles/components/modal/account-deletion-modal.module.scss";
+import styles from "@styles/components/modals/account-deletion-modal.module.scss";
 
 interface Props {
 	showModal: boolean;

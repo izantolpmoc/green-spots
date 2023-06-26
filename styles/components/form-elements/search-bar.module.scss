@@ -1,0 +1,39 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+.searchBarContainer {
+
+
+    background: $primary-100;
+    width: 100%;
+    height: 46px;
+    padding: 0 16px;
+    border-radius: 8px;
+
+    @include flex-container(row, nowrap, flex-start, center);
+    gap: 8px;
+
+    input {
+
+        @include reset-form-input;
+        @include text-sm-medium;
+        background: none;
+
+        width: 100%;
+
+        &::placeholder {
+            color: $primary-600;
+        }
+
+    }
+
+    svg {
+        width: 16px;
+        height: 16px;
+        color: $primary;
+    }
+
+
+}

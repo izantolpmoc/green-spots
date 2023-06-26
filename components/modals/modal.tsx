@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import styles from "@styles/components/modal/modal.module.scss"
+import styles from "@styles/components/modals/modal.module.scss"
 import Button from "../button";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Backdrop from "./backdrop";
@@ -95,8 +95,8 @@ const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark
                     <Button
                         onClick={onClose}
                         icon={faXmark}
-                        action="big"
-                        role="tertiary"
+                        action={btnRight ? "small" : "big"}
+                        role={btnRight ? "secondary" : "tertiary"}
                         dark={dark}
                     />
                 </div>

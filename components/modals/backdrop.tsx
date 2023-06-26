@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
-import styles from "@styles/components/modal/backdrop.module.scss"
+import styles from "@styles/components/modals/backdrop.module.scss"
 
 type Props = {
     onClick: () => void;
