@@ -1,4 +1,4 @@
-import { OpeningHours, Review, Spot, Tag } from "@prisma/client"
+import { OpeningHours, Review, Spot, Tag, User } from "@prisma/client"
 import prisma from "../prisma"
 
 
@@ -6,6 +6,7 @@ export interface SpotWithAttributes extends Spot {
     tags: Tag[];
     openingHours: OpeningHours[];
     reviews: Review[];
+    likedBy: User[]
 }
 
 /**
@@ -65,7 +66,8 @@ export const getSpots = async (query?: string, tags?: string[]) => {
         include: {
             tags: true,
             openingHours: true,
-            reviews: true
+            reviews: true,
+            likedBy: true
         }
     }) as SpotWithAttributes[]
 }
@@ -111,7 +113,8 @@ export const getNearbySpots = async (latitude: number, longitude: number, maxDis
         include: {
             tags: true,
             openingHours: true,
-            reviews: true
+            reviews: true, 
+            likedBy: true
         }
     })
     // sort by distance from center (increasing)

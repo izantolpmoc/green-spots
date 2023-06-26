@@ -38,6 +38,7 @@ export interface Spot {
         description: string;
     }[],
     reviews: Review[],
+    likedBy: User[],
     openingHours: {
         openingTime: string;
         closingTime: string;
