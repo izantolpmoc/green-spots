@@ -1,7 +1,4 @@
 
-
-
-
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styles from "@styles/components/button.module.scss"
@@ -61,10 +58,7 @@ const Button = ({
         if(active) onClick(event)
     }
 
-    return (
-        hidden ? 
-        <></>
-        :
+    return hidden ? <></> : (
         <button
             ref={ref}
             className={getClassNames()}
