@@ -24,7 +24,6 @@ $blue-400: rgba($blue, 0.4);
 $blue-200: rgba($blue, 0.2);
 $blue-100: rgba($blue, 0.1);
 
-
 $error: #C71F37;
 $error-600: rgba($error, 0.6);
 $error-400: rgba($error, 0.4);
@@ -45,6 +44,7 @@ $bg-black-200: rgba($black, 0.2);
 $bg-black-100: rgba($black, 0.1);
 
 $white: #FFF;
+$white-800: rgba($white, 0.8);
 $white-600: rgba($white, 0.6);
 $white-400: rgba($white, 0.4);
 $white-200: rgba($white, 0.2);
@@ -79,6 +79,7 @@ $white-100: rgba($white, 0.1);
     black-100: $black-100;
 
     white: $white;
+    white-800: $white-800;
     white-600: $white-600;
     white-400: $white-400;
     white-200: $white-200;

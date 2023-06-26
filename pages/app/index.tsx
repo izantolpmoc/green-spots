@@ -12,6 +12,7 @@ import Head from 'next/head'
 import { useContext, useEffect, useState } from 'react'
 import { serialize, deserialize } from 'superjson'
 import { SuperJSONResult } from 'superjson/dist/types'
+import SpotCard from '@components/spot-card'
 
 interface Props {
 	spot: SuperJSONResult,
@@ -32,6 +33,7 @@ const Home = (
 	const [data] = useState(spot ? deserialize(spot) : null);
 
 	useEffect(() => {
+		console.log(data)
 		setShowModal(open);  // set the modal state based on the open prop
 	}, [open]);
 
@@ -91,8 +93,23 @@ const Home = (
 					<p><FontAwesomeIcon icon={faLocationDot}/> &nbsp; Près de { userAddress }</p>
 				</SectionHeader>
 
-				<Button onClick={() => setShowModal(true)}>Open spot details modal</Button>
-				{data && <SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spot={data}></SpotDetailsModal>}
+
+			{ data && <>
+				<SpotCard 
+					displayMode='card'
+					spot={data}
+					onClick={() => setShowModal(true)}
+				/>
+				<SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spot={data}></SpotDetailsModal>
+
+				<SpotCard 
+					displayMode='list'
+					spot={data}
+					onClick={() => setShowModal(true)}
+				/>
+				<SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spot={data}></SpotDetailsModal>
+				</>
+			}
 			</main>
 		</>
 		
