@@ -3,13 +3,29 @@ import React from "react"
 // set up the app context
 // which will allow us to share data across the app
 // like the user's location
+// & the search parameters
 
-export interface AppContext {
+export interface SearchParamsContext {
+    searchQuery: string
+    setSearchQuery: (query: string) => void
+    maxDistance: number
+    setMaxDistance: (maxDistance: number) => void
+    tags: string[]
+    setTags: (tags: string[]) => void
+}
+
+export interface AppContext extends SearchParamsContext {
     userLocation: GeolocationPosition | null
 }
 
 export const initContext: AppContext = {
-    userLocation: null
+    userLocation: null,
+    searchQuery: '',
+    setSearchQuery: () => {},
+    maxDistance: 10,
+    setMaxDistance: () => {},
+    tags: [],
+    setTags: () => {}
 }
 
 export const Context = React.createContext(initContext)

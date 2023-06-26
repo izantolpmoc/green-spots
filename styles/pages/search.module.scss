@@ -5,7 +5,11 @@
 
 #main {
     
-    
 
+    .horizontalContainer {
+        @include flex-container(row, nowrap, flex-start, center);
+        gap: 16px;
+        width: 100%;
+    }
 
 }

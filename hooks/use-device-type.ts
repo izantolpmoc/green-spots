@@ -5,23 +5,20 @@ const MOBILE_BREAKPOINT = 576;
 const TABLET_BREAKPOINT = 768;
 
 // Define an enum for the device types
-export enum DeviceType {
-    Mobile = 'mobile',
-    Tablet = 'tablet',
-    Desktop = 'desktop',
-}
+
+export type DeviceType = 'mobile' | 'tablet' | 'desktop';
 
 const useDeviceType = (): DeviceType => {
-    const [deviceType, setDeviceType] = useState<DeviceType>(DeviceType.Desktop);
+    const [deviceType, setDeviceType] = useState<DeviceType>('desktop');
 
     useEffect(() => {
         const setResponsivelyDeviceType = () => {
             if (window.innerWidth <= MOBILE_BREAKPOINT) {
-                setDeviceType(DeviceType.Mobile);
+                setDeviceType('mobile');
             } else if (window.innerWidth > MOBILE_BREAKPOINT && window.innerWidth <= TABLET_BREAKPOINT) {
-                setDeviceType(DeviceType.Tablet);
+                setDeviceType('tablet');
             } else {
-                setDeviceType(DeviceType.Desktop);
+                setDeviceType('desktop');
             }
         };
 

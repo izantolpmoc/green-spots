@@ -1,11 +1,15 @@
 import Button from '@components/button'
-import SpotDetailsModal from '@components/modal/spot-details-modal'
+import SectionHeader from '@components/layout/section-header'
+import SpotDetailsModal from '@components/modals/spot-details-modal'
 import SectionTitle from '@components/section-title'
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Context } from '@lib/context'
 import { getSpots } from '@lib/helpers/spots'
 import styles from '@styles/pages/home.module.scss'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { serialize, deserialize } from 'superjson'
 import { SuperJSONResult } from 'superjson/dist/types'
 
@@ -31,6 +35,34 @@ const Home = (
 		setShowModal(open);  // set the modal state based on the open prop
 	}, [open]);
 
+	// user location
+
+	const { userLocation } = useContext(Context)
+
+	const [userAddress, setUserAddress] = useState<string>("")
+
+	// update the user address when the user location changes
+
+	useEffect(() => {
+
+		if(!userLocation) return
+
+		const { latitude, longitude } = userLocation.coords
+
+		// make a call to the open street map api to get the user address
+
+		fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&accept-language=fr`)
+		.then(response => response.json()).then(data => {
+			console.log(data)
+			const { amenity, road, city, country } = data.address
+			setUserAddress(
+				`${amenity ? amenity + ', ' : ''}${road ? road + ', ' : ''}${city ? city + ', ' : ''}${country}`
+			)
+		})
+
+
+	}, [userLocation])
+
 	// render
 
 	return (
@@ -54,7 +86,10 @@ const Home = (
 				<meta property="twitter:image" content="https://www.greenspots.fr/favicon/favicon-180x180.png" />
 			</Head>
 			<main id={styles.main}>
-				<SectionTitle>Autour de moi</SectionTitle>
+				<SectionHeader>
+					<SectionTitle>Autour de moi</SectionTitle>
+					<p><FontAwesomeIcon icon={faLocationDot}/> &nbsp; Près de { userAddress }</p>
+				</SectionHeader>
 
 				<Button onClick={() => setShowModal(true)}>Open spot details modal</Button>
 				{data && <SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spot={data}></SpotDetailsModal>}

@@ -5,8 +5,8 @@ import NavItem from "./nav-item";
 import { NavItemType, SessionUser } from "@lib/types";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import LoginModal from "@components/modal/login-modal";
-import MyAccountModal from "@components/modal/my-account-modal";
+import LoginModal from "@components/modals/login-modal";
+import MyAccountModal from "@components/modals/my-account-modal";
 
 const NavBar = () => {
 

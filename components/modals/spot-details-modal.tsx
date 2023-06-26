@@ -3,7 +3,7 @@ import { faArrowLeft, faMap, faShare, faXmark, faHeart as filledHeart } from "@f
 import { faComments, faHeart } from "@fortawesome/free-regular-svg-icons"
 import { AnimatePresence } from "framer-motion"
 import Modal from "./modal"
-import styles from "@styles/components/modal/spot-details-modal.module.scss"
+import styles from "@styles/components/modals/spot-details-modal.module.scss"
 import useDeviceType, { DeviceType } from "../../hooks/use-device-type"
 import StarRating from "@components/star-rating"
 import { SessionUser, Spot } from "@lib/types"

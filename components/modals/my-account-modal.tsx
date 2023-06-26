@@ -2,9 +2,9 @@ import Button from "@components/button";
 
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { AnimatePresence } from "framer-motion";
-import Modal from "@components/modal/modal";
+import Modal from "@components/modals/modal";
 import SectionTitle from "@components/section-title";
-import styles from "@styles/components/modal/my-account-modal.module.scss";
+import styles from "@styles/components/modals/my-account-modal.module.scss";
 import { useSession, signOut } from 'next-auth/react'
 import { SessionUser } from "@lib/types";
 import { useState } from "react";
