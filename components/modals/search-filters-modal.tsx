@@ -8,7 +8,6 @@ import SearchBar from "@components/form-elements/search-bar";
 import styles from "@styles/components/modals/search-filters-modal.module.scss"
 import Button from "@components/button";
 import useDeviceType from "../../hooks/use-device-type";
-import TextInput from "@components/form-elements/text-input";
 
 interface Props {
     showModal: boolean;

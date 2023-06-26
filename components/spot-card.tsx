@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@styles/components/spot.module.scss"
+import styles from "@styles/components/spot-card.module.scss"
 import StarRating from "./star-rating";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -58,11 +58,13 @@ const SpotCard = ({
                 />
             )}
             <div className={styles.mainHeader}>
-                <span className={styles.city}>{spot.city}</span>
-                <span className={styles.name}>{spot.name}</span>
+                <div className={styles.title}>
+                    <span className={styles.city}>{spot.city}</span>
+                    <span className={styles.name}>{spot.name}</span>
+                </div>
                 <div className={styles.subHeader}>
                     <StarRating average={getSpotRating()}/>
-                    { displayMode === "card" && <span className={styles.distance}>À {getSpotDistance()}</span> }
+                    { displayMode === "card" && <span className={styles.distance}>À {getSpotDistance()} km</span> }
                 </div>
             </div>
             { displayMode === "list" && (
