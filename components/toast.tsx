@@ -2,12 +2,12 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import styles from "@styles/components/toast.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faInfoCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 
 interface Props {
     children: React.ReactNode;
-    error?: boolean;
+    status?: "success" | "error" | "info";
     showToast: boolean;
     onHide: () => void;
 }
@@ -15,7 +15,7 @@ interface Props {
 const Toast = (
     {
         children,
-        error,
+        status = "success",
         showToast,
         onHide
     }: Props
@@ -25,12 +25,21 @@ const Toast = (
 
     const getToastClassNames = () => {
         let classNames = styles.toast
-        classNames += ' ' + (error ? styles['error'] : '')
+        classNames += ' ' + (status != "success" ? styles[status] : '')
         return classNames
     }
 
     const getIcon = () => {
-        return error ? faTimes : faCheck
+        switch(status) {
+            case "success":
+                return faCheck
+            case "error":
+                return faTimes
+            case "info":
+                return faInfoCircle
+            default:
+                return faCheck
+        }
     }
 
     // close the toast after 2 seconds
