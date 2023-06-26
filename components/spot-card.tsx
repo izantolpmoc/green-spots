@@ -3,36 +3,37 @@ import styles from "@styles/components/spot.module.scss"
 import StarRating from "./star-rating";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Spot } from "@lib/types";
 
 interface Props {
     displayMode: "list" | "grid"
-    imageUrl: string
-    spotCity: string
-    spotName: string
-    spotRating: number
-    spotDistance: string
+    spot: Spot
     onClick?: () => void
 }
 
 const SpotCard = ({ 
     displayMode,
-    imageUrl,
-    spotCity,
-    spotName,
-    spotRating,
-    spotDistance,
+    spot,
     onClick
 }: Props) => {
 
-    const getdisplayMode = () => {
+    // utils
+
+    const getSpotRating = () => 4 // TODO
+
+    const getSpotDistance = () => 2.3 // TODO
+        
+    const getClassNames = () => {
         let classNames = styles.card
         classNames += ' ' + styles[displayMode]
         return classNames
     }
 
+    // render
+
     return (
         <section
-            className={getdisplayMode()}
+            className={getClassNames()}
             style={
                 displayMode === "grid"
                 ? {
@@ -55,11 +56,11 @@ const SpotCard = ({
                 />
             )}
             <div className={styles.mainHeader}>
-                <span className={styles.city}>{spotCity}</span>
-                <span className={styles.name}>{spotName}</span>
+                <span className={styles.city}>{spot.city}</span>
+                <span className={styles.name}>{spot.name}</span>
                 <div className={styles.subHeader}>
-                    <StarRating average={spotRating}/>
-                    { displayMode === "grid" && <span className={styles.distance}>À {spotDistance}</span> }
+                    <StarRating average={getSpotRating()}/>
+                    { displayMode === "grid" && <span className={styles.distance}>À {getSpotDistance}</span> }
                 </div>
             </div>
             { displayMode === "list" && (
