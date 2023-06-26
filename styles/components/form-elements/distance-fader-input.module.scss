@@ -1,0 +1,41 @@
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+
+input.input[type="range"] {
+    -webkit-appearance: none;
+
+    background: $secondary-100;
+    background-image: linear-gradient($secondary, $secondary);
+    margin-right: 16px;
+    background-repeat: no-repeat;
+    background-size: 50% 100%;
+    border-radius: 8px;
+    height: 8px;
+
+    // change thumb appearance
+
+    &::-webkit-slider-thumb, &::-moz-range-thumb, &::-ms-thumb {
+        -webkit-appearance: none;
+        height: 20px;
+        width: 20px;
+        border-radius: 20px;
+        background: $white;
+        cursor: ew-resize;
+        box-shadow: 0 4px 30px $black-200;
+        transition: background .3s ease-in-out;
+    }
+
+    // hide default slider track
+
+    &::-webkit-slider-runnable-track, &::-moz-range-track, &::-ms-track  {
+        -webkit-appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+    }
+
+
+
+}

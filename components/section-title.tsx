@@ -3,14 +3,26 @@ import React from "react";
 
 interface Props {
     children?: any;
+    small?: boolean;
 }
 
 const SectionTitle = ({ 
-    children
+    children,
+    small
 }: Props) => {
 
+    // utils
+
+    const getClassNames = () => {
+        let classNames = styles.container
+        classNames += (small ? ' ' + styles.small : '')
+        return classNames
+    }
+
+    // render
+
     return ( 
-        <div className={styles.container}>
+        <div className={getClassNames()}>
             <hr/>
             <span>{children}</span>
             <hr/>
