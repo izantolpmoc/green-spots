@@ -24,7 +24,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
     // state
 
     const deviceType = useDeviceType();
-    const isMobile = deviceType === DeviceType.Mobile;
+    const isMobile = deviceType === 'mobile';
     const currentUser = useSession().data?.user as SessionUser | undefined;
 
     // mobile details view
