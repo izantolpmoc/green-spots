@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import { RWebShare } from "react-web-share"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSession } from "next-auth/react"
+import Toast from "@components/toast"
 
 interface Props {
     showModal: boolean;
@@ -31,6 +32,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
     const [distance, setDistance] = useState("2.7");
     const [shareableUrl, setShareableUrl] = useState('');
     const [isLiked, setIsLiked] = useState(false);
+    const [displayAddToFavoritesErrorToast, setDisplayAddToFavoritesErrorToast] = useState(false);
 
     useEffect(() => {
         // This will only run on the client side, where window is available
@@ -62,6 +64,9 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
     const tags = spot.tags.map((tag, key) => <li className={styles.tag} key={key}>{tag.name}</li>);
     const averageRating = spot.reviews.reduce((acc, review) => acc + review.rating, 0) / spot.reviews.length ?? 0;
     const toggleFavorites = async () => {
+        if(!currentUser)
+            return setDisplayAddToFavoritesErrorToast(true);
+
         try {
             await fetch(`/api/spots/like/` + spot.id, {
                 method: 'PUT'
@@ -229,6 +234,12 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
                     }
                 </Modal>
             }
+            <Toast 
+                status='info'
+                showToast={displayAddToFavoritesErrorToast}
+                onHide={() => setDisplayAddToFavoritesErrorToast(false)}>
+                Connectez vous pour effectuer cette action.
+            </Toast>
         </AnimatePresence>
     )
 }

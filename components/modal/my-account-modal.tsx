@@ -120,7 +120,7 @@ const MyAccountModal = (
                 Votre compte a bien été supprimé.
             </Toast>
             <Toast
-                error
+                status="error"
                 showToast={showDeletionErrorToast}
                 onHide={() => setShowDeletionErrorToast(false)}>
                 Une erreur est survenue.
