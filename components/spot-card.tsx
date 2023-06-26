@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spot } from "@lib/types";
 
 interface Props {
-    displayMode: "list" | "grid"
+    displayMode: "list" | "card"
     spot: Spot
     onClick?: () => void
 }
@@ -24,7 +24,7 @@ const SpotCard = ({
     const getSpotDistance = () => 2.3 // TODO
         
     const getClassNames = () => {
-        let classNames = styles.card
+        let classNames = styles.container
         classNames += ' ' + styles[displayMode]
         return classNames
     }
@@ -35,7 +35,7 @@ const SpotCard = ({
         <section
             className={getClassNames()}
             style={
-                displayMode === "grid"
+                displayMode === "card"
                 ? {
                     backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgb(0, 0, 0) 100%), url(${imageUrl})`,
                     backgroundSize: 'cover',
@@ -45,7 +45,7 @@ const SpotCard = ({
             }
             onClick={onClick}
             >
-            {displayMode !== "grid" && (
+            {displayMode !== "card" && (
                 <div
                 className={styles.image}
                 style={{
@@ -60,7 +60,7 @@ const SpotCard = ({
                 <span className={styles.name}>{spot.name}</span>
                 <div className={styles.subHeader}>
                     <StarRating average={getSpotRating()}/>
-                    { displayMode === "grid" && <span className={styles.distance}>À {getSpotDistance}</span> }
+                    { displayMode === "card" && <span className={styles.distance}>À {getSpotDistance}</span> }
                 </div>
             </div>
             { displayMode === "list" && (
