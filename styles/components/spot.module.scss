@@ -5,7 +5,6 @@
 @import "@styles/abstracts/_variables.module.scss";
 
 .card {
-    box-shadow: 0px 20px 60px #00000033;
     overflow: hidden;
     border-radius: 8px;
     padding: 16px;
@@ -65,7 +64,9 @@
         }
     }
 
-    &.grid {
+    &.card {
+        
+        box-shadow: 0px 20px 60px #00000033;
 
         @include flex-container(row, nowrap, center, center);
 
