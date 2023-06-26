@@ -15,7 +15,7 @@
         height: 100px;
 
         &:not(.isLast) {
-            border-bottom: 1px solid $black-100;
+            border-bottom: 1px solid $primary-100;
         }
 
         .image {
