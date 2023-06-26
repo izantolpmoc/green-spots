@@ -86,7 +86,6 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
                 <Modal onClose={() => { setShowModal(false); setDisplayDetailsView(false) }} removePadding className={styles.modal} customHeader={
                     <div className={styles.header} style={{
                         background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%), url(${spot.image}), lightgray 50% / cover no-repeat`,
-                        height: '100%',
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover',
                         }}>
