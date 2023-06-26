@@ -14,6 +14,8 @@
 
         @include flex-container(row, nowrap, center, center);
         height: 100px;
+        
+        width: 100%;
 
         &:not(.isLast) {
             border-radius: 8px 8px 0px 0px;
@@ -98,6 +100,10 @@
             height: 300px;
         }
 
+        &.fullWidth {
+            width: 100%;
+        }
+
         .mainHeader {
             width: 100%;
 
@@ -114,7 +120,7 @@
                 .city {
                     @include text-xs-bold;
                     letter-spacing: 0.6rem;
-                    color: $white-800;
+                    color: $white;
                 }
         
                 .name {

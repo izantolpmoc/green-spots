@@ -110,7 +110,7 @@ const Home = (
 
 			{ data && <>
 				<SpotCard 
-					displayMode='card'
+					fullWidth
 					spot={data[0]}
 					onClick={() => setShowModal(true)}
 				/>
