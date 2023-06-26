@@ -6,17 +6,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spot } from "@lib/types";
 
 interface Props {
-    displayMode: "list" | "card"
+    displayMode?: "list" | "card"
     spot: Spot
     onClick?: () => void
     isLast?: boolean
+    fullWidth?: boolean
 }
 
 const SpotCard = ({ 
-    displayMode,
+    displayMode = "card",
     spot,
     onClick,
-    isLast
+    isLast,
+    fullWidth
 }: Props) => {
 
     // utils
@@ -27,7 +29,8 @@ const SpotCard = ({
         
     const getClassNames = () => {
         let classNames = styles.container + ' ' + styles[displayMode]
-        classNames += (isLast ? styles.isLast : '')
+        classNames += (isLast ? ' ' + styles.isLast : '')
+        classNames += (fullWidth ? ' ' + styles.fullWidth : '')
         return classNames
     }
 
