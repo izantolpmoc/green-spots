@@ -9,7 +9,7 @@
 .container {
 	@include flex-container(column, nowrap, center, center);
 	gap: 32px;
-	height: 100%;
+	height: fit-content;
 }
 
 .modal {
