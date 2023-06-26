@@ -57,6 +57,7 @@ model Spot {
   tags         Tag[]
   reviews      Review[]
   openingHours OpeningHours[]
+  likedBy      User[]        
 }
 
 model Account {
@@ -100,6 +101,7 @@ model User {
   isModerator   Boolean   @default(false)
   accounts      Account[]
   reviews       Review[]
+  likedSpots    Spot[]
   sessions      Session[]
 }
 
