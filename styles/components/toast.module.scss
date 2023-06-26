@@ -55,4 +55,20 @@
         }
 
     }
+
+    &.info {
+            
+        .icon {
+            background: $blue-200;
+
+            svg {
+                color: $blue;
+            }
+        }
+
+        span {
+            color: $blue;
+        }
+    
+    }
 }
