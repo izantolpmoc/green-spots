@@ -3,14 +3,21 @@ import React from "react";
 
 interface Props {
     children?: any;
+    dark?: boolean;
 }
 
 const SectionTitle = ({ 
-    children
+    children, dark
 }: Props) => {
 
+    const getClassNames = () => {
+        let classNames = styles.container;
+        if (dark) classNames += ` ${styles.dark}`;
+        return classNames;
+    }
+
     return ( 
-        <div className={styles.container}>
+        <div className={getClassNames()}>
             <hr/>
             <span>{children}</span>
             <hr/>

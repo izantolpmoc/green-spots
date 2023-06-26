@@ -32,5 +32,13 @@
 		}
 	}
 
+	&.dark {
+		color: $white;
+
+		span {
+			color: $white;
+		}
+	}
+
 }
   

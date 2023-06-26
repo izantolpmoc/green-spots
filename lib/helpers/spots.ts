@@ -66,7 +66,9 @@ export const getSpots = async (query?: string, tags?: string[]) => {
         include: {
             tags: true,
             openingHours: true,
-            reviews: true,
+            reviews: {
+                include: {user: true}
+            },
             likedBy: true
         }
     }) as SpotWithAttributes[]
@@ -113,7 +115,9 @@ export const getNearbySpots = async (latitude: number, longitude: number, maxDis
         include: {
             tags: true,
             openingHours: true,
-            reviews: true, 
+            reviews: {
+                include: {user: true}
+            }, 
             likedBy: true
         }
     })

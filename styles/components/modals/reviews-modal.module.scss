@@ -1,0 +1,35 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_variables.module.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+.reviewsContainer{
+    @include flex-container(column, nowrap);
+    gap: 32px;
+    margin: 16px;
+
+    .card {
+        @include flex-container(row, nowrap);
+        color: $white;
+        gap: 16px;
+    
+        img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    
+        .cardContent {
+            background: $bg-black;
+            border-radius: 8px;
+            padding: 16px;
+            width: 100%;
+
+            .date {
+                color: $white-400;
+            }
+        }
+    }
+}
