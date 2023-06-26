@@ -6,7 +6,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Header from '@components/layout/header'
 import NavBar from '@components/layout/nav-bar'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import useGeolocation from '../hooks/use-geolocation'
 import { Context } from '@lib/context'
 
@@ -19,10 +19,21 @@ const App = ({ Component, pageProps }: AppProps) => {
 	const { position: userLocation, error } = useGeolocation()
 
 	// set up & memoize the context
+	// search form values
+
+	const [searchQuery, setSearchQuery] = useState<string>("")
+	const [maxDistance, setMaxDistance] = useState<number>(10)
+	const [tags, setTags] = useState<string[]>([])
 
 	const contextValue = useMemo(() => ({
-		userLocation
-	}), [userLocation])
+		userLocation,
+		searchQuery,
+		setSearchQuery,
+		maxDistance,
+		setMaxDistance,
+		tags,
+		setTags
+	}), [userLocation, searchQuery, maxDistance, tags])
 
 	useEffect(() => {
 		if(error) {

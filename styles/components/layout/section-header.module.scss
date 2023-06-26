@@ -1,0 +1,18 @@
+@import "@styles/base/_typography.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+
+.sectionHeader {
+    width: 100%;
+
+    @include flex-container(column, nowrap, center, center);
+    gap: 16px;
+
+    p {
+        @include text-sm-medium;
+        color: $black-400;
+        text-align: center;
+        padding: 0 16px;
+    }
+}
