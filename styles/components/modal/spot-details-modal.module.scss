@@ -8,18 +8,27 @@
 .modal {
     background-color: $black;
     color: $white;
+    overflow-x: auto;
+    max-height: 80vh;
 
     @media (max-width: $bp-sm) {
         height: 100%;
+        max-height: none;
         border-radius: 0;
     }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
 
     .detailsView {
         padding: 0 16px 32px 16px;
         border-radius: 0 0 16px 16px;
         @include flex-container(column, nowrap);
         gap: 16px;
-        overflow-x: auto;
 
         ul {
             list-style: none;
@@ -53,23 +62,23 @@
 
         .actionIcons {
             @include flex-container(row, nowrap, flex-end);
-        }
+            gap: 16px;
 
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        &::-webkit-scrollbar {
-            display: none;
+            .lighterBg {
+                background: $bg-black;
+            }
         }
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
     }
 }
 
-.header {
+.header {        
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 16px;
-    position: relative;
+    padding: 80px 16px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 
     height: 100%;
 

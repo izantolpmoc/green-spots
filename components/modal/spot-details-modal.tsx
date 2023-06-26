@@ -4,7 +4,7 @@ import { faComments, faHeart } from "@fortawesome/free-regular-svg-icons"
 import { AnimatePresence } from "framer-motion"
 import Modal from "./modal"
 import styles from "@styles/components/modal/spot-details-modal.module.scss"
-import { useIsMobile } from "../../hooks/breakpoints"
+import useDeviceType, { DeviceType } from "../../hooks/use-device-type"
 import StarRating from "@components/star-rating"
 import { SessionUser, Spot } from "@lib/types"
 import { useEffect, useState } from "react"
@@ -23,8 +23,9 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
     
     // state
 
-    const isMobile = useIsMobile()
-    const currentUser = useSession().data?.user as SessionUser | undefined
+    const deviceType = useDeviceType();
+    const isMobile = deviceType === DeviceType.Mobile;
+    const currentUser = useSession().data?.user as SessionUser | undefined;
 
     // mobile details view
     
@@ -203,6 +204,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
                                         icon={isLiked ? filledHeart : faHeart}
                                         action="big"
                                         role="secondary"
+                                        className={styles.lighterBg}
                                         dark
                                     />
                                     <Button
@@ -210,6 +212,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
                                         icon={faComments}
                                         action="big"
                                         role="secondary"
+                                        className={styles.lighterBg}
                                         dark
                                     />
                                     <RWebShare
@@ -225,6 +228,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
                                             icon={faShare}
                                             action="big"
                                             role="secondary"
+                                            className={styles.lighterBg}
                                             dark
                                         />
                                     </RWebShare>                                  
