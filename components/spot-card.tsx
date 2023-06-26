@@ -9,12 +9,14 @@ interface Props {
     displayMode: "list" | "card"
     spot: Spot
     onClick?: () => void
+    isLast?: boolean
 }
 
 const SpotCard = ({ 
     displayMode,
     spot,
-    onClick
+    onClick,
+    isLast
 }: Props) => {
 
     // utils
@@ -24,8 +26,8 @@ const SpotCard = ({
     const getSpotDistance = () => 2.3 // TODO
         
     const getClassNames = () => {
-        let classNames = styles.container
-        classNames += ' ' + styles[displayMode]
+        let classNames = styles.container + ' ' + styles[displayMode]
+        classNames += (isLast ? styles.isLast : '')
         return classNames
     }
 
