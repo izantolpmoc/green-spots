@@ -1,15 +1,16 @@
 import Button from "@components/button"
-import { faArrowLeft, faMap, faShare, faXmark } from "@fortawesome/free-solid-svg-icons"
+import { faArrowLeft, faMap, faShare, faXmark, faHeart as filledHeart } from "@fortawesome/free-solid-svg-icons"
 import { faComments, faHeart } from "@fortawesome/free-regular-svg-icons"
 import { AnimatePresence } from "framer-motion"
 import Modal from "./modal"
 import styles from "@styles/components/modal/spot-details-modal.module.scss"
 import { useIsMobile } from "../../hooks/breakpoints"
 import StarRating from "@components/star-rating"
-import { Spot } from "@lib/types"
+import { SessionUser, Spot } from "@lib/types"
 import { useEffect, useState } from "react"
 import { RWebShare } from "react-web-share"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useSession } from "next-auth/react"
 
 interface Props {
     showModal: boolean;
@@ -22,12 +23,14 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
     // state
 
     const isMobile = useIsMobile()
+    const currentUser = useSession().data?.user as SessionUser | undefined
 
     // mobile details view
     
     const [displayDetailsView, setDisplayDetailsView] = useState(false);
     const [distance, setDistance] = useState("2.7");
     const [shareableUrl, setShareableUrl] = useState('');
+    const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
         // This will only run on the client side, where window is available
@@ -47,6 +50,10 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
             
             setShareableUrl(url.toString());
         }
+
+        if(spot.likedBy?.find(user => user.id === currentUser?.id))
+            setIsLiked(true);
+
     }, [spot]);
 
 
@@ -54,6 +61,18 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
 
     const tags = spot.tags.map((tag, key) => <li className={styles.tag} key={key}>{tag.name}</li>);
     const averageRating = spot.reviews.reduce((acc, review) => acc + review.rating, 0) / spot.reviews.length ?? 0;
+    const toggleFavorites = async () => {
+        try {
+            await fetch(`/api/spots/like/` + spot.id, {
+                method: 'PUT'
+            })
+        }
+        catch {
+            console.log("Error adding to favorites")
+        }
+
+        setIsLiked(!isLiked)
+    }
 
     // render 
 
@@ -83,8 +102,8 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
                                 
                                 {!displayDetailsView && <div className={styles.actionIcons}>
                                     <Button
-                                        onClick={() => setShowModal(false)}
-                                        icon={faHeart}
+                                        onClick={() => toggleFavorites()}
+                                        icon={isLiked ? filledHeart : faHeart}
                                         action="big"
                                         role="secondary"
                                         dark
@@ -175,8 +194,8 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
 
                             {displayDetailsView && <div className={styles.actionIcons}>
                                     <Button
-                                        onClick={() => setShowModal(false)}
-                                        icon={faHeart}
+                                        onClick={() => toggleFavorites()}
+                                        icon={isLiked ? filledHeart : faHeart}
                                         action="big"
                                         role="secondary"
                                         dark
