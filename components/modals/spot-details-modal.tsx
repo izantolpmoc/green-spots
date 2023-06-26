@@ -4,7 +4,7 @@ import { faComments, faHeart } from "@fortawesome/free-regular-svg-icons"
 import { AnimatePresence } from "framer-motion"
 import Modal from "./modal"
 import styles from "@styles/components/modals/spot-details-modal.module.scss"
-import useDeviceType, { DeviceType } from "../../hooks/use-device-type"
+import useDeviceType from "../../hooks/use-device-type"
 import StarRating from "@components/star-rating"
 import { SessionUser, Spot } from "@lib/types"
 import { useEffect, useState } from "react"
@@ -16,10 +16,12 @@ import Toast from "@components/toast"
 interface Props {
     showModal: boolean;
     setShowModal: (showModal: boolean) => void;
-    spot: Spot
+    spots: Spot[];
+    currentSpotPosition: number;
+    setCurrentSpotPosition: (currentSpotPosition: number) => void;
 }
 
-const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
+const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition, setCurrentSpotPosition}: Props) => {
     
     // state
 
@@ -28,12 +30,13 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
     const currentUser = useSession().data?.user as SessionUser | undefined;
 
     // mobile details view
-    
     const [displayDetailsView, setDisplayDetailsView] = useState(false);
     const [distance, setDistance] = useState("2.7");
     const [shareableUrl, setShareableUrl] = useState('');
     const [isLiked, setIsLiked] = useState(false);
     const [displayAddToFavoritesErrorToast, setDisplayAddToFavoritesErrorToast] = useState(false);
+    const [spot, setSpot] = useState(spots[currentSpotPosition]);
+
 
     useEffect(() => {
         // This will only run on the client side, where window is available
@@ -79,6 +82,33 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
 
         setIsLiked(!isLiked)
     }
+    const onSwipeLeft = () => {
+        if (currentSpotPosition < spots.length - 1) {
+            setCurrentSpotPosition(currentSpotPosition + 1);
+            setSpot(spots[currentSpotPosition + 1]);
+        }
+    };
+    const onSwipeRight = () => {
+        if (currentSpotPosition > 0) {
+            setCurrentSpotPosition(currentSpotPosition - 1);
+            setSpot(spots[currentSpotPosition - 1]);
+        }
+    };
+    const swipeButtons = [];
+    for (let i = 0; i < spots.length; i++) {
+    const getSwipeButtonClassNames = () => {
+        let classNames = styles.swipeButton
+        classNames += ' ' + (currentSpotPosition === i ? styles['isActive'] : '')
+        return classNames
+    }
+        swipeButtons.push(
+            <Button 
+                onClick={() => {setCurrentSpotPosition(i); setSpot(spots[i]); }} 
+                className={getSwipeButtonClassNames()}
+            />
+        );
+    }
+
 
     // render 
 
@@ -89,11 +119,9 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
             onExitComplete={() => null}
         >
             {showModal && 
-                <Modal onClose={() => { setShowModal(false); setDisplayDetailsView(false) }} removePadding className={styles.modal} customHeader={
+                <Modal key="modal" onSwipeRight={onSwipeRight} onSwipeLeft={onSwipeLeft} onClose={() => { setShowModal(false); setDisplayDetailsView(false) }} removePadding className={styles.modal} customHeader={
                     <div className={styles.header} style={{
-                        background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%), url(${spot.image}), lightgray 50% / cover no-repeat`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'cover',
+                        background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%), url(${spot.image}) no-repeat center center / cover lightgray`,
                         }}>
                             <Button
                                 onClick={() => { setShowModal(false); setDisplayDetailsView(false) }}
@@ -234,6 +262,10 @@ const SpotDetailsModal = ({ showModal, setShowModal, spot }: Props) => {
                                     </RWebShare>                                  
                                 </div>
                                 }
+                        </div>
+                    }
+                    { isMobile && !displayDetailsView && <div className={styles.swipeButtons}>
+                        {swipeButtons}
                         </div>
                     }
                 </Modal>

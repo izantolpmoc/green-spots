@@ -10,6 +10,7 @@
     color: $white;
     overflow-x: auto;
     max-height: 80vh;
+    gap: 0;
 
     @media (max-width: $bp-sm) {
         height: 100%;
@@ -17,12 +18,12 @@
         border-radius: 0;
     }
 
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        &::-webkit-scrollbar {
-            display: none;
-        }
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 
     .detailsView {
         padding: 0 16px 32px 16px;
@@ -66,6 +67,24 @@
 
             .lighterBg {
                 background: $bg-black;
+            }
+        }
+    }
+
+    .swipeButtons {
+        @include flex-container(row, nowrap, center, center);
+        gap: 10px;
+        margin: 16px 32px;
+        height: 10px;        
+
+        .swipeButton {
+            background: $white-200 !important;
+            padding: 2px;
+            width: 100%;
+            max-width: 50px;
+
+            &.isActive {
+                background: $white !important;
             }
         }
     }
