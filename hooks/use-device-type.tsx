@@ -11,7 +11,7 @@ export enum DeviceType {
     Desktop = 'desktop',
 }
 
-export const useDeviceType = (): DeviceType => {
+const useDeviceType = (): DeviceType => {
     const [deviceType, setDeviceType] = useState<DeviceType>(DeviceType.Desktop);
 
     useEffect(() => {
@@ -39,3 +39,5 @@ export const useDeviceType = (): DeviceType => {
 
     return deviceType;
 };
+
+export default useDeviceType;
