@@ -37,8 +37,8 @@ html, body, div#__next {
 	right: 0;
 	min-height: 100%;
 	min-width: 100%;
-	height: fit-content;
-	width: fit-content;
+	height: 100%;
+	// width: fit-content;
 	padding: 0;
 	margin: 0;
 }
@@ -57,10 +57,13 @@ a {
 
 div#__next {
 
+	@include flex-container(column, nowrap, center, stretch);
+	
+	padding-bottom: 60px;
+
 	& > main {
 		margin-top: 16px;
-		width: 100%;
-		height: 100%;
+		flex: 1;
 
 		@include flex-container(column, nowrap, flex-start, flex-start);
     	gap: 32px;
