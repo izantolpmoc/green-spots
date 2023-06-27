@@ -12,16 +12,18 @@ import { RWebShare } from "react-web-share"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSession } from "next-auth/react"
 import Toast from "@components/toast"
+import ReviewsModal from "./reviews-modal"
 
 interface Props {
     showModal: boolean;
     setShowModal: (showModal: boolean) => void;
     spots: Spot[];
+    updateSpot: (index: number, spot: Spot) => void;
     currentSpotPosition: number;
     setCurrentSpotPosition: (currentSpotPosition: number) => void;
 }
 
-const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition, setCurrentSpotPosition}: Props) => {
+const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentSpotPosition, setCurrentSpotPosition}: Props) => {
     
     // state
 
@@ -36,6 +38,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
     const [isLiked, setIsLiked] = useState(false);
     const [displayAddToFavoritesErrorToast, setDisplayAddToFavoritesErrorToast] = useState(false);
     const [spot, setSpot] = useState(spots[currentSpotPosition]);
+    const [openReviews, setOpenReviews] = useState(false);
 
 
     useEffect(() => {
@@ -57,8 +60,8 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
             setShareableUrl(url.toString());
         }
 
-        if(spot.likedBy?.find(user => user.id === currentUser?.id))
-            setIsLiked(true);
+        // check whether user appears in spot's likedBy list
+        setIsLiked(!!spot.likedBy?.find(user => user.id === currentUser?.id));
 
     }, [spot]);
 
@@ -74,13 +77,14 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
         try {
             await fetch(`/api/spots/like/` + spot.id, {
                 method: 'PUT'
-            })
+            });
         }
         catch {
             console.log("Error adding to favorites")
         }
 
         setIsLiked(!isLiked)
+        await reloadSpots()
     }
     const onSwipeLeft = () => {
         if (currentSpotPosition < spots.length - 1) {
@@ -108,7 +112,19 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
             />
         );
     }
+    const reloadSpots = async () => {
+        // TODO fix reload method error => spot becomes undefined when go to other spot and come back
+        try {
+            const response = await fetch(`/api/spots/${spot.id}`, {
+                method: 'GET',
+            }).then(res => res.json());
 
+            updateSpot(currentSpotPosition, response.spot);
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     // render 
 
@@ -143,7 +159,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
                                         dark
                                     />
                                     <Button
-                                        onClick={() => setShowModal(false)}
+                                        onClick={() => setOpenReviews(true)}
                                         icon={faComments}
                                         action="big"
                                         role="secondary"
@@ -236,7 +252,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
                                         dark
                                     />
                                     <Button
-                                        onClick={() => setShowModal(false)}
+                                        onClick={() => setOpenReviews(true)}
                                         icon={faComments}
                                         action="big"
                                         role="secondary"
@@ -271,11 +287,13 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
                 </Modal>
             }
             <Toast 
+                key={'toast'}
                 status='info'
                 showToast={displayAddToFavoritesErrorToast}
                 onHide={() => setDisplayAddToFavoritesErrorToast(false)}>
                 Connectez vous pour effectuer cette action.
             </Toast>
+            <ReviewsModal showModal={openReviews} onClose={() => setOpenReviews(false)} onReload={() => reloadSpots()} spotId={spot.id} reviews={spot.reviews}></ReviewsModal>
         </AnimatePresence>
     )
 }

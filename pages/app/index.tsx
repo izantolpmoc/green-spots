@@ -14,7 +14,6 @@ import { useContext, useEffect, useState } from 'react'
 import { serialize, deserialize } from 'superjson'
 import { SuperJSONResult } from 'superjson/dist/types'
 import SpotCard from '@components/spot-card'
-import ReviewsModal from '@components/modals/reviews-modal'
 
 interface Props {
 	spots: SuperJSONResult,
@@ -34,7 +33,7 @@ const Home = (
 	const [showModal, setShowModal] = useState(open);
 	const [currentSpotPosition, setCurrentSpotPosition] = useState(0);
 
-	const [data] = useState(spots ? deserialize(spots) : null);
+	const [data, setData] = useState(spots ? deserialize(spots) : null);
 
 	useEffect(() => {
 		setShowModal(open);  // set the modal state based on the open prop
@@ -113,15 +112,24 @@ const Home = (
 					spot={data[0]}
 					onClick={() => setShowModal(true)}
 				/>
-				{/* <SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spots={data} currentSpotPosition={currentSpotPosition} setCurrentSpotPosition={setCurrentSpotPosition}></SpotDetailsModal> */}
+				<SpotDetailsModal 
+					showModal={showModal} 
+					setShowModal={setShowModal} 
+					spots={data} 
+					updateSpot={(index, spot) => {
+						const spots = [...data] as unknown as Spot[];
+						spots[index] = spot;
+						// @ts-ignore
+						setData(spots);
+					}}
+					currentSpotPosition={currentSpotPosition} 
+					setCurrentSpotPosition={setCurrentSpotPosition}/>
 
 				<SpotCard 
 					displayMode='list'
 					spot={data[0]}
 					onClick={() => setShowModal(true)}
 				/>
-
-				<ReviewsModal showModal={showModal} reviews={data[1].reviews} onClose={() => setShowModal(false)}></ReviewsModal>
 
 				</>
 			}
