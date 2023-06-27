@@ -4,7 +4,7 @@
 @import "@styles/abstracts/_colors.module.scss";
 @import "@styles/abstracts/_variables.module.scss";
 
-.unauthenticated {
+.placeholder {
 	@include flex-container(column, nowrap, center, center);
     height: 100%;
 }

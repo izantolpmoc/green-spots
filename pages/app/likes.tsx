@@ -6,7 +6,7 @@ import { GetServerSideProps } from 'next'
 import { serialize, deserialize } from 'superjson'
 import { SuperJSONResult } from 'superjson/dist/types'
 import { useSession } from "next-auth/react";
-import NotConnected from "@components/not-connected";
+import NotConnected from "@components/place-holder";
 import styles from "@styles/pages/likes.module.scss";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@pages/api/auth/[...nextauth]";
@@ -15,6 +15,7 @@ import SpotCard from '@components/spot-card'
 import { useState } from 'react'
 import { Spot } from '@lib/types'
 import prisma from "@lib/prisma";
+import PlaceHolder from "@components/place-holder";
 
 interface Props {
 	likedSpotsJSON: SuperJSONResult | null,
@@ -49,13 +50,33 @@ const Likes = (
                 <SectionTitle>J&apos;aimes</SectionTitle>
                 <p>Les spots qui vous ont tapé dans l&apos;œil</p>
             </SectionHeader>
-            {   
-                status !== "authenticated" ?
+            {  status !== "authenticated" &&
                 <>
-                    <div className={styles.unauthenticated}>
-                        <NotConnected />
+                    <div className={styles.placeholder}>
+                        <PlaceHolder
+                            type="noConnexion"
+                        >
+                            <h3>Vous n&apos;êtes pas connecté</h3>
+                            <p>Connectez-vous pour accéder à cette page</p>
+                        </PlaceHolder>
                     </div>
-                </> :
+                </> 
+            }
+
+            {  status === "authenticated" && likedSpots.length === 0 &&
+                <>
+                    <div className={styles.placeholder}>
+                        <PlaceHolder
+                            type="likeLess"
+                        >
+                            <h3>Vous n'avez rien liké</h3>
+                            <p>Explorez sans attendre et laissez votre curiosité s'épanouir</p>
+                        </PlaceHolder>
+                    </div>
+                </> 
+            }
+
+            {  status === "authenticated" && likedSpots.length > 0 &&
                 <>
                     <div className={styles.container}>
                     {
