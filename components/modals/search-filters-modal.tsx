@@ -9,7 +9,8 @@ import styles from "@styles/components/modals/search-filters-modal.module.scss"
 import Button from "@components/button";
 import useDeviceType from "../../hooks/use-device-type";
 import FilterLabel from "@components/form-elements/filter-label";
-import DistanceFaderInput from "@components/form-elements/distance-fader-input";
+import DistanceFilter from "@components/search-filters/distance-filter";
+import MultiSelect from "@components/form-elements/multi-select";
 
 interface Props {
     showModal: boolean;
@@ -79,13 +80,21 @@ const SearchFiltersModal = (
                         /> : <></>
                     }
                     <FilterLabel>Distance max</FilterLabel>
-                    <DistanceFaderInput
+                    <DistanceFilter
+                        name="maxDistance"
                         value={maxDistance}
                         onChange={setMaxDistance}
                         max={20}
                     />
-
-                    <p>{maxDistance}</p>
+                    <FilterLabel>Spécificités</FilterLabel>
+                    <MultiSelect
+                        name="tags"
+                        value={tags}
+                        onChange={setTags}
+                        options={[]}
+                        placeholder="Rechercher une spécificité..."
+                        noOptionsMessage="Aucune spécificité trouvée"
+                    />
                     <div className={styles.buttonsContainer}>
                         <Button
                             role="tertiary"

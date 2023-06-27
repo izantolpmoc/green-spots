@@ -1,5 +1,5 @@
 
-import styles from "@styles/components/form-elements/distance-fader-input.module.scss"
+import styles from "@styles/components/form-elements/range-input.module.scss"
 import { useEffect, useRef } from "react";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
     max: number;
 }
 
-const DistanceFaderInput = (
+const RangeInput = (
     {
         value,
         onChange,
@@ -51,4 +51,4 @@ const DistanceFaderInput = (
     )
 }
 
-export default DistanceFaderInput
+export default RangeInput

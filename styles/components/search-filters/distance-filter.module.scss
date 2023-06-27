@@ -1,0 +1,22 @@
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+
+.filter {
+
+    @include flex-container(column, nowrap, center, stretch);
+    gap: 16px;
+    width: 100%;
+
+    .values {
+        @include flex-container(row, nowrap, space-between, center);
+        gap: 16px;
+
+        span {
+            @include text-sm-regular;
+            color: $black-400;
+        }
+    }
+
+}

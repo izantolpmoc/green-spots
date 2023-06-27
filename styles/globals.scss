@@ -31,8 +31,12 @@ body {
 }
 
 html, body, div#__next {
-	min-height: 100vh;
-	min-width: 100vw;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	min-height: 100%;
+	min-width: 100%;
 	height: fit-content;
 	width: fit-content;
 	padding: 0;
