@@ -9,32 +9,13 @@
 	padding-top: 32px;
 	width: 100%;
 	gap: 32px;
-
-    span {
-        @include text-xl-bold;
-        white-space: nowrap;
-    }
 	
 	@media (max-width: $bp-sm) {
 		gap: 16px;
-		
-		// .image {
-		// 	width: 80vw;
-		// }
-
-		span {
-			@include text-md-bold;
-		}
 	}
 
 	.image {
 		width: clamp(300px, 60%, 80vw);
 	}
-
-	// @media (min-width: $bp-sm) {
-	// 	.image {
-	// 		width: 60%;
-	// 	}
-	// }
 }
   
