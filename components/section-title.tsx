@@ -3,18 +3,23 @@ import React from "react";
 
 interface Props {
     children?: any;
+    small?: boolean;
     dark?: boolean;
 }
 
 const SectionTitle = ({ 
-    children, dark
+    children, small, dark
 }: Props) => {
+
+    // utils
 
     const getClassNames = () => {
         let classNames = styles.container;
-        if (dark) classNames += ` ${styles.dark}`;
+        classNames += (small ? ' ' + styles.small : '')
+        classNames += (dark ? ' ' + styles.dark : '')
         return classNames;
     }
+    // render
 
     return ( 
         <div className={getClassNames()}>

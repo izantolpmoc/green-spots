@@ -41,7 +41,6 @@ const ReviewsModal = (
 	useEffect(() => {
 			// hide form if user has already commented
 			setDisplayReviewForm(!reviews.find(r => r.user.id === currentUser?.id));
-			console.log("reviews changed -- TODO: trigger reload")
     }, [reviews]);
 
     const cards = [];

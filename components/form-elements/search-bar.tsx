@@ -32,7 +32,6 @@ const SearchBar = (
             <FontAwesomeIcon icon={faSearch} />
             <input 
                 className={styles.searchBar}
-                type="search"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' ? onSubmit() : null}

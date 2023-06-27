@@ -8,6 +8,9 @@ import SearchBar from "@components/form-elements/search-bar";
 import styles from "@styles/components/modals/search-filters-modal.module.scss"
 import Button from "@components/button";
 import useDeviceType from "../../hooks/use-device-type";
+import FilterLabel from "@components/form-elements/filter-label";
+import DistanceFilter from "@components/search-filters/distance-filter";
+import MultiSelect from "@components/form-elements/multi-select";
 
 interface Props {
     showModal: boolean;
@@ -34,7 +37,8 @@ const SearchFiltersModal = (
         maxDistance,
         setMaxDistance,
         tags,
-        setTags,
+        selectedTags,
+        setSelectedTags
     } = useContext(Context)
 
     // render
@@ -53,6 +57,7 @@ const SearchFiltersModal = (
         >
             {showModal && 
                 <Modal 
+                    isForm
                     btnRight 
                     onClose={onClose} 
                     className={styles.modal}
@@ -66,7 +71,7 @@ const SearchFiltersModal = (
                         />
                         : undefined
                     }>
-                    <SectionTitle>Filtres de recherche</SectionTitle>
+                    <SectionTitle small>Filtres de recherche</SectionTitle>
                     {
                         deviceType == "mobile" ?
                         <SearchBar 
@@ -75,19 +80,40 @@ const SearchFiltersModal = (
                             onSubmit={onSubmit}
                         /> : <></>
                     }
+                    <FilterLabel>Distance max</FilterLabel>
+                    <DistanceFilter
+                        name="maxDistance"
+                        value={maxDistance}
+                        onChange={setMaxDistance}
+                        max={20}
+                    />
+                    <FilterLabel>Spécificités</FilterLabel>
+                    <MultiSelect
+                        name="tags"
+                        value={selectedTags}
+                        onChange={setSelectedTags}
+                        options={tags}
+                        placeholder="Rechercher une spécificité..."
+                        noOptionsMessage="Aucune spécificité trouvée"
+                    />
                     <div className={styles.buttonsContainer}>
                         <Button
                             role="tertiary"
                             fullWidth
                             onClick={() => {
                                 setMaxDistance(10)
-                                setTags([])
+                                setSelectedTags([])
                             }}>
                             Tout Effacer
                         </Button>
                         <Button 
                             fullWidth
-                            onClick={onSubmit}>
+                            type="submit"
+                            onClick={e => {
+                                e.preventDefault()
+                                onSubmit()
+                                onClose()
+                            }}>
                             Appliquer
                         </Button>
                     </div>

@@ -1,0 +1,10 @@
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+.filterLabel {
+    @include typo-maker($text-md-font-size, $font-weight-bold, $black);
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+    color: $black;
+}

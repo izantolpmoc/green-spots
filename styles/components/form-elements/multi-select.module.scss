@@ -1,0 +1,53 @@
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+
+.placeholder {
+
+    @include text-sm-medium;
+    color: $black-400;
+}
+
+
+.control {
+
+    border: 1px solid $black-100 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    padding: 8px !important;
+}
+
+.noOptionsMessage {
+
+    @include text-sm-medium;
+    color: $black-400;
+}
+
+.multiValue {
+
+    
+    background: $secondary-100 !important;
+    color: $secondary;
+    border-radius: 4px !important;
+    padding: 4px 8px;
+}
+
+.multiValueLabel {
+    @include text-sm-medium;
+    font-size: $text-sm-font-size !important;
+    color: $secondary !important;
+}
+
+
+.option {
+
+    @include text-md-medium;
+    font-size: $text-sm-font-size !important;
+}
+
+.optionFocused {
+    
+        background: $secondary-100 !important;
+        color: $secondary !important;
+}

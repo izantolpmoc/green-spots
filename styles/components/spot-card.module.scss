@@ -14,6 +14,8 @@
 
         @include flex-container(row, nowrap, center, center);
         height: 100px;
+        
+        width: 100%;
 
         &:not(.isLast) {
             border-radius: 8px 8px 0px 0px;
@@ -30,7 +32,10 @@
 
         .mainHeader {
             width: 100%;
-            padding-left: 16px;
+            padding: 0 16px;
+
+            @include flex-container(column, nowrap, center, center);
+            gap: 8px;
 
             .title {
 
@@ -64,10 +69,11 @@
 
         .containerIcon {
             @include flex-container(row, nowrap, center, center);
-            width: 50px;
-            height: 50%;
+            width: 40px;
+            min-width: 40px;
+            height: 40px;
             background-color: $error-100;
-            border-radius: 50%;
+            border-radius: 40px;
         }
 
         .icon {
@@ -98,8 +104,14 @@
             height: 300px;
         }
 
+        &.fullWidth {
+            width: 100%;
+        }
+
         .mainHeader {
             width: 100%;
+            @include flex-container(column, nowrap, center, center);
+            gap: 8px;
 
             .title {
 
@@ -114,7 +126,7 @@
                 .city {
                     @include text-xs-bold;
                     letter-spacing: 0.6rem;
-                    color: $white-800;
+                    color: $white;
                 }
         
                 .name {

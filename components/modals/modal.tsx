@@ -17,11 +17,12 @@ type Props = {
     dark?: boolean;
     removePadding?: boolean;
     customHeader?: ReactNode;
+    isForm?: boolean;
     onSwipeRight?: () => void;
     onSwipeLeft?: () => void;
 }
 
-const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark, removePadding, customHeader, className, onSwipeRight, onSwipeLeft }: Props) => {
+const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark, removePadding, customHeader, className, onSwipeRight, onSwipeLeft, isForm }: Props) => {
 
     const handlers = useSwipeable({
         onSwipedRight: () => {
@@ -76,6 +77,7 @@ const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark
         return classNames
     }
 
+    // render
 
     return (
         <Backdrop onClick={onClose}>
@@ -101,7 +103,12 @@ const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark
                     />
                 </div>
             }
-            {children}
+            {
+                isForm ?
+                <form onSubmit={(e) => e.preventDefault()}>
+                    {children}
+                </form> : children
+            }
             </motion.dialog>
         </Backdrop>
     );

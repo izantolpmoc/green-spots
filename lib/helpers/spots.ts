@@ -71,7 +71,7 @@ export const getSpots = async (query?: string, tags?: string[]) => {
             },
             likedBy: true
         }
-    }) as SpotWithAttributes[]
+    }) as SpotWithAttributes[];
 }
 
 
