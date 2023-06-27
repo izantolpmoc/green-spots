@@ -23,14 +23,14 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
 
     // only allow GET requests
 
-    if (req.method !== 'GET') {
+    if (req.method !== 'POST') {
         res.status(405).json({message: 'Method not allowed'})
         return
     }
 
     // validate the query parameters
 
-    const searchQuery = schemas.safeParse(req.query)
+    const searchQuery = schemas.safeParse(req.body)
 
     if (!searchQuery.success) {
         res.status(400).json({message: 'Invalid query parameters', errors: searchQuery.error})

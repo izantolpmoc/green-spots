@@ -6,10 +6,11 @@ import SectionTitle from "@components/section-title"
 import { faSliders } from "@fortawesome/free-solid-svg-icons"
 import { Context } from "@lib/context"
 import prisma from "@lib/prisma"
+import { Spot } from "@lib/types"
 
 import styles from "@styles/pages/search.module.scss"
 import { GetServerSideProps } from "next"
-import { useContext, useEffect, useState } from "react"
+import { use, useContext, useEffect, useState } from "react"
 
 interface Props {
     tags: string[];
@@ -27,7 +28,13 @@ const Search = (
         setTags(tags)
     }, [])
 
-    const { searchQuery, setSearchQuery } = useContext(Context)
+    const { 
+        userLocation,
+        searchQuery, 
+        setSearchQuery,
+        selectedTags,
+        maxDistance
+    } = useContext(Context)
 
     // manage search filters modal
 
@@ -36,8 +43,43 @@ const Search = (
     // trigger refresh of the search results when the search query changes
 
     const [refreshTrigger, setRefreshTrigger] = useState(false)
-
     const refresh = () => setRefreshTrigger(!refreshTrigger)
+
+    // get the search results, initially & when a refresh is triggered
+
+    const [searchResults, setSearchResults] = useState<Spot[]>([])
+
+    const buildSearchParams = () => {
+        let searchParamsObj: any = {}
+        if(userLocation) {
+            searchParamsObj = {
+                maxDistance,
+                latitude: userLocation.coords.latitude,
+                longitude: userLocation.coords.longitude
+            }
+        }
+        if(searchQuery) searchParamsObj["query"] = searchQuery
+        if(selectedTags.length > 0) searchParamsObj["tags"] = selectedTags
+        return searchParamsObj
+    }
+
+    const getSearchResults = async () => {
+        return await fetch("/api/spots", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(buildSearchParams())
+        }).then(res => res.json()) as Spot[]
+    }
+
+    useEffect(() => {
+        getSearchResults().then(results => setSearchResults(results))
+    }, [refreshTrigger, userLocation])
+
+    useEffect(() => {
+        console.log(searchResults)
+    }, [searchResults])
 
     // render
 
