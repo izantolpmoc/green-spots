@@ -69,7 +69,7 @@ export const getSpots = async (query?: string, tags?: string[]) => {
             reviews: true,
             likedBy: true
         }
-    }) as SpotWithAttributes[]
+    }) as SpotWithAttributes[];
 }
 
 
