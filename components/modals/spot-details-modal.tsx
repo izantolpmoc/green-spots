@@ -62,6 +62,10 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
 
     }, [spot]);
 
+    useEffect(() => {
+        setSpot(spots[currentSpotPosition])
+    }, [currentSpotPosition])
+
 
     // utils 
 
