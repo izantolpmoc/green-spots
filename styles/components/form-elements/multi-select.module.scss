@@ -1,0 +1,25 @@
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+
+.placeholder {
+
+    @include text-sm-medium;
+    color: $black-400;
+}
+
+
+.control {
+
+    border: 1px solid $black-100 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    padding: 8px !important;
+}
+
+.noOptionsMessage {
+
+    @include text-sm-medium;
+    color: $black-400;
+}

@@ -15,6 +15,12 @@
 
     gap: 16px;
 
+    form {
+        @include flex-container(column, nowrap, flex-start, stretch);
+        width: 100%;
+        gap: 16px;
+    }
+
     &.large {
         width: clamp(50%, 800px, 100%);
     }
