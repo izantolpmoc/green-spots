@@ -24,6 +24,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 	const [searchQuery, setSearchQuery] = useState<string>("")
 	const [maxDistance, setMaxDistance] = useState<number>(10)
 	const [tags, setTags] = useState<string[]>([])
+	const [selectedTags, setSelectedTags] = useState<string[]>([])
 
 	const contextValue = useMemo(() => ({
 		userLocation,
@@ -32,8 +33,10 @@ const App = ({ Component, pageProps }: AppProps) => {
 		maxDistance,
 		setMaxDistance,
 		tags,
-		setTags
-	}), [userLocation, searchQuery, maxDistance, tags])
+		setTags,
+		selectedTags,
+		setSelectedTags
+	}), [userLocation, searchQuery, maxDistance, tags, selectedTags])
 
 	useEffect(() => {
 		if(error) {
