@@ -10,5 +10,7 @@
 }
 
 .container {
-    @include flex-container(column, nowrap, center, center);
+    @include flex-container(grid, nowrap, center, center);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
 }

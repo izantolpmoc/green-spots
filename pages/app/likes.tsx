@@ -61,42 +61,41 @@ const Likes = (
                         </div>
                 </> :
                 <>
-                    
+                    <div className={styles.container}>
                     {
                         deviceType !== "mobile" ?
                         <>
-                          <div className={styles.container}>
-                                {data.map((item, i) => {
-                                    return (
+                            {data.map((item, i) => {
+                                return (
+                                    <>
                                         <SpotCard
                                             key={i}
                                             displayMode='card'
                                             spot={item}
                                             onClick={() => openModal(i)}
                                         />
-                                    );
-                                })}
-                            </div>
+                                    </>
+                                );
+                            })}
                         </>
                         : 
 
                         <>
-                            <div className={styles.container}>
-                                {data.map((item, i) => {
+                            {data.map((item, i) => {
 
-                                    console.log(item)
-                                    return (
-                                        <SpotCard
-                                            key={i}
-                                            displayMode='list'
-                                            spot={item}
-                                            onClick={() => openModal(i)}
-                                        />
-                                    );
-                                })}
-                            </div>
+                                console.log(item)
+                                return (
+                                    <SpotCard
+                                        key={i}
+                                        displayMode='list'
+                                        spot={item}
+                                        onClick={() => openModal(i)}
+                                    />
+                                );
+                            })}
                         </>
                     }
+                    </div>
 
                     <SpotDetailsModal
                         showModal={showModal}
