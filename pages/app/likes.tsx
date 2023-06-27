@@ -17,31 +17,28 @@ import { Spot } from '@lib/types'
 import prisma from "@lib/prisma";
 
 interface Props {
-	likedSpots: SuperJSONResult | null,
+	likedSpotsJSON: SuperJSONResult | null,
 }
 
 const Likes = (
-    { likedSpots }: Props
+    { likedSpotsJSON }: Props
 ) => {
 
-    const { data: session, status } = useSession()
-    const deviceType = useDeviceType();
-    const [showModal, setShowModal] = useState(false);
-    const [currentSpotPosition, setCurrentSpotPosition] = useState(0);
+    const { status } = useSession()
+    const deviceType = useDeviceType()
+    const [showModal, setShowModal] = useState(false)
+    const [currentSpotPosition, setCurrentSpotPosition] = useState(0)
     
-    const [data] = useState(likedSpots ? deserialize(likedSpots) : []);
+    const [likedSpots] = useState<Spot[]>(likedSpotsJSON ? deserialize(likedSpotsJSON) : [])
 
     const getCurrentSpotPosition = (id: number) => {
-        const spots = data as unknown as Spot[];
-
-        const currentSpotIdx = spots?.findIndex(spot => spot.id == spots[id].id);
-
-        return setCurrentSpotPosition(currentSpotIdx);
+        const currentSpotIdx = likedSpots.findIndex(spot => spot.id == likedSpots[id].id)
+        return setCurrentSpotPosition(currentSpotIdx)
 	}
 
     const openModal = (id: number) => {
-        getCurrentSpotPosition(id);
-        setShowModal(true);
+        getCurrentSpotPosition(id)
+        setShowModal(true)
     }
     
     // render
@@ -52,20 +49,19 @@ const Likes = (
                 <SectionTitle>J&apos;aimes</SectionTitle>
                 <p>Les spots qui vous ont tapé dans l&apos;œil</p>
             </SectionHeader>
-            
-
-            {   status !== "authenticated" ?
+            {   
+                status !== "authenticated" ?
                 <>
-                        <div className={styles.authenticated}>
-                            <NotConnected />
-                        </div>
+                    <div className={styles.unauthenticated}>
+                        <NotConnected />
+                    </div>
                 </> :
                 <>
                     <div className={styles.container}>
                     {
                         deviceType !== "mobile" ?
                         <>
-                            {data.map((item, i) => {
+                            {likedSpots.map((item, i) => {
                                 return (
                                     <>
                                         <SpotCard
@@ -79,9 +75,8 @@ const Likes = (
                             })}
                         </>
                         : 
-
                         <>
-                            {data.map((item, i) => {
+                            {likedSpots.map((item, i) => {
 
                                 console.log(item)
                                 return (
@@ -97,13 +92,17 @@ const Likes = (
                     }
                     </div>
 
-                    <SpotDetailsModal
-                        showModal={showModal}
-                        setShowModal={setShowModal}
-                        spots={data}
-                        currentSpotPosition={currentSpotPosition}
-                        setCurrentSpotPosition={setCurrentSpotPosition}
-                    />
+                    {
+                        likedSpots?.length > 0 ?
+                        <SpotDetailsModal
+                            showModal={showModal}
+                            setShowModal={setShowModal}
+                            spots={likedSpots}
+                            currentSpotPosition={currentSpotPosition}
+                            setCurrentSpotPosition={setCurrentSpotPosition}
+                        />
+                        : <></>
+                    }
 
                 </>
             }   
@@ -114,19 +113,21 @@ const Likes = (
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
 
+    // getthe session to access the user's email
+
     const session = await getServerSession(context.req, context.res, authOptions)
 
-    if(!session) return {
-        props: {
-            likedSpots: null
-        }
-    }
+    if(!session) return { props: { likedSpotsJSON: null } }
 
     let email = session.user.email;
+
+    // get the user's liked spots from the database using prisma
 
     const rawData = await getUser(email)
 
     const likedSpots: any[] = []
+
+    // for each spot in the list, retrieve also its tags and reviews
 
     for(const likedSpot of rawData.likedSpots) {
 
@@ -140,6 +141,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             }
         }))
     }
+
+    // serialize the liked spots to send them to the client
       
     const likedSpotsJSON = serialize(likedSpots)
     
@@ -147,7 +150,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     return {
         props : {
-            likedSpots: likedSpotsJSON
+            likedSpotsJSON
         }
     }
 }
