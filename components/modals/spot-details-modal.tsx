@@ -41,26 +41,26 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
     useEffect(() => {
         // This will only run on the client side, where window is available
 
-        if (typeof window !== 'undefined') {
-            const url = new URL(window.location.href);
-            const params = new URLSearchParams(url.search);
-            
-            // Only add 'open' and 'id' if they don't already exist in the URL
+        if (typeof window === 'undefined' || !spot) return
 
-            if (!params.has('open')) params.append('open', 'true');
-            if (!params.has('id')) params.append('id', spot.id);
+        const url = new URL(window.location.href);
+        const params = new URLSearchParams(url.search);
+        
+        // Only add 'open' and 'id' if they don't already exist in the URL
 
-            // Use the updated params in the url
+        if (!params.has('open')) params.append('open', 'true');
+        if (!params.has('id')) params.append('id', spot.id);
 
-            url.search = params.toString();
-            
-            setShareableUrl(url.toString());
-        }
+        // Use the updated params in the url
+
+        url.search = params.toString();
+        
+        setShareableUrl(url.toString());
 
         if(spot.likedBy?.find(user => user.id === currentUser?.id))
             setIsLiked(true);
 
-    }, [spot]);
+    }, [spot])
 
     useEffect(() => {
         setSpot(spots[currentSpotPosition])
@@ -69,49 +69,56 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
 
     // utils 
 
-    const tags = spot.tags.map((tag, key) => <li className={styles.tag} key={key}>{tag.name}</li>);
-    const averageRating = spot.reviews.reduce((acc, review) => acc + review.rating, 0) / spot.reviews.length ?? 0;
+    const averageRating = spot ? spot.reviews.reduce((acc, review) => acc + review.rating, 0) / spot.reviews.length : 0
+    
+    // handle favorites
+
     const toggleFavorites = async () => {
         if(!currentUser)
             return setDisplayAddToFavoritesErrorToast(true);
 
         try {
-            await fetch(`/api/spots/like/` + spot.id, {
-                method: 'PUT'
-            })
+            await fetch(`/api/spots/like/` + spot.id, { method: 'PUT'})
         }
-        catch {
-            console.log("Error adding to favorites")
-        }
+        catch { console.log("Error adding to favorites") }
 
         setIsLiked(!isLiked)
     }
+
+    // handle swipe
+
     const onSwipeLeft = () => {
         if (currentSpotPosition < spots.length - 1) {
             setCurrentSpotPosition(currentSpotPosition + 1);
             setSpot(spots[currentSpotPosition + 1]);
         }
-    };
+    }
+
     const onSwipeRight = () => {
         if (currentSpotPosition > 0) {
             setCurrentSpotPosition(currentSpotPosition - 1);
             setSpot(spots[currentSpotPosition - 1]);
         }
-    };
-    const swipeButtons = [];
-    for (let i = 0; i < spots.length; i++) {
-    const getSwipeButtonClassNames = () => {
+    }
+
+    const getSwipeButtonClassNames = (idx: number) => {
         let classNames = styles.swipeButton
-        classNames += ' ' + (currentSpotPosition === i ? styles['isActive'] : '')
+        classNames += ' ' + (currentSpotPosition === idx ? styles['isActive'] : '')
         return classNames
     }
-        swipeButtons.push(
-            <Button 
-                onClick={() => {setCurrentSpotPosition(i); setSpot(spots[i]); }} 
-                className={getSwipeButtonClassNames()}
-            />
-        );
-    }
+
+    const swipeButtons = spots.map((spot, key) => (
+        <Button 
+            key={key}
+            onClick={() => {
+                setCurrentSpotPosition(key)
+                setSpot(spot)
+            }} 
+            className={getSwipeButtonClassNames(key)}
+        />
+    ))
+        
+
 
 
     // render 
@@ -220,7 +227,11 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
                             }
                         
                             <ul>
-                                {tags}
+                            {
+                                spot ?
+                                spot.tags.map((tag, key) => <li className={styles.tag} key={key}>{tag.name}</li>)
+                                : <></>
+                            }
                             </ul>
 
                             <StarRating average={averageRating}/>
