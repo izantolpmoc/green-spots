@@ -112,6 +112,7 @@ const SearchFiltersModal = (
                             onClick={e => {
                                 e.preventDefault()
                                 onSubmit()
+                                onClose()
                             }}>
                             Appliquer
                         </Button>
