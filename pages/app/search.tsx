@@ -5,12 +5,27 @@ import SearchFiltersModal from "@components/modals/search-filters-modal"
 import SectionTitle from "@components/section-title"
 import { faSliders } from "@fortawesome/free-solid-svg-icons"
 import { Context } from "@lib/context"
+import prisma from "@lib/prisma"
 
 import styles from "@styles/pages/search.module.scss"
-import { useContext, useState } from "react"
+import { GetServerSideProps } from "next"
+import { useContext, useEffect, useState } from "react"
 
+interface Props {
+    tags: string[];
+}
 
-const Search = () => {
+const Search = (
+    { tags }: Props
+) => {
+
+    // update the tags in the context
+
+    const { setTags } = useContext(Context)
+
+    useEffect(() => {
+        setTags(tags)
+    }, [])
 
     const { searchQuery, setSearchQuery } = useContext(Context)
 
@@ -44,6 +59,28 @@ const Search = () => {
             />
         </>
     )
+}
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    
+
+    // get all tags from the database using prisma
+
+    const tags = (await prisma.tag.findMany({
+        select: {
+            name: true
+        }
+    })).map(tag => tag.name)
+
+    // return the retrived tags
+
+    return {
+        props: {
+            tags
+        }
+    }
+    
 }
 
 export default Search
