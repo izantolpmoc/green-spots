@@ -9,13 +9,13 @@
 .container {
 	@include flex-container(column, nowrap, center, center);
 	gap: 32px;
-	height: fit-content;
+	flex: 1;
 }
 
 .modal {
 
 	@media (max-width: 600px) {	
-		height: 80vh;
+		height: clamp(400px, 80vh, 600px);
 		bottom: 0;	
 	}
 		

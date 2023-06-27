@@ -32,7 +32,10 @@
 
         .mainHeader {
             width: 100%;
-            padding-left: 16px;
+            padding: 0 16px;
+
+            @include flex-container(column, nowrap, center, center);
+            gap: 8px;
 
             .title {
 
@@ -107,6 +110,8 @@
 
         .mainHeader {
             width: 100%;
+            @include flex-container(column, nowrap, center, center);
+            gap: 8px;
 
             .title {
 

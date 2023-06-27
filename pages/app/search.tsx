@@ -33,6 +33,14 @@ const Search = (
 
     const [showSearchFiltersModal, setShowSearchFiltersModal] = useState(false)
 
+    // trigger refresh of the search results when the search query changes
+
+    const [refreshTrigger, setRefreshTrigger] = useState(false)
+
+    const refresh = () => setRefreshTrigger(!refreshTrigger)
+
+    // render
+
     return (
         <>
             <main id={styles.main}>
@@ -55,7 +63,7 @@ const Search = (
             <SearchFiltersModal
                 showModal={showSearchFiltersModal}
                 onClose={() => setShowSearchFiltersModal(false)}
-                onSubmit={() => console.log("submit")}
+                onSubmit={refresh}
             />
         </>
     )
