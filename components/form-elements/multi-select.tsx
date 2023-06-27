@@ -20,6 +20,9 @@ const customClassNames: ClassNamesConfig = {
     container: () => styles.container,
     control: () => styles.control,
     noOptionsMessage: () => styles.noOptionsMessage,
+    multiValue: () => styles.multiValue,
+    multiValueLabel: () => styles.multiValueLabel,
+    option: (state) =>  styles.option + (state.isFocused ? ' ' + styles.optionFocused : '')
 }
 
 const MultiSelect = (

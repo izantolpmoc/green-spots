@@ -37,7 +37,8 @@ const SearchFiltersModal = (
         maxDistance,
         setMaxDistance,
         tags,
-        setTags,
+        selectedTags,
+        setSelectedTags
     } = useContext(Context)
 
     // render
@@ -89,9 +90,9 @@ const SearchFiltersModal = (
                     <FilterLabel>Spécificités</FilterLabel>
                     <MultiSelect
                         name="tags"
-                        value={tags}
-                        onChange={setTags}
-                        options={[]}
+                        value={selectedTags}
+                        onChange={setSelectedTags}
+                        options={tags}
                         placeholder="Rechercher une spécificité..."
                         noOptionsMessage="Aucune spécificité trouvée"
                     />
@@ -101,7 +102,7 @@ const SearchFiltersModal = (
                             fullWidth
                             onClick={() => {
                                 setMaxDistance(10)
-                                setTags([])
+                                setSelectedTags([])
                             }}>
                             Tout Effacer
                         </Button>

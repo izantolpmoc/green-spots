@@ -12,6 +12,8 @@ export interface SearchParamsContext {
     setMaxDistance: (maxDistance: number) => void
     tags: string[]
     setTags: (tags: string[]) => void
+    selectedTags: string[]
+    setSelectedTags: (tags: string[]) => void
 }
 
 export interface AppContext extends SearchParamsContext {
@@ -25,7 +27,9 @@ export const initContext: AppContext = {
     maxDistance: 10,
     setMaxDistance: () => {},
     tags: [],
-    setTags: () => {}
+    setTags: () => {},
+    selectedTags: [],
+    setSelectedTags: () => {}
 }
 
 export const Context = React.createContext(initContext)

@@ -23,3 +23,31 @@
     @include text-sm-medium;
     color: $black-400;
 }
+
+.multiValue {
+
+    
+    background: $secondary-100 !important;
+    color: $secondary;
+    border-radius: 4px !important;
+    padding: 4px 8px;
+}
+
+.multiValueLabel {
+    @include text-sm-medium;
+    font-size: $text-sm-font-size !important;
+    color: $secondary !important;
+}
+
+
+.option {
+
+    @include text-md-medium;
+    font-size: $text-sm-font-size !important;
+}
+
+.optionFocused {
+    
+        background: $secondary-100 !important;
+        color: $secondary !important;
+}
