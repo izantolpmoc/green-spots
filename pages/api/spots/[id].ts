@@ -43,6 +43,16 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
     const spot = await prisma.spot.findUnique({
         where: {
             id: req.query.id as string
+        },
+        include: {
+            tags: true,
+            reviews: {
+                include: {
+                    user: true
+                    }
+                },
+            likedBy: true,
+            openingHours: true
         }
     });
     res.status(200).json({ spot })

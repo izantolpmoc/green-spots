@@ -16,6 +16,12 @@
 
     gap: 16px;
 
+    .modalContent {
+        @include flex-container(column, nowrap, flex-start, stretch);
+        height: 100%;
+        width: 100%
+    }
+
     form {
         @include flex-container(column, nowrap, flex-start, stretch);
         width: 100%;

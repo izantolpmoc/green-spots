@@ -40,7 +40,6 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
     const [displayDetailsView, setDisplayDetailsView] = useState(false);
     const [distance, setDistance] = useState('0');
     const [shareableUrl, setShareableUrl] = useState('');
-    const [isLiked, setIsLiked] = useState(false);
     const [displayAddToFavoritesErrorToast, setDisplayAddToFavoritesErrorToast] = useState(false);
     const [spot, setSpot] = useState(spots[currentSpotPosition]);
     const [openReviews, setOpenReviews] = useState(false);
@@ -66,12 +65,15 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
         
         setShareableUrl(url.toString());
 
-        // check whether user appears in spot's likedBy list
-        setIsLiked(!!spot.likedBy?.find(user => user.id === currentUser?.id));
-
         getDistanceToSpot();
 
     }, [spot, userLocation])
+
+    // helpers
+
+    // check whether user appears in spot's likedBy list
+
+    const isLiked = () => !!spot.likedBy?.find(user => user.id === currentUser?.id)
 
     useEffect(() => {
         setSpot(spots[currentSpotPosition])
@@ -104,8 +106,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
         }
         catch { console.log("Error adding to favorites") }
 
-        setIsLiked(!isLiked)
-        await reloadSpots()
+        await reloadCurrentSpot()
     }
 
     // handle swipe
@@ -132,7 +133,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
 
     const swipeButtons = spots.map((spot, key) => (
         <Button 
-            key={key}
+            key={`${key}_${spot.id}`}
             onClick={() => {
                 setCurrentSpotPosition(key)
                 setSpot(spot)
@@ -141,8 +142,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
         />
     ))
 
-    const reloadSpots = async () => {
-        // TODO fix reload method error => spot becomes undefined when go to other spot and come back
+    const reloadCurrentSpot = async () => {
         try {
             const response = await fetch(`/api/spots/${spot.id}`, {
                 method: 'GET',
@@ -150,11 +150,11 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
             updateSpot(currentSpotPosition, response.spot);
 
         } catch (error) {
-            console.error(error)
+            console.log(error)
         }
     }
 
-    const sideElement = 
+    const sideElement = spot ?
                         <div className={styles.desktopReviews}>
                             <div className={styles.sideHeader}>
                                 <div className={styles.buttonContainer}>
@@ -172,10 +172,10 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                     className={styles.reviewsContent}
                                     reviews={spot.reviews} 
                                     spotId={spot.id} 
-                                    onReload={() => reloadSpots()} 
+                                    onReload={reloadCurrentSpot} 
                                     onDisplayModerationToast={setDisplayModerationToast} 
                                 />
-                        </div>;
+                        </div> : <></>
 
     // render 
 
@@ -215,7 +215,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                 {!displayDetailsView && <div className={styles.actionIcons}>
                                     <Button
                                         onClick={() => toggleFavorites()}
-                                        icon={isLiked ? filledHeart : faHeart}
+                                        icon={isLiked() ? filledHeart : faHeart}
                                         action="big"
                                         role="secondary"
                                         dark
@@ -296,7 +296,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                             <ul>
                             {
                                 spot ?
-                                spot.tags.map((tag, key) => <li className={styles.tag} key={key}>{tag.name}</li>)
+                                spot.tags.map((tag, key) => <li className={styles.tag} key={`${key}_${tag.name}`}>{tag.name}</li>)
                                 : <></>
                             }
                             </ul>
@@ -311,7 +311,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                             {displayDetailsView && <div className={styles.actionIcons}>
                                     <Button
                                         onClick={() => toggleFavorites()}
-                                        icon={isLiked ? filledHeart : faHeart}
+                                        icon={isLiked() ? filledHeart : faHeart}
                                         action="big"
                                         role="secondary"
                                         className={styles.lighterBg}
@@ -365,7 +365,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
 				onHide={() => setDisplayModerationToast(false)}>
 				Certains termes utilisés ne peuvent être acceptés.
 			</Toast>
-            <ReviewsModal showModal={openReviews} onClose={() => setOpenReviews(false)} onReload={() => reloadSpots()} spotId={spot.id} reviews={spot.reviews}></ReviewsModal>
+            <ReviewsModal showModal={openReviews} onClose={() => setOpenReviews(false)} onReload={reloadCurrentSpot} spotId={spot.id} reviews={spot.reviews}></ReviewsModal>
         </AnimatePresence>
     ) : <></>
 }
