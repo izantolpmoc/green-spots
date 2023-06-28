@@ -85,7 +85,7 @@
 .form {
     position: sticky;
     bottom: 0;
-    padding: 16px 0 32px;
+    padding: 16px 0 0;
     z-index: 2;
     background-color: $black;
     @include flex-container(column, nowrap);
@@ -98,6 +98,7 @@
     .textInput {
         color: $white;
         width: 100%;
+        background-color: $bg-black;
 
         &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
             color: $white-600;

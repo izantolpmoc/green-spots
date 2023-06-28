@@ -33,7 +33,7 @@ const StarRatingInput = ({onChange}: Props) => {
                     />
                     {Array.from({ length: index + 1 }, (_, subIndex) => (
                         <span className={styles.icon} key={subIndex}>
-                            <FontAwesomeIcon icon={subIndex < index + 1 ? faStar : emptyStar}/>
+                            <FontAwesomeIcon icon={subIndex < selectedStar ? faStar : emptyStar}/>
                         </span>
                     ))}
                 </label>

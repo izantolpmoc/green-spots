@@ -7,9 +7,9 @@
 .rating {
     display: inline-block;
     position: relative;
-    height: 30px;
-    line-height: 30px;
-    font-size: 30px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 25px;
 
     label {
     position: absolute;
@@ -56,7 +56,7 @@
     
     &:last-child {
         .icon {
-        color: $bg-black;
+        color: $gold-400;
         }
     }
 
