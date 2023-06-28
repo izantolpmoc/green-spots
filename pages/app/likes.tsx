@@ -18,6 +18,7 @@ import PlaceHolder from "@components/placeholder";
 import Button from "@components/button";
 import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import LoginModal from "@components/modals/login-modal";
+import DynamicSpotsGrid from "@components/layout/dynamic-spots-grid";
 
 interface Props {
 	likedSpotsJSON: SuperJSONResult | null,
@@ -86,55 +87,7 @@ const Likes = (
 
                 {  
                     status === "authenticated" && likedSpots.length > 0 ?
-                    <>
-                        <div className={styles.container}>
-                        {
-                            deviceType !== "mobile" ?
-                            <>
-                                {likedSpots.map((item, i) => {
-                                    return (
-                                        <>
-                                            <SpotCard
-                                                key={i}
-                                                displayMode='card'
-                                                spot={item}
-                                                onClick={() => openModal(i)}
-                                            />
-                                        </>
-                                    );
-                                })}
-                            </>
-                            : 
-                            <>
-                                {likedSpots.map((item, i) => {
-
-                                    console.log(item)
-                                    return (
-                                        <SpotCard
-                                            key={i}
-                                            displayMode='list'
-                                            spot={item}
-                                            onClick={() => openModal(i)}
-                                        />
-                                    );
-                                })}
-                            </>
-                        }
-                        </div>
-
-                        {
-                            likedSpots?.length > 0 ?
-                            <SpotDetailsModal
-                                showModal={showModal}
-                                setShowModal={setShowModal}
-                                spots={likedSpots}
-                                currentSpotPosition={currentSpotPosition}
-                                setCurrentSpotPosition={setCurrentSpotPosition}
-                            />
-                            : <></>
-                        }
-
-                    </>
+                    <DynamicSpotsGrid spots={likedSpots} displayListOnMobile />
                     : <></>
                 }   
                 

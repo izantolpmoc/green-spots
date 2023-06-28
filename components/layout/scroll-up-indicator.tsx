@@ -36,7 +36,7 @@ const ScrollUpIndicator = (
     // render
 
     return (
-        <motion.div
+        <motion.button
             onClick={onClick} 
             variants={dropIn}
             initial="hidden"
@@ -44,7 +44,7 @@ const ScrollUpIndicator = (
             exit="exit"
             className={styles.scrollDownIndicator}>
             <FontAwesomeIcon icon={faArrowUp} />
-        </motion.div>
+        </motion.button>
     )
 
 }
