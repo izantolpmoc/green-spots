@@ -9,6 +9,29 @@
     width: 400px;
     position: sticky;
     top: 0;
+
+    .sideHeader .buttonContainer {
+        @include flex-container(row, nowrap, flex-end);
+        .closeBtn {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            margin: 16px;
+        }
+    }
+}
+
+.reviewsContent {
+    overflow-x: scroll;
+    // max height of modal - height of header
+    max-height: calc(80vh - 120px);
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .sideElementContent {

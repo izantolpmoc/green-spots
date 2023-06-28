@@ -12,13 +12,15 @@ interface ReviewsContentProps {
     spotId: string;
     onReload: () => void;
     onDisplayModerationToast: (value: boolean) => void;
+    className?: string;
 }
 
 const ReviewsContent = ({
     reviews,
     spotId,
     onReload,
-    onDisplayModerationToast
+    onDisplayModerationToast,
+    className
 }: ReviewsContentProps) => {
 
 const [review, setReview] = useState("");
@@ -31,6 +33,11 @@ useEffect(() => {
     // hide form if user has already commented
     setDisplayReviewForm(!reviews.find(r => r.user.id === currentUser?.id));
 }, [reviews]);
+
+const getContentClassNames = () => {
+    let classNames = className ? className : '';
+    return classNames
+}
 
 const cards = reviews.map(review => {
     const user = review.user;
@@ -79,27 +86,27 @@ const validateForm = async () => {
 
     // add review
     try {
-    const response = await fetch('/api/reviews/create', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-        rating,
-        comment: review,
-        spotId
-        })
-    }).then(res => res.json());
+        const response = await fetch('/api/reviews/create', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+            rating,
+            comment: review,
+            spotId
+            })
+        }).then(res => res.json());
 
-    // trigger spot reload
-    onReload();
-    console.log(response)
+        // trigger spot reload
+        onReload();
+        console.log(response)
 
     } catch (error) {
-    console.error(error);
+        console.error(error);
     }
 }
 
 return (
-    <div>
+    <div className={getContentClassNames()}>
         <section className={styles.section}>
             {cards.length > 0 
             ?

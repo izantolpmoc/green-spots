@@ -141,23 +141,26 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
 
     const sideElement = 
                         <div className={styles.desktopReviews}>
-                            <div className={styles.header}>
-                            <div className={styles.buttonContainer}>
-                                <Button 
-                                    onClick={() => toggleSideElement()}
-                                    icon={faXmark}
-                                    dark
-                                    role="secondary"
-                                    className={styles.closeBtn}
+                            <div className={styles.sideHeader}>
+                                <div className={styles.buttonContainer}>
+                                    <Button 
+                                        onClick={() => {setShowModal(false); setDisplayDetailsView(false)}}
+                                        icon={faXmark}
+                                        dark
+                                        role="secondary"
+                                        className={styles.closeBtn}
+                                    />
+                                </div>
+                                <SectionTitle dark>Avis</SectionTitle>
+                            </div>
+                                <ReviewsContent 
+                                    className={styles.reviewsContent}
+                                    reviews={spot.reviews} 
+                                    spotId={spot.id} 
+                                    onReload={() => reloadSpots()} 
+                                    onDisplayModerationToast={setDisplayModerationToast} 
                                 />
-                            </div>
-                            <SectionTitle dark>Avis</SectionTitle>
-                            </div>
-                                <ReviewsContent reviews={spot.reviews} spotId={spot.id} onReload={() => reloadSpots()} onDisplayModerationToast={setDisplayModerationToast} />
-                        </div>
-
-    // toggle side element
-    const toggleSideElement = () => setOpenDesktopReviews(!openDesktopReviews);
+                        </div>;
 
     // render 
 
@@ -168,18 +171,29 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
             onExitComplete={() => null}
         >
             {showModal && 
-                <Modal key="modal" onSwipeRight={onSwipeRight} onSwipeLeft={onSwipeLeft} onClose={() => { setShowModal(false); setDisplayDetailsView(false) }} removePadding className={styles.modal} sideElementClassName={styles.sideElementContent} customHeader={
+                <Modal 
+                key="modal" 
+                onSwipeRight={onSwipeRight} 
+                onSwipeLeft={onSwipeLeft} 
+                onClose={() => { setShowModal(false); setDisplayDetailsView(false) }} 
+                removePadding 
+                className={styles.modal} 
+                sideElementClassName={styles.sideElementContent}
+                sideElement={openDesktopReviews ? sideElement : null} 
+                customHeader={
                     <div className={styles.header} style={{
                         background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%), url(${spot.image}) no-repeat center center / cover lightgray`,
                         }}>
-                            <Button
-                                onClick={() => { setShowModal(false); setDisplayDetailsView(false) }}
-                                icon={isMobile ? faArrowLeft : faXmark}
-                                action="big"
-                                role="secondary"
-                                className={styles.closeBtn}
-                                dark
-                            />
+                            { !openDesktopReviews && 
+                                <Button
+                                    onClick={() => { setShowModal(false); setDisplayDetailsView(false) }}
+                                    icon={isMobile ? faArrowLeft : faXmark}
+                                    action="big"
+                                    role="secondary"
+                                    className={styles.closeBtn}
+                                    dark
+                                />
+                            }   
                             
                             <div className={styles.headerContent}>
                                 
@@ -192,7 +206,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                         dark
                                     />
                                     <Button
-                                        onClick={() => isMobile ? setOpenReviews(true) : setOpenDesktopReviews(true)}
+                                        onClick={() => isMobile ? setOpenReviews(true) : setOpenDesktopReviews(!openDesktopReviews)}
                                         icon={faComments}
                                         action="big"
                                         role="secondary"
@@ -248,8 +262,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                 </div>
                             }
                     </div>
-                } 
-                sideElement={openDesktopReviews ? sideElement : null}>
+                }>
                     {(!isMobile || displayDetailsView) && 
                         <div className={styles.detailsView}>
 
