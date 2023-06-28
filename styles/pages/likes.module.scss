@@ -4,6 +4,11 @@
 @import "@styles/abstracts/_colors.module.scss";
 @import "@styles/abstracts/_variables.module.scss";
 
+
+#main {
+    overflow: scroll;
+}
+
 .container {
     @include flex-container(column, nowrap, center, center);
 }
