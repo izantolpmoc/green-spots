@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import styles from "@styles/components/spot-card.module.scss"
 import StarRating from "./star-rating";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spot } from "@lib/types";
+import { Context } from "@lib/context";
+import { getDistanceFromLatLonInKm } from "@lib/helpers/spot-distance";
 
 interface Props {
     displayMode?: "list" | "card"
@@ -21,11 +23,23 @@ const SpotCard = ({
     fullWidth
 }: Props) => {
 
+    // state
+
+    const { userLocation } = useContext(Context)
+
+
     // utils
 
-    const getSpotRating = () => 4 // TODO
+    const getSpotRating = () => spot ? spot.reviews.reduce((acc, review) => acc + review.rating, 0) / spot.reviews.length : 0
 
-    const getSpotDistance = () => 2.3 // TODO
+    const getSpotDistance = () => {
+        if (!userLocation) return
+        const { latitude, longitude } = userLocation.coords
+
+        // calculate distance from user to spot
+        const distance = getDistanceFromLatLonInKm(latitude, longitude, spot.latitude, spot.longitude);
+        return Number(distance);
+    }
         
     const getClassNames = () => {
         let classNames = styles.container + ' ' + styles[displayMode]
