@@ -35,7 +35,6 @@ const Home = (
 
 	const [showModal, setShowModal] = useState(open);
 	const [currentSpotPosition, setCurrentSpotPosition] = useState(0);
-	const [currentNavigationPosition, setCurrentNavigationPosition] = useState(0);
 
 	const [data] = useState<Spot[]>(spots ? deserialize(spots) : []);
 
@@ -79,8 +78,6 @@ const Home = (
 	// Right scroll indicator
 
 	const sectionRef = useRef<HTMLElement>(null)
-
-	const [isScrolledToRight, setIsScrolledToRight] = useState(false);
 
 	const cardPositionRef = useRef(0);
 	
@@ -182,7 +179,6 @@ const Home = (
 
 	const [userAddress, setUserAddress] = useState<string>("")
 	
-
 	// update the user address when the user location changes
 
 	useEffect(() => {
@@ -256,7 +252,7 @@ const Home = (
 					<p><FontAwesomeIcon icon={faLocationDot}/> &nbsp; Près de { userAddress }</p>
 				</SectionHeader>
 				<CardHome />
-				
+
 				{data && <SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spots={data} currentSpotPosition={currentSpotPosition} setCurrentSpotPosition={setCurrentSpotPosition}></SpotDetailsModal>}
 
 				<SectionHeader>
