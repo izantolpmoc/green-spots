@@ -10,13 +10,18 @@
     position: sticky;
     top: 0;
 
-    .sideHeader .buttonContainer {
-        @include flex-container(row, nowrap, flex-end);
-        .closeBtn {
-            width: 60px;
-            height: 60px;
-            border-radius: 30px;
-            margin: 16px;
+    .sideHeader {
+        padding-bottom: 10px;
+        
+        .buttonContainer {
+            @include flex-container(row, nowrap, flex-end);
+
+            .closeBtn {
+                width: 60px;
+                height: 60px;
+                border-radius: 30px;
+                margin: 16px 16px 0 0;
+            }
         }
     }
 }

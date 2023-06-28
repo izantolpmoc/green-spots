@@ -31,7 +31,7 @@ const currentUser = useSession().data?.user as SessionUser | undefined;
 
 useEffect(() => {
     // hide form if user has already commented
-    setDisplayReviewForm(!reviews.find(r => r.user.id === currentUser?.id));
+    setDisplayReviewForm(!reviews.find(r => r.user.id === currentUser?.id) && !!currentUser);
 }, [reviews]);
 
 const getContentClassNames = () => {
