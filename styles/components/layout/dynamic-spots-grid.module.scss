@@ -18,7 +18,6 @@
     grid-auto-flow: row dense;
     grid-gap: 1rem;
 
-
     @media (min-width: $bp-md) {
 
         // make every card which index is divisible by 3 to span 2 columns
@@ -33,6 +32,13 @@
         // fix the overflow issue on large tablets
 
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    @media (max-width: $bp-md) {
+
+        // fix the display in mobile we need to pass it in a flex container not grid
+
+        @include flex-container(column, nowrap, flex-start, center);
     }
 
 
