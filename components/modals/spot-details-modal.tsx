@@ -7,36 +7,44 @@ import styles from "@styles/components/modals/spot-details-modal.module.scss"
 import useDeviceType from "../../hooks/use-device-type"
 import StarRating from "@components/star-rating"
 import { SessionUser, Spot } from "@lib/types"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { RWebShare } from "react-web-share"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSession } from "next-auth/react"
 import Toast from "@components/toast"
+import ReviewsModal from "./reviews-modal"
+import ReviewsContent from "@components/reviews-content"
+import SectionTitle from "@components/section-title"
+import { Context } from '@lib/context'
+import { getDistanceFromLatLonInKm } from "@lib/helpers/spot-distance"
 
 interface Props {
     showModal: boolean;
     setShowModal: (showModal: boolean) => void;
     spots: Spot[];
+    updateSpot: (index: number, spot: Spot) => void;
     currentSpotPosition: number;
     setCurrentSpotPosition: (currentSpotPosition: number) => void;
 }
 
-const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition, setCurrentSpotPosition}: Props) => {
+const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentSpotPosition, setCurrentSpotPosition}: Props) => {
     
     // state
 
     const deviceType = useDeviceType();
     const isMobile = deviceType === 'mobile';
     const currentUser = useSession().data?.user as SessionUser | undefined;
+    const { userLocation } = useContext(Context)
 
     // mobile details view
     const [displayDetailsView, setDisplayDetailsView] = useState(false);
-    const [distance, setDistance] = useState("2.7");
+    const [distance, setDistance] = useState('0');
     const [shareableUrl, setShareableUrl] = useState('');
-    const [isLiked, setIsLiked] = useState(false);
     const [displayAddToFavoritesErrorToast, setDisplayAddToFavoritesErrorToast] = useState(false);
     const [spot, setSpot] = useState(spots[currentSpotPosition]);
-
+    const [openReviews, setOpenReviews] = useState(false);
+    const [openDesktopReviews, setOpenDesktopReviews] = useState(false);
+    const [displayModerationToast, setDisplayModerationToast] = useState(false);
 
     useEffect(() => {
         // This will only run on the client side, where window is available
@@ -57,10 +65,15 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
         
         setShareableUrl(url.toString());
 
-        if(spot.likedBy?.find(user => user.id === currentUser?.id))
-            setIsLiked(true);
+        getDistanceToSpot();
 
-    }, [spot])
+    }, [spot, userLocation])
+
+    // helpers
+
+    // check whether user appears in spot's likedBy list
+
+    const isLiked = () => !!spot.likedBy?.find(user => user.id === currentUser?.id)
 
     useEffect(() => {
         setSpot(spots[currentSpotPosition])
@@ -71,6 +84,17 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
 
     const averageRating = spot ? spot.reviews.reduce((acc, review) => acc + review.rating, 0) / spot.reviews.length : 0
     
+    //handler user location
+
+    const getDistanceToSpot = () => {
+        if (!userLocation) return
+        const { latitude, longitude } = userLocation.coords
+
+        // calculate distance from user to spot
+        const distance = getDistanceFromLatLonInKm(latitude, longitude, spot.latitude, spot.longitude);
+        setDistance(distance)
+    }       
+
     // handle favorites
 
     const toggleFavorites = async () => {
@@ -82,7 +106,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
         }
         catch { console.log("Error adding to favorites") }
 
-        setIsLiked(!isLiked)
+        await reloadCurrentSpot()
     }
 
     // handle swipe
@@ -109,7 +133,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
 
     const swipeButtons = spots.map((spot, key) => (
         <Button 
-            key={key}
+            key={`${key}_${spot.id}`}
             onClick={() => {
                 setCurrentSpotPosition(key)
                 setSpot(spot)
@@ -117,9 +141,41 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
             className={getSwipeButtonClassNames(key)}
         />
     ))
-        
 
+    const reloadCurrentSpot = async () => {
+        try {
+            const response = await fetch(`/api/spots/${spot.id}`, {
+                method: 'GET',
+            }).then(res => res.json());
+            updateSpot(currentSpotPosition, response.spot);
 
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const sideElement = spot ?
+                        <div className={styles.desktopReviews}>
+                            <div className={styles.sideHeader}>
+                                <div className={styles.buttonContainer}>
+                                    <Button 
+                                        onClick={() => {setShowModal(false); setDisplayDetailsView(false)}}
+                                        icon={faXmark}
+                                        dark
+                                        role="secondary"
+                                        className={styles.closeBtn}
+                                    />
+                                </div>
+                                <SectionTitle dark>Avis</SectionTitle>
+                            </div>
+                                <ReviewsContent 
+                                    className={styles.reviewsContent}
+                                    reviews={spot.reviews} 
+                                    spotId={spot.id} 
+                                    onReload={reloadCurrentSpot} 
+                                    onDisplayModerationToast={setDisplayModerationToast} 
+                                />
+                        </div> : <></>
 
     // render 
 
@@ -130,31 +186,42 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
             onExitComplete={() => null}
         >
             {showModal && 
-                <Modal key="modal" onSwipeRight={onSwipeRight} onSwipeLeft={onSwipeLeft} onClose={() => { setShowModal(false); setDisplayDetailsView(false) }} removePadding className={styles.modal} customHeader={
+                <Modal 
+                key="modal" 
+                onSwipeRight={onSwipeRight} 
+                onSwipeLeft={onSwipeLeft} 
+                onClose={() => { setShowModal(false); setDisplayDetailsView(false) }} 
+                removePadding 
+                className={styles.modal} 
+                sideElementClassName={styles.sideElementContent}
+                sideElement={openDesktopReviews ? sideElement : null} 
+                customHeader={
                     <div className={styles.header} style={{
                         background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%), url(${spot.image || ""}) no-repeat center center / cover lightgray`,
                         }}>
-                            <Button
-                                onClick={() => { setShowModal(false); setDisplayDetailsView(false) }}
-                                icon={isMobile ? faArrowLeft : faXmark}
-                                action="big"
-                                role="secondary"
-                                className={styles.closeBtn}
-                                dark
-                            />
+                            { !openDesktopReviews && 
+                                <Button
+                                    onClick={() => { setShowModal(false); setDisplayDetailsView(false) }}
+                                    icon={isMobile ? faArrowLeft : faXmark}
+                                    action="big"
+                                    role="secondary"
+                                    className={styles.closeBtn}
+                                    dark
+                                />
+                            }   
                             
                             <div className={styles.headerContent}>
                                 
                                 {!displayDetailsView && <div className={styles.actionIcons}>
                                     <Button
                                         onClick={() => toggleFavorites()}
-                                        icon={isLiked ? filledHeart : faHeart}
+                                        icon={isLiked() ? filledHeart : faHeart}
                                         action="big"
                                         role="secondary"
                                         dark
                                     />
                                     <Button
-                                        onClick={() => setShowModal(false)}
+                                        onClick={() => isMobile ? setOpenReviews(true) : setOpenDesktopReviews(!openDesktopReviews)}
                                         icon={faComments}
                                         action="big"
                                         role="secondary"
@@ -229,7 +296,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
                             <ul>
                             {
                                 spot ?
-                                spot.tags.map((tag, key) => <li className={styles.tag} key={key}>{tag.name}</li>)
+                                spot.tags.map((tag, key) => <li className={styles.tag} key={`${key}_${tag.name}`}>{tag.name}</li>)
                                 : <></>
                             }
                             </ul>
@@ -244,14 +311,14 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
                             {displayDetailsView && <div className={styles.actionIcons}>
                                     <Button
                                         onClick={() => toggleFavorites()}
-                                        icon={isLiked ? filledHeart : faHeart}
+                                        icon={isLiked() ? filledHeart : faHeart}
                                         action="big"
                                         role="secondary"
                                         className={styles.lighterBg}
                                         dark
                                     />
                                     <Button
-                                        onClick={() => setShowModal(false)}
+                                        onClick={() => setOpenReviews(true)}
                                         icon={faComments}
                                         action="big"
                                         role="secondary"
@@ -286,11 +353,19 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
                 </Modal>
             }
             <Toast 
+                key={'toast'}
                 status='info'
                 showToast={displayAddToFavoritesErrorToast}
                 onHide={() => setDisplayAddToFavoritesErrorToast(false)}>
                 Connectez vous pour effectuer cette action.
             </Toast>
+            <Toast 
+				status='error'
+				showToast={displayModerationToast}
+				onHide={() => setDisplayModerationToast(false)}>
+				Certains termes utilisés ne peuvent être acceptés.
+			</Toast>
+            <ReviewsModal showModal={openReviews} onClose={() => setOpenReviews(false)} onReload={reloadCurrentSpot} spotId={spot.id} reviews={spot.reviews}></ReviewsModal>
         </AnimatePresence>
     ) : <></>
 }

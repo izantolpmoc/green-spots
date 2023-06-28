@@ -13,6 +13,7 @@ interface Props {
     fullWidth?: boolean;
     required?: boolean;
     isInvalid?: boolean;
+    maxLength?: number;
 }
 
 
@@ -27,6 +28,7 @@ const TextInput = (
         className,
         fullWidth,
         required,
+        maxLength,
         isInvalid
     }: Props
 ) => {
@@ -52,6 +54,7 @@ const TextInput = (
             value={value}
             placeholder={placeholder}
             required={required}
+            maxLength={maxLength}
             onChange={(e) => onChange(e.target.value)}
         />
     )
@@ -64,6 +67,7 @@ const TextInput = (
             value={value}
             placeholder={placeholder}
             required={required}
+            maxLength={maxLength}
             onChange={(e) => onChange(e.target.value)}
         />
     )

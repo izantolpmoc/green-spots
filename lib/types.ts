@@ -17,9 +17,11 @@ export interface SessionUser extends User {
 
 
 export interface Review {
+    id: string;
     rating: number;
     comment?: string;
     createdAt: Date;
+    user: User;
 }
 
 export interface Spot {

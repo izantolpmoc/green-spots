@@ -32,6 +32,13 @@
 		}
 	}
 
+	&.dark {
+		color: $white;
+		span {
+			color: $white;
+		}
+	}
+
 	&.small {
 		span {
 			@include text-md-bold;

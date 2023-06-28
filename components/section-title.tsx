@@ -4,21 +4,21 @@ import React from "react";
 interface Props {
     children?: any;
     small?: boolean;
+    dark?: boolean;
 }
 
 const SectionTitle = ({ 
-    children,
-    small
+    children, small, dark
 }: Props) => {
 
     // utils
 
     const getClassNames = () => {
-        let classNames = styles.container
+        let classNames = styles.container;
         classNames += (small ? ' ' + styles.small : '')
-        return classNames
+        classNames += (dark ? ' ' + styles.dark : '')
+        return classNames;
     }
-
     // render
 
     return ( 

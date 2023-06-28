@@ -1,0 +1,120 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_variables.module.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+.modal {
+    max-height: 80vh;
+    overflow-x: scroll;
+
+    @media (max-width: $bp-sm) {
+        max-height: 100vh;
+        border-radius: 16px 16px 0 0;
+        bottom: 0;
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    .header {
+        position: sticky;
+        top: -16px;
+        z-index: 2;
+        margin-top: -16px;
+        padding: 16px 0;
+        background-color: $black;
+
+        .buttonContainer {
+            @include flex-container(row, nowrap, flex-end);
+            .closeBtn {
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+.section {
+
+    height: 100%;
+
+    .empty {
+        color: $white-400;
+        text-align: center;
+    }
+
+    .reviewsContainer{
+        @include flex-container(column, nowrap);
+        gap: 32px;
+        margin: 16px;
+
+        .card {
+            @include flex-container(row, nowrap);
+            color: $white;
+            gap: 16px;
+        
+            img {
+                width: 40px;
+                height: 40px;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        
+            .cardContent {
+                background: $bg-black;
+                border-radius: 8px;
+                padding: 16px;
+                width: 100%;
+
+                h3 {
+                    margin: 0;
+                }
+
+                .date {
+                    color: $white-400;
+                    margin: 8px 0;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+.form {
+    position: sticky;
+    bottom: 0;
+    padding: 16px 0 0;
+    z-index: 2;
+    background-color: $black;
+    @include flex-container(column, nowrap);
+    gap: 8px;
+
+    align-self: flex-end;
+
+    @media (min-width: $bp-sm) {
+        padding: 16px 16px 32px;
+    }
+    
+    .textInput {
+        color: $white;
+        width: 100%;
+        background-color: $bg-black;
+
+        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: $white-600;
+            opacity: 1; /* Firefox */
+        }
+        
+        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: $white-600;
+        }
+        
+        &::-ms-input-placeholder { /* Microsoft Edge */
+            color: $white-600;
+        }
+    }
+}

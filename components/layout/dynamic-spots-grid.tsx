@@ -4,14 +4,20 @@ import { Spot } from "@lib/types";
 
 import styles from "@styles/components/layout/dynamic-spots-grid.module.scss";
 import { useState } from "react";
+import useDeviceType from "../../hooks/use-device-type";
 
 interface Props {
     spots: Spot[];
+    displayListOnMobile?: boolean;
     className?: string;
 }
 
 const DynamicSpotsGrid = (
-    { spots, className }: Props
+    {
+        spots,
+        displayListOnMobile = false,
+        className
+    }: Props
 ) => {
 
     // state
@@ -35,6 +41,8 @@ const DynamicSpotsGrid = (
         return classNames
     }
 
+    const deviceType = useDeviceType()
+
 
     // render
 
@@ -47,8 +55,8 @@ const DynamicSpotsGrid = (
                     <SpotCard
                         key={i}
                         onClick={() => handleSpotClick(i)}
-                        className={styles.card}
-                        displayMode='card'
+                        className={deviceType !== 'mobile' || !displayListOnMobile ? styles.card : ''}
+                        displayMode={deviceType == 'mobile' && displayListOnMobile ? 'list' : 'card'}
                         spot={item}
                     />
                 ))
