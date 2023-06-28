@@ -7,7 +7,7 @@ import styles from "@styles/components/modals/spot-details-modal.module.scss"
 import useDeviceType from "../../hooks/use-device-type"
 import StarRating from "@components/star-rating"
 import { SessionUser, Spot } from "@lib/types"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { RWebShare } from "react-web-share"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSession } from "next-auth/react"
@@ -15,6 +15,8 @@ import Toast from "@components/toast"
 import ReviewsModal from "./reviews-modal"
 import ReviewsContent from "@components/reviews-content"
 import SectionTitle from "@components/section-title"
+import { Context } from '@lib/context'
+import { getDistanceFromLatLonInKm } from "@lib/helpers/spot-distance"
 
 interface Props {
     showModal: boolean;
@@ -32,11 +34,11 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
     const deviceType = useDeviceType();
     const isMobile = deviceType === 'mobile';
     const currentUser = useSession().data?.user as SessionUser | undefined;
+    const { userLocation } = useContext(Context)
 
     // mobile details view
     const [displayDetailsView, setDisplayDetailsView] = useState(false);
-    // TODO
-    const [distance, setDistance] = useState("2.7");
+    const [distance, setDistance] = useState('0');
     const [shareableUrl, setShareableUrl] = useState('');
     const [isLiked, setIsLiked] = useState(false);
     const [displayAddToFavoritesErrorToast, setDisplayAddToFavoritesErrorToast] = useState(false);
@@ -67,7 +69,9 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
         // check whether user appears in spot's likedBy list
         setIsLiked(!!spot.likedBy?.find(user => user.id === currentUser?.id));
 
-    }, [spot])
+        getDistanceToSpot();
+
+    }, [spot, userLocation])
 
     useEffect(() => {
         setSpot(spots[currentSpotPosition])
@@ -78,6 +82,17 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
 
     const averageRating = spot ? spot.reviews.reduce((acc, review) => acc + review.rating, 0) / spot.reviews.length : 0
     
+    //handler user location
+
+    const getDistanceToSpot = () => {
+        if (!userLocation) return
+        const { latitude, longitude } = userLocation.coords
+
+        // calculate distance from user to spot
+        const distance = getDistanceFromLatLonInKm(latitude, longitude, spot.latitude, spot.longitude);
+        setDistance(distance)
+    }       
+
     // handle favorites
 
     const toggleFavorites = async () => {
