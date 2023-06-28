@@ -98,6 +98,9 @@ const validateForm = async () => {
 
         // trigger spot reload
         onReload();
+        setRating(1);
+        setReview("");
+        setDisplayReviewForm(false);
         console.log(response)
 
     } catch (error) {
@@ -119,13 +122,16 @@ return (
         </section>
         {displayReviewForm &&
             <form className={styles.form}>
-            <StarRatingInput onChange={setRating}></StarRatingInput>
+            <StarRatingInput 
+                value={rating}
+                onChange={setRating} 
+            />
             <TextInput 
                 isTextArea 
                 className={styles.textInput} 
                 maxLength={240} 
                 isInvalid={invalidField} 
-                placeholder="Votre avis..." 
+                placeholder="Laissez une note et un avis..." 
                 value={review} 
                 onChange={setReview}/>
             <Button

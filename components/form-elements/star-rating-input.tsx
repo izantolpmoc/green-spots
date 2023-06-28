@@ -6,19 +6,10 @@ import styles from "@styles/components/form-elements/star-rating-input.module.sc
 
 type Props = {
     onChange: (value: number) => void;
+    value: number
 }
 
-const StarRatingInput = ({onChange}: Props) => {
-    const [selectedStar, setSelectedStar] = useState(1);
-
-    useEffect(() => {
-        onChange(selectedStar);
-    }, []);
-
-    const handleChange = (value: number) => {
-        setSelectedStar(value);
-        onChange(value);
-    }
+const StarRatingInput = ({onChange, value}: Props) => {
 
     return (
         <form className={styles.rating}>
@@ -28,12 +19,12 @@ const StarRatingInput = ({onChange}: Props) => {
                         type="radio" 
                         name="stars" 
                         value={index + 1} 
-                        checked={selectedStar === index + 1} 
-                        onChange={(e) => handleChange(parseInt(e.target.value))} 
+                        checked={value === index + 1} 
+                        onChange={(e) => onChange(parseInt(e.target.value))} 
                     />
                     {Array.from({ length: index + 1 }, (_, subIndex) => (
                         <span className={styles.icon} key={subIndex}>
-                            <FontAwesomeIcon icon={subIndex < selectedStar ? faStar : emptyStar}/>
+                            <FontAwesomeIcon icon={subIndex < value ? faStar : emptyStar}/>
                         </span>
                     ))}
                 </label>

@@ -40,8 +40,10 @@
 
 .section {
 
+    height: 100%;
+
     .empty {
-        color: $white;
+        color: $white-400;
         text-align: center;
     }
 
@@ -90,6 +92,8 @@
     background-color: $black;
     @include flex-container(column, nowrap);
     gap: 8px;
+
+    align-self: flex-end;
 
     @media (min-width: $bp-sm) {
         padding: 16px 16px 32px;
