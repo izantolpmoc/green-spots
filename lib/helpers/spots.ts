@@ -28,12 +28,14 @@ export const getSpots = async (query?: string, tags?: string[]) => {
                 OR: [
                     {
                         name: {
-                            contains: query
+                            contains: query,
+                            mode: 'insensitive'
                         }
                     },
                     {
                         description: {
-                            contains: query
+                            contains: query,
+                            mode: 'insensitive'
                         }
                     }
                 ]
