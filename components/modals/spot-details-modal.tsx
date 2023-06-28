@@ -75,7 +75,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
 
     useEffect(() => {
         setSpot(spots[currentSpotPosition])
-    }, [currentSpotPosition])
+    }, [currentSpotPosition, spots])
 
 
     // utils 
@@ -179,7 +179,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
 
     // render 
 
-    return (
+    return spot ? (
         <AnimatePresence
             initial={false}
             mode='wait'
@@ -197,7 +197,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                 sideElement={openDesktopReviews ? sideElement : null} 
                 customHeader={
                     <div className={styles.header} style={{
-                        background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%), url(${spot.image}) no-repeat center center / cover lightgray`,
+                        background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%), url(${spot.image || ""}) no-repeat center center / cover lightgray`,
                         }}>
                             { !openDesktopReviews && 
                                 <Button
@@ -367,7 +367,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
 			</Toast>
             <ReviewsModal showModal={openReviews} onClose={() => setOpenReviews(false)} onReload={() => reloadSpots()} spotId={spot.id} reviews={spot.reviews}></ReviewsModal>
         </AnimatePresence>
-    )
+    ) : <></>
 }
 
 export default SpotDetailsModal

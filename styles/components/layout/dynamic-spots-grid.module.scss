@@ -1,0 +1,44 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+@import "@styles/abstracts/_variables.module.scss";
+
+
+.grid {
+
+    @include reset-list;
+    width: 100%;
+    flex: 1;
+
+    // setup the grid layout for the cards
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-flow: row dense;
+    grid-gap: 1rem;
+
+
+    @media (min-width: $bp-md) {
+
+        // make every card which index is divisible by 3 to span 2 columns
+
+        li.card:nth-child(5n), li.card:first-child {
+            grid-column: span 2;
+        }
+    }
+
+    @media (max-width: 860px) and (min-width: $bp-md) {
+
+        // fix the overflow issue on large tablets
+
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+
+}
+
+ul.grid li.card {
+    width: 100% !important;
+    min-height: 250px;
+}

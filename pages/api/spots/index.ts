@@ -75,7 +75,7 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
                 let matches = true
 
                 if (query) {
-                    matches = matches && (spot.name.includes(query) || Boolean(spot.description?.includes(query)))
+                    matches = matches && (spot.name.toLowerCase().includes(query.toLowerCase()) || Boolean(spot.description?.toLowerCase().includes(query.toLowerCase())))
                 }
 
                 if (tags) {
