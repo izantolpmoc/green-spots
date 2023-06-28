@@ -1,5 +1,7 @@
 import Button from "@components/button"
 import SearchBar from "@components/form-elements/search-bar"
+import DynamicSpotsGrid from "@components/layout/dynamic-spots-grid"
+import ScrollUpIndicator from "@components/layout/scroll-up-indicator"
 import SectionHeader from "@components/layout/section-header"
 import SearchFiltersModal from "@components/modals/search-filters-modal"
 import SectionTitle from "@components/section-title"
@@ -9,8 +11,9 @@ import prisma from "@lib/prisma"
 import { Spot } from "@lib/types"
 
 import styles from "@styles/pages/search.module.scss"
+import { AnimatePresence } from "framer-motion"
 import { GetServerSideProps } from "next"
-import { use, useContext, useEffect, useState } from "react"
+import { use, useContext, useEffect, useRef, useState } from "react"
 
 interface Props {
     tags: string[];
@@ -70,37 +73,86 @@ const Search = (
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(buildSearchParams())
-        }).then(res => res.json()) as Spot[]
+        }).then(res => res.json()).then(data => data.spots) as Spot[]
     }
 
     useEffect(() => {
         getSearchResults().then(results => setSearchResults(results))
     }, [refreshTrigger, userLocation])
 
+
+    // manage scroll
+
+    const containerRef = useRef<HTMLElement>(null)
+
+    const [isScrolledToTop, setIsScrolledToTop] = useState(false)
+
     useEffect(() => {
-        console.log(searchResults)
-    }, [searchResults])
+
+        if(!containerRef.current) return
+
+        const container = containerRef.current
+
+        // add an event listener to check 
+        // if the main is scrolled to the top
+
+        const getIsScrolledToTop = () => container.scrollTop === 0
+
+        containerRef.current.addEventListener('scroll', () => {
+            setIsScrolledToTop(getIsScrolledToTop())
+        })
+
+        // clean up
+
+        return () => {
+            container.removeEventListener('scroll', () => {})
+        }
+
+    }, [containerRef.current])
+
+
+    // handle scroll up indicator click
+
+    const scrollToTop = () => {
+        if(!containerRef.current) return
+        containerRef.current.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+    }
 
     // render
 
     return (
         <>
-            <main id={styles.main}>
+            <main
+                ref={containerRef} 
+                id={styles.main}>
                 <SectionHeader>
                     <SectionTitle>Recherche</SectionTitle>
                     <p>Trouver le spot qui vous convient !</p>
                 </SectionHeader>
-                <div className={styles.horizontalContainer}>
+                <div className={styles.horizontalContainer} id="search-bar-container">
                     <SearchBar 
                         value={searchQuery}
                         onChange={setSearchQuery}
-                        onSubmit={() => console.log(searchQuery)}
+                        onSubmit={refresh}
                     />
                     <Button
                         icon={faSliders}
                         onClick={() => setShowSearchFiltersModal(true)}
                     />
                 </div>
+                <DynamicSpotsGrid spots={searchResults} />
+                <AnimatePresence
+                    initial={false}
+                    mode='wait'
+                    onExitComplete={() => null}>
+                {
+                    !isScrolledToTop &&
+                    <ScrollUpIndicator onClick={scrollToTop} />
+                }
+                </AnimatePresence>
             </main>
             <SearchFiltersModal
                 showModal={showSearchFiltersModal}

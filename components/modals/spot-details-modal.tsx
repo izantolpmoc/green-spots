@@ -64,7 +64,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
 
     useEffect(() => {
         setSpot(spots[currentSpotPosition])
-    }, [currentSpotPosition])
+    }, [currentSpotPosition, spots])
 
 
     // utils 
@@ -123,7 +123,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
 
     // render 
 
-    return (
+    return spot ? (
         <AnimatePresence
             initial={false}
             mode='wait'
@@ -132,7 +132,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
             {showModal && 
                 <Modal key="modal" onSwipeRight={onSwipeRight} onSwipeLeft={onSwipeLeft} onClose={() => { setShowModal(false); setDisplayDetailsView(false) }} removePadding className={styles.modal} customHeader={
                     <div className={styles.header} style={{
-                        background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%), url(${spot.image}) no-repeat center center / cover lightgray`,
+                        background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%), url(${spot.image || ""}) no-repeat center center / cover lightgray`,
                         }}>
                             <Button
                                 onClick={() => { setShowModal(false); setDisplayDetailsView(false) }}
@@ -292,7 +292,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, currentSpotPosition,
                 Connectez vous pour effectuer cette action.
             </Toast>
         </AnimatePresence>
-    )
+    ) : <></>
 }
 
 export default SpotDetailsModal
