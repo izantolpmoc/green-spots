@@ -10,6 +10,8 @@ type Props = {
     onClose: () => void;
     children: ReactNode;
     className?: string;
+    contentClassName?: string;
+    sideElementClassName?: string;
     large?: boolean;
     fullWidth?: boolean;
     fullHeight?: boolean;
@@ -20,9 +22,10 @@ type Props = {
     isForm?: boolean;
     onSwipeRight?: () => void;
     onSwipeLeft?: () => void;
+    sideElement?: ReactNode;
 }
 
-const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark, removePadding, customHeader, className, onSwipeRight, onSwipeLeft, isForm }: Props) => {
+const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark, removePadding, customHeader, sideElement, className, contentClassName, sideElementClassName, onSwipeRight, onSwipeLeft, isForm }: Props) => {
 
     const handlers = useSwipeable({
         onSwipedRight: () => {
@@ -68,6 +71,7 @@ const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark
         classNames += ' ' + (dark ? styles['dark'] : '')
         classNames += ' ' + (removePadding ? styles['removePadding'] : '')
         classNames += ' ' + (className ? className : '')
+        classNames += ' ' + (sideElement ? styles['displaySideElement'] : '')
         return classNames
     }
 
@@ -77,39 +81,57 @@ const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark
         return classNames
     }
 
+    const getSideElementClassNames = () => {
+        let classNames = styles.sideElement;
+        classNames += ' ' + (sideElement ? '' : styles['hide'])
+        classNames += ' ' + (sideElementClassName ? sideElementClassName : '')
+        return classNames
+    }
+
+    const getModalContentClassNames = () => {
+        let classNames = styles.modalContent;
+        classNames += ' ' + (contentClassName ? contentClassName : '')
+        return classNames
+    }
+
     // render
 
     return (
         <Backdrop onClick={onClose}>
-            <motion.dialog
-                onClick={(e) => e.stopPropagation()}  
-                className={getDialogClassNames()}
-                variants={dropIn}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                {...handlers}
-            >
-            {
-                customHeader ? 
-                customHeader : 
-                <div className={getHeaderClassNames()}>
-                    <Button
-                        onClick={onClose}
-                        icon={faXmark}
-                        action={btnRight ? "small" : "big"}
-                        role={btnRight ? "secondary" : "tertiary"}
-                        dark={dark}
-                    />
-                </div>
-            }
-            {
-                isForm ?
-                <form onSubmit={(e) => e.preventDefault()}>
-                    {children}
-                </form> : children
-            }
-            </motion.dialog>
+                <motion.dialog
+                    onClick={(e) => e.stopPropagation()}  
+                    className={getDialogClassNames()}
+                    variants={dropIn}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    {...handlers}
+                >
+                    <div className={getModalContentClassNames()}>
+                    {
+                        customHeader ? 
+                        customHeader : 
+                        <div className={getHeaderClassNames()}>
+                            <Button
+                                onClick={onClose}
+                                icon={faXmark}
+                                action={btnRight ? "small" : "big"}
+                                role={btnRight ? "secondary" : "tertiary"}
+                                dark={dark}
+                            />
+                        </div>
+                    }
+                    {
+                        isForm ?
+                        <form onSubmit={(e) => e.preventDefault()}>
+                            {children}
+                        </form> : children
+                    }
+                    </div> 
+                    <div className={getSideElementClassNames()}>
+                        {sideElement}
+                    </div>
+                </motion.dialog>
         </Backdrop>
     );
 };

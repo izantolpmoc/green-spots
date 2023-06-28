@@ -13,6 +13,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSession } from "next-auth/react"
 import Toast from "@components/toast"
 import ReviewsModal from "./reviews-modal"
+import ReviewsContent from "@components/reviews-content"
+import SectionTitle from "@components/section-title"
 
 interface Props {
     showModal: boolean;
@@ -33,13 +35,15 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
 
     // mobile details view
     const [displayDetailsView, setDisplayDetailsView] = useState(false);
+    // TODO
     const [distance, setDistance] = useState("2.7");
     const [shareableUrl, setShareableUrl] = useState('');
     const [isLiked, setIsLiked] = useState(false);
     const [displayAddToFavoritesErrorToast, setDisplayAddToFavoritesErrorToast] = useState(false);
     const [spot, setSpot] = useState(spots[currentSpotPosition]);
     const [openReviews, setOpenReviews] = useState(false);
-
+    const [openDesktopReviews, setOpenDesktopReviews] = useState(false);
+    const [displayModerationToast, setDisplayModerationToast] = useState(false);
 
     useEffect(() => {
         // This will only run on the client side, where window is available
@@ -135,6 +139,26 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
         }
     }
 
+    const sideElement = 
+                        <div className={styles.desktopReviews}>
+                            <div className={styles.header}>
+                            <div className={styles.buttonContainer}>
+                                <Button 
+                                    onClick={() => toggleSideElement()}
+                                    icon={faXmark}
+                                    dark
+                                    role="secondary"
+                                    className={styles.closeBtn}
+                                />
+                            </div>
+                            <SectionTitle dark>Avis</SectionTitle>
+                            </div>
+                                <ReviewsContent reviews={spot.reviews} spotId={spot.id} onReload={() => reloadSpots()} onDisplayModerationToast={setDisplayModerationToast} />
+                        </div>
+
+    // toggle side element
+    const toggleSideElement = () => setOpenDesktopReviews(!openDesktopReviews);
+
     // render 
 
     return (
@@ -144,7 +168,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
             onExitComplete={() => null}
         >
             {showModal && 
-                <Modal key="modal" onSwipeRight={onSwipeRight} onSwipeLeft={onSwipeLeft} onClose={() => { setShowModal(false); setDisplayDetailsView(false) }} removePadding className={styles.modal} customHeader={
+                <Modal key="modal" onSwipeRight={onSwipeRight} onSwipeLeft={onSwipeLeft} onClose={() => { setShowModal(false); setDisplayDetailsView(false) }} removePadding className={styles.modal} sideElementClassName={styles.sideElementContent} customHeader={
                     <div className={styles.header} style={{
                         background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%), url(${spot.image}) no-repeat center center / cover lightgray`,
                         }}>
@@ -168,7 +192,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                         dark
                                     />
                                     <Button
-                                        onClick={() => setOpenReviews(true)}
+                                        onClick={() => isMobile ? setOpenReviews(true) : setOpenDesktopReviews(true)}
                                         icon={faComments}
                                         action="big"
                                         role="secondary"
@@ -224,7 +248,8 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                 </div>
                             }
                     </div>
-                }>
+                } 
+                sideElement={openDesktopReviews ? sideElement : null}>
                     {(!isMobile || displayDetailsView) && 
                         <div className={styles.detailsView}>
 
@@ -306,6 +331,12 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                 onHide={() => setDisplayAddToFavoritesErrorToast(false)}>
                 Connectez vous pour effectuer cette action.
             </Toast>
+            <Toast 
+				status='error'
+				showToast={displayModerationToast}
+				onHide={() => setDisplayModerationToast(false)}>
+				Certains termes utilisés ne peuvent être acceptés.
+			</Toast>
             <ReviewsModal showModal={openReviews} onClose={() => setOpenReviews(false)} onReload={() => reloadSpots()} spotId={spot.id} reviews={spot.reviews}></ReviewsModal>
         </AnimatePresence>
     )
