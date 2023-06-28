@@ -33,10 +33,9 @@ const Home = (
 	const [showModal, setShowModal] = useState(open);
 	const [currentSpotPosition, setCurrentSpotPosition] = useState(0);
 
-	const [data] = useState(spots ? deserialize(spots) : null);
+	const [data, setData] = useState(spots ? deserialize(spots) : null);
 
 	useEffect(() => {
-		console.log(data)
 		setShowModal(open);  // set the modal state based on the open prop
 		getCurrentSpotPosition();
 	}, [open]);
@@ -106,7 +105,6 @@ const Home = (
 				</SectionHeader>
 
 				<Button onClick={() => setShowModal(true)}>Open spot details modal</Button>
-				{data && <SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spots={data} currentSpotPosition={currentSpotPosition} setCurrentSpotPosition={setCurrentSpotPosition}></SpotDetailsModal>}
 
 			{ data && <>
 				<SpotCard 
@@ -114,7 +112,18 @@ const Home = (
 					spot={data[0]}
 					onClick={() => setShowModal(true)}
 				/>
-				<SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spots={data} currentSpotPosition={currentSpotPosition} setCurrentSpotPosition={setCurrentSpotPosition}></SpotDetailsModal>
+				<SpotDetailsModal 
+					showModal={showModal} 
+					setShowModal={setShowModal} 
+					spots={data} 
+					updateSpot={(index, spot) => {
+						const spots = [...data] as unknown as Spot[];
+						spots[index] = spot;
+						// @ts-ignore
+						setData(spots);
+					}}
+					currentSpotPosition={currentSpotPosition} 
+					setCurrentSpotPosition={setCurrentSpotPosition}/>
 
 				<SpotCard 
 					displayMode='list'

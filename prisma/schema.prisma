@@ -17,7 +17,7 @@ model Tag {
 
 model Review {
   id        String   @id @default(cuid())
-  comment   String?
+  comment   String?  @db.Text
   rating    Int
   createdAt DateTime @default(now())
   spotId    String   @map("spot_id")

@@ -1,6 +1,7 @@
 @import "@styles/base/_reset.scss";
 @import "@styles/base/_mixins.scss";
 @import "@styles/abstracts/_colors.module.scss";
+@import "@styles/abstracts/_variables.module.scss";
 
 .dialog {
     background: $white;
@@ -14,6 +15,12 @@
     flex-direction: column;
 
     gap: 16px;
+
+    .modalContent {
+        @include flex-container(column, nowrap, flex-start, stretch);
+        height: 100%;
+        width: 100%
+    }
 
     form {
         @include flex-container(column, nowrap, flex-start, stretch);
@@ -34,11 +41,18 @@
     }
     
     &.dark {
-        background: $bg-black;
+        background: $black;
     }
 
     &.removePadding {
         padding: 0;
+    }
+
+    &.displaySideElement {
+        @media (min-width: $bp-sm) {
+            width: clamp(50%, 1000px, 100%);
+            @include flex-container(row, nowrap);   
+        }
     }
 
     .header {
@@ -54,5 +68,14 @@
 
     .body {
         flex: 1;
+    }
+
+    .sideElement {
+        @media (max-width: $bp-sm) {
+            display: none;
+        }
+        &.hide {
+            display: none;
+        }
     }
 }
