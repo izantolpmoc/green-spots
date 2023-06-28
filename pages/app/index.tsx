@@ -2,7 +2,7 @@ import Button from '@components/button'
 import SectionHeader from '@components/layout/section-header'
 import SpotDetailsModal from '@components/modals/spot-details-modal'
 import SectionTitle from '@components/section-title'
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Context } from '@lib/context'
 import { getSpots } from '@lib/helpers/spots'
@@ -32,23 +32,24 @@ const Home = (
 
 	const [showModal, setShowModal] = useState(open);
 	const [currentSpotPosition, setCurrentSpotPosition] = useState(0);
+	const [currentNavigationPosition, setCurrentNavigationPosition] = useState(0);
 
-	const [data] = useState(spots ? deserialize(spots) : null);
+	const [data] = useState<Spot[]>(spots ? deserialize(spots) : []);
 
 	useEffect(() => {
-		console.log(data)
-		setShowModal(open);  // set the modal state based on the open prop
-		getCurrentSpotPosition();
+ 
 	}, [open]);
 
-	const getCurrentSpotPosition = () => {
-		if (id) {
-			const spots = data as unknown as Spot[];
-			const currentSpot = spots?.find(spot => spot.id == id);
-			return setCurrentSpotPosition(currentSpot ? spots.indexOf(currentSpot) : 0);
-		}
-		return setCurrentSpotPosition(0);
+	const getCurrentSpotPosition = (id: number) => {
+        const currentSpotIdx = data.findIndex(spot => spot.id == data[id].id)
+        return setCurrentSpotPosition(currentSpotIdx)
 	}
+
+    const openModal = (id: number) => {
+        getCurrentSpotPosition(id)
+        setShowModal(true)
+    }
+    
 	// user location
 
 	const { userLocation } = useContext(Context)
@@ -77,6 +78,28 @@ const Home = (
 
 	}, [userLocation])
 
+	const CardHome = () => {
+
+		return (
+			<div className={styles.cardContainer}>
+				{ data.map((item, i) => {
+					return (
+						<div 
+							className={`${styles.card} ${i === currentNavigationPosition ? styles.fade : ''}`}
+							key={i}
+						>
+							<SpotCard
+								displayMode="card"
+								spot={item}
+								onClick={() => openModal(i)}
+							/>
+						</div>
+					)
+				}) }
+			</div>
+		)
+	};
+
 	// render
 
 	return (
@@ -104,26 +127,18 @@ const Home = (
 					<SectionTitle>Autour de moi</SectionTitle>
 					<p><FontAwesomeIcon icon={faLocationDot}/> &nbsp; Près de { userAddress }</p>
 				</SectionHeader>
-
-				<Button onClick={() => setShowModal(true)}>Open spot details modal</Button>
+				<div className={styles.box}>
+					<CardHome />
+					<Button
+						onClick={() => {openModal(currentNavigationPosition)}}
+						icon={faArrowRight}
+						action="big"
+						role="primary"
+						className={styles.button}
+					/>
+				</div>
+	
 				{data && <SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spots={data} currentSpotPosition={currentSpotPosition} setCurrentSpotPosition={setCurrentSpotPosition}></SpotDetailsModal>}
-
-			{ data && <>
-				<SpotCard 
-					fullWidth
-					spot={data[0]}
-					onClick={() => setShowModal(true)}
-				/>
-				<SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spots={data} currentSpotPosition={currentSpotPosition} setCurrentSpotPosition={setCurrentSpotPosition}></SpotDetailsModal>
-
-				<SpotCard 
-					displayMode='list'
-					spot={data[0]}
-					onClick={() => setShowModal(true)}
-				/>
-
-				</>
-			}
 			</main>
 		</>
 		
