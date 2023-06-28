@@ -6,7 +6,6 @@ import { GetServerSideProps } from 'next'
 import { serialize, deserialize } from 'superjson'
 import { SuperJSONResult } from 'superjson/dist/types'
 import { useSession } from "next-auth/react";
-import NotConnected from "@components/place-holder";
 import styles from "@styles/pages/likes.module.scss";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@pages/api/auth/[...nextauth]";
@@ -15,7 +14,10 @@ import SpotCard from '@components/spot-card'
 import { useState } from 'react'
 import { Spot } from '@lib/types'
 import prisma from "@lib/prisma";
-import PlaceHolder from "@components/place-holder";
+import PlaceHolder from "@components/placeholder";
+import Button from "@components/button";
+import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import LoginModal from "@components/modals/login-modal";
 
 interface Props {
 	likedSpotsJSON: SuperJSONResult | null,
@@ -41,94 +43,111 @@ const Likes = (
         getCurrentSpotPosition(id)
         setShowModal(true)
     }
+
+    // manage login modal
+
+    const [showLoginModal, setShowLoginModal] = useState<boolean>(false)
     
     // render
 
     return (
-        <main id={styles.main}>
-            <SectionHeader>
-                <SectionTitle>J&apos;aimes</SectionTitle>
-                <p>Les spots qui vous ont tapé dans l&apos;œil</p>
-            </SectionHeader>
-            {  status !== "authenticated" &&
-                <>
-                    <div className={styles.placeholder}>
-                        <PlaceHolder
-                            type="noConnexion"
-                        >
-                            <h3>Vous n&apos;êtes pas connecté</h3>
-                            <p>Connectez-vous pour accéder à cette page</p>
-                        </PlaceHolder>
-                    </div>
-                </> 
-            }
+        <>
+            <main id={styles.main}>
+                <SectionHeader>
+                    <SectionTitle>J&apos;aimes</SectionTitle>
+                    <p>Les spots qui vous ont tapé dans l&apos;œil</p>
+                </SectionHeader>
+                {  
+                    status !== "authenticated" ?
+                    <PlaceHolder 
+                        button={(
+                            <Button 
+                                icon={faArrowRightToBracket}
+                                role="primary"
+                                onClick = {() => setShowLoginModal(true) }>
+                                Connexion
+                            </Button>
+                        )}
+                        illustrationURL="/assets/not-connected.svg">
+                        <h3>Vous n&apos;êtes pas connecté</h3>
+                        <p>Connectez-vous pour accéder à cette page</p>
+                    </PlaceHolder>
+                    : <></>
+                }
 
-            {  status === "authenticated" && likedSpots.length === 0 &&
-                <>
-                    <div className={styles.placeholder}>
-                        <PlaceHolder
-                            type="likeLess"
-                        >
-                            <h3>Vous n'avez rien liké</h3>
-                            <p>Explorez sans attendre et laissez votre curiosité s'épanouir</p>
-                        </PlaceHolder>
-                    </div>
-                </> 
-            }
+                {  
+                    status === "authenticated" && likedSpots.length === 0 ?
+                    <PlaceHolder illustrationURL="/assets/no-like.svg">
+                        <h3>Vous n&apos;avez pas encore de j&apos;aime</h3>
+                        <p>Explorez sans attendre et laissez votre curiosité s&apos;épanouir</p>
+                    </PlaceHolder>
+                    : <></>
+                }
 
-            {  status === "authenticated" && likedSpots.length > 0 &&
-                <>
-                    <div className={styles.container}>
-                    {
-                        deviceType !== "mobile" ?
-                        <>
-                            {likedSpots.map((item, i) => {
-                                return (
-                                    <>
+                {  
+                    status === "authenticated" && likedSpots.length > 0 ?
+                    <>
+                        <div className={styles.container}>
+                        {
+                            deviceType !== "mobile" ?
+                            <>
+                                {likedSpots.map((item, i) => {
+                                    return (
+                                        <>
+                                            <SpotCard
+                                                key={i}
+                                                displayMode='card'
+                                                spot={item}
+                                                onClick={() => openModal(i)}
+                                            />
+                                        </>
+                                    );
+                                })}
+                            </>
+                            : 
+                            <>
+                                {likedSpots.map((item, i) => {
+
+                                    console.log(item)
+                                    return (
                                         <SpotCard
                                             key={i}
-                                            displayMode='card'
+                                            displayMode='list'
                                             spot={item}
                                             onClick={() => openModal(i)}
                                         />
-                                    </>
-                                );
-                            })}
-                        </>
-                        : 
-                        <>
-                            {likedSpots.map((item, i) => {
+                                    );
+                                })}
+                            </>
+                        }
+                        </div>
 
-                                console.log(item)
-                                return (
-                                    <SpotCard
-                                        key={i}
-                                        displayMode='list'
-                                        spot={item}
-                                        onClick={() => openModal(i)}
-                                    />
-                                );
-                            })}
-                        </>
-                    }
-                    </div>
+                        {
+                            likedSpots?.length > 0 ?
+                            <SpotDetailsModal
+                                showModal={showModal}
+                                setShowModal={setShowModal}
+                                spots={likedSpots}
+                                currentSpotPosition={currentSpotPosition}
+                                setCurrentSpotPosition={setCurrentSpotPosition}
+                            />
+                            : <></>
+                        }
 
-                    {
-                        likedSpots?.length > 0 ?
-                        <SpotDetailsModal
-                            showModal={showModal}
-                            setShowModal={setShowModal}
-                            spots={likedSpots}
-                            currentSpotPosition={currentSpotPosition}
-                            setCurrentSpotPosition={setCurrentSpotPosition}
-                        />
-                        : <></>
-                    }
-
-                </>
-            }   
-            
+                    </>
+                    : <></>
+                }   
+                
         </main>
+        
+        
+        <LoginModal 
+            showModal={showLoginModal} 
+            onClose={() => setShowLoginModal(false)}
+        /> 
+
+        </>
+
     )
 }
 
