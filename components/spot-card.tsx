@@ -8,19 +8,19 @@ import { Spot } from "@lib/types";
 interface Props {
     displayMode?: "list" | "card"
     spot: Spot
-    className?: string
     onClick?: () => void
     isLast?: boolean
     fullWidth?: boolean
+    className?: string
 }
 
 const SpotCard = ({ 
     displayMode = "card",
-    className,
     spot,
     onClick,
     isLast,
-    fullWidth
+    fullWidth,
+    className
 }: Props) => {
 
     // utils
@@ -33,13 +33,14 @@ const SpotCard = ({
         let classNames = className + ' ' + styles.container + ' ' + styles[displayMode]
         classNames += (isLast ? ' ' + styles.isLast : '')
         classNames += (fullWidth ? ' ' + styles.fullWidth : '')
+        classNames += (className ? ' ' + className : '')
         return classNames
     }
 
     // render
 
     return (
-        <section
+        <li
             className={getClassNames()}
             style={
                 displayMode === "card"
@@ -77,7 +78,7 @@ const SpotCard = ({
                     <FontAwesomeIcon className={styles.icon} icon={faHeart} />
                 </div>
             )}
-        </section>
+        </li>
     );
 }
 
