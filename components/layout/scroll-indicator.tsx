@@ -1,16 +1,18 @@
-import { faArrowUp } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
-
 import styles from "@styles/components/layout/scroll-up-indicator.module.scss"
 import { motion } from "framer-motion"
 
 interface Props {
+    mode?: "up" | "down" | "left" | "right";
+    children: React.ReactNode;
     onClick?: () => void;
 }
 
-const ScrollUpIndicator = (
-    { onClick }: Props
+const ScrollIndicator = (
+    { 
+        mode,
+        children,
+        onClick    
+    }: Props
 ) => {
 
     // animation
@@ -33,6 +35,13 @@ const ScrollUpIndicator = (
         },
     }
 
+    const getClassNames = () => {
+        let classNames = styles.scrollIndicator + " "
+        classNames += mode ? styles[mode] : styles.up
+        return classNames
+    }
+
+
     // render
 
     return (
@@ -42,11 +51,11 @@ const ScrollUpIndicator = (
             initial="hidden"
             animate="visible"
             exit="exit"
-            className={styles.scrollDownIndicator}>
-            <FontAwesomeIcon icon={faArrowUp} />
+            className={getClassNames()}>
+            { children }
         </motion.button>
     )
 
 }
 
-export default ScrollUpIndicator
+export default ScrollIndicator

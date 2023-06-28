@@ -1,7 +1,7 @@
 import Button from "@components/button"
 import SearchBar from "@components/form-elements/search-bar"
 import DynamicSpotsGrid from "@components/layout/dynamic-spots-grid"
-import ScrollUpIndicator from "@components/layout/scroll-up-indicator"
+import ScrollUpIndicator from "@components/layout/scroll-indicator"
 import SectionHeader from "@components/layout/section-header"
 import SearchFiltersModal from "@components/modals/search-filters-modal"
 import SectionTitle from "@components/section-title"
@@ -88,27 +88,30 @@ const Search = (
     const [isScrolledToTop, setIsScrolledToTop] = useState(false)
 
     useEffect(() => {
+        if (!containerRef.current) return;
+		
+		const container = containerRef.current;
+	  
+		// add an event listener to check
+		// if the main is scrolled to the top
 
-        if(!containerRef.current) return
+		const getIsScrolledToTop = () => container.scrollTop == 0;
+	  
+		const handleScroll = () => {
+		  setIsScrolledToTop(getIsScrolledToTop());
+		};
+	  
+		// initial check
+		handleScroll();
 
-        const container = containerRef.current
-
-        // add an event listener to check 
-        // if the main is scrolled to the top
-
-        const getIsScrolledToTop = () => container.scrollTop === 0
-
-        containerRef.current.addEventListener('scroll', () => {
-            setIsScrolledToTop(getIsScrolledToTop())
-        })
-
-        // clean up
-
-        return () => {
-            container.removeEventListener('scroll', () => {})
-        }
-
-    }, [containerRef.current])
+		// add the event listener
+		container.addEventListener('scroll', handleScroll);
+	  
+		// clean up
+		return () => {
+		  container.removeEventListener('scroll', handleScroll);
+		};
+	}, [containerRef.current]);
 
 
     // handle scroll up indicator click

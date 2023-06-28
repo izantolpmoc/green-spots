@@ -4,6 +4,11 @@
 @import "@styles/abstracts/_colors.module.scss";
 @import "@styles/abstracts/_variables.module.scss";
 
+.minHeight {
+    height: 170px;
+    align-self: center;
+}
+
 .container {
     border-radius: 8px;
     padding: 16px;
@@ -89,13 +94,11 @@
     }
 
     &.card {
-        
-        box-shadow: 0px 20px 60px #00000033;
-
+    
         @include flex-container(row, nowrap, center, flex-end);
 
         @media (max-width: $bp-md) {
-            width: 60%;
+            width: 300px;
             height: 200px;
         }
 

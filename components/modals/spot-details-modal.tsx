@@ -22,7 +22,7 @@ interface Props {
     showModal: boolean;
     setShowModal: (showModal: boolean) => void;
     spots: Spot[];
-    updateSpot: (index: number, spot: Spot) => void;
+    updateSpot?: (index: number, spot: Spot) => void;
     currentSpotPosition: number;
     setCurrentSpotPosition: (currentSpotPosition: number) => void;
 }
@@ -147,7 +147,8 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
             const response = await fetch(`/api/spots/${spot.id}`, {
                 method: 'GET',
             }).then(res => res.json());
-            updateSpot(currentSpotPosition, response.spot);
+
+            if(updateSpot) updateSpot(currentSpotPosition, response.spot);
 
         } catch (error) {
             console.log(error)

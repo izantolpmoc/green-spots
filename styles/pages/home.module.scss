@@ -1,25 +1,39 @@
-@import "@styles/base/_typography.scss";
+@import "@styles/base/_reset.scss";
 @import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
 @import "@styles/abstracts/_colors.module.scss";
+@import "@styles/abstracts/_variables.module.scss";
+
+#main {
+    overflow: scroll;
+}
 
 .cardContainer {
-    @include flex-container(row, nowrap, flex-start, center);
-    // width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 1rem;
+    width: 100%;
+    position: relative;
+    overflow-x: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+
+    @media (min-width: $bp-md) {
+        min-height: 300px;
+        min-width: 400px;
+    }
+
+    @media (max-width: $bp-md) {
+        justify-content: flex-start; 
+
+        min-width: 300px;
+        min-height: 200px;
+
+        .minHeight {
+            height: 170px !important;
+            align-self: center;
+        }
+    }
       
-    // .button {
-    //     position: fixed;
-    //     margin: clamp(60vw, 450px, 100vw);
-    // }
 }
 
-// .card {
-//     padding-right: 32px;
-// }
-
-.fade {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 80%;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
-}

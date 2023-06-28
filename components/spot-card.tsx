@@ -50,9 +50,9 @@ const SpotCard = ({
         
     const getClassNames = () => {
         let classNames = className + ' ' + styles.container + ' ' + styles[displayMode]
+        classNames += (className ? ' ' + className : '')
         classNames += (isLast ? ' ' + styles.isLast : '')
         classNames += (fullWidth ? ' ' + styles.fullWidth : '')
-        classNames += (className ? ' ' + className : '')
         return classNames
     }
 
