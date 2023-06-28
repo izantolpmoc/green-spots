@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "@styles/components/spot-card.module.scss"
 import StarRating from "./star-rating";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -26,6 +26,11 @@ const SpotCard = ({
     // state
 
     const { userLocation } = useContext(Context)
+    const [distance, setDistance] = useState(0)
+
+    useEffect(() => {
+        getSpotDistance()
+    }, [userLocation]);
 
 
     // utils
@@ -38,7 +43,7 @@ const SpotCard = ({
 
         // calculate distance from user to spot
         const distance = getDistanceFromLatLonInKm(latitude, longitude, spot.latitude, spot.longitude);
-        return Number(distance);
+        setDistance(Number(distance));
     }
         
     const getClassNames = () => {
@@ -81,7 +86,7 @@ const SpotCard = ({
                 </div>
                 <div className={styles.subHeader}>
                     <StarRating average={getSpotRating()}/>
-                    { displayMode === "card" && <span className={styles.distance}>À {getSpotDistance()} km</span> }
+                    { displayMode === "card" && <span className={styles.distance}>À {distance} km</span> }
                 </div>
             </div>
             { displayMode === "list" && (
