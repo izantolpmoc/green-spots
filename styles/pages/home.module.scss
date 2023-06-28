@@ -4,19 +4,22 @@
 
 .cardContainer {
     @include flex-container(row, nowrap, flex-start, center);
-    overflow: overlay;
-    width: 100%;
+    // width: 100%;
       
-    .button {
-        position: fixed;
-        margin: clamp(60vw, 450px, 100vw);
-    }
+    // .button {
+    //     position: fixed;
+    //     margin: clamp(60vw, 450px, 100vw);
+    // }
 }
 
-.card {
-    padding-right: 32px;
-}
+// .card {
+//     padding-right: 32px;
+// }
 
 .fade {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 80%, rgba(255, 255, 255, 0) 100%);
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 80%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
 }

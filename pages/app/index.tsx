@@ -82,6 +82,7 @@ const Home = (
 
 		return (
 			<div className={styles.cardContainer}>
+				<div className={styles.fade} />
 				{ data.map((item, i) => {
 					return (
 						<SpotCard
