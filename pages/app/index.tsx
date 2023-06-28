@@ -84,16 +84,11 @@ const Home = (
 			<div className={styles.cardContainer}>
 				{ data.map((item, i) => {
 					return (
-						<div 
-							className={`${styles.card} ${i === currentNavigationPosition ? styles.fade : ''}`}
-							key={i}
-						>
-							<SpotCard
-								displayMode="card"
-								spot={item}
-								onClick={() => openModal(i)}
-							/>
-						</div>
+						<SpotCard
+							displayMode="card"
+							spot={item}
+							onClick={() => openModal(i)}
+						/>
 					)
 				}) }
 			</div>
@@ -127,17 +122,14 @@ const Home = (
 					<SectionTitle>Autour de moi</SectionTitle>
 					<p><FontAwesomeIcon icon={faLocationDot}/> &nbsp; Près de { userAddress }</p>
 				</SectionHeader>
-				<div className={styles.box}>
-					<CardHome />
-					<Button
-						onClick={() => {openModal(currentNavigationPosition)}}
-						icon={faArrowRight}
-						action="big"
-						role="primary"
-						className={styles.button}
-					/>
-				</div>
-	
+				<CardHome />
+				<Button
+					onClick={() => {openModal(currentNavigationPosition)}}
+					icon={faArrowRight}
+					action="big"
+					role="primary"
+					className={styles.button}
+				/>
 				{data && <SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spots={data} currentSpotPosition={currentSpotPosition} setCurrentSpotPosition={setCurrentSpotPosition}></SpotDetailsModal>}
 			</main>
 		</>

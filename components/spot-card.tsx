@@ -8,6 +8,7 @@ import { Spot } from "@lib/types";
 interface Props {
     displayMode?: "list" | "card"
     spot: Spot
+    className?: string
     onClick?: () => void
     isLast?: boolean
     fullWidth?: boolean
@@ -15,6 +16,7 @@ interface Props {
 
 const SpotCard = ({ 
     displayMode = "card",
+    className,
     spot,
     onClick,
     isLast,
@@ -28,7 +30,7 @@ const SpotCard = ({
     const getSpotDistance = () => 2.3 // TODO
         
     const getClassNames = () => {
-        let classNames = styles.container + ' ' + styles[displayMode]
+        let classNames = className + ' ' + styles.container + ' ' + styles[displayMode]
         classNames += (isLast ? ' ' + styles.isLast : '')
         classNames += (fullWidth ? ' ' + styles.fullWidth : '')
         return classNames

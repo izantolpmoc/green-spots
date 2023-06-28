@@ -2,9 +2,9 @@
 @import "@styles/base/_mixins.scss";
 @import "@styles/abstracts/_colors.module.scss";
 
-.box {
+.cardContainer {
     @include flex-container(row, nowrap, flex-start, center);
-    overflow: auto; 
+    overflow: overlay;
     width: 100%;
       
     .button {
