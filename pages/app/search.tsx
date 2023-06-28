@@ -1,11 +1,12 @@
 import Button from "@components/button"
 import SearchBar from "@components/form-elements/search-bar"
 import DynamicSpotsGrid from "@components/layout/dynamic-spots-grid"
-import ScrollUpIndicator from "@components/layout/scroll-indicator"
+import ScrollIndicator from "@components/layout/scroll-indicator"
 import SectionHeader from "@components/layout/section-header"
 import SearchFiltersModal from "@components/modals/search-filters-modal"
 import SectionTitle from "@components/section-title"
-import { faSliders } from "@fortawesome/free-solid-svg-icons"
+import { faArrowUp, faSliders } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Context } from "@lib/context"
 import prisma from "@lib/prisma"
 import { Spot } from "@lib/types"
@@ -13,7 +14,7 @@ import { Spot } from "@lib/types"
 import styles from "@styles/pages/search.module.scss"
 import { AnimatePresence } from "framer-motion"
 import { GetServerSideProps } from "next"
-import { use, useContext, useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 
 interface Props {
     tags: string[];
@@ -153,7 +154,9 @@ const Search = (
                     onExitComplete={() => null}>
                 {
                     !isScrolledToTop &&
-                    <ScrollUpIndicator onClick={scrollToTop} />
+                    <ScrollIndicator mode="up" onClick={scrollToTop} >
+                        <FontAwesomeIcon icon={faArrowUp} />
+                    </ScrollIndicator>
                 }
                 </AnimatePresence>
             </main>
