@@ -4,7 +4,8 @@
 
 
 #main {
-    
+
+    overflow: scroll;
 
     .horizontalContainer {
         @include flex-container(row, nowrap, flex-start, center);
