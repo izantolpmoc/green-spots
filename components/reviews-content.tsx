@@ -117,7 +117,7 @@ return (
                 {cards}
                 </div>
             :
-            <p className={styles.empty}>Aucun avis pour l'instant.</p>
+            <p className={styles.empty}>Aucun avis pour l&apos;instant.</p>
             }
         </section>
         {displayReviewForm &&
