@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "@styles/components/spot-card.module.scss"
 import StarRating from "./star-rating";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spot } from "@lib/types";
 import { Context } from "@lib/context";
 import { getDistanceFromLatLonInKm } from "@lib/helpers/spot-distance";
@@ -92,11 +90,6 @@ const SpotCard = ({
                     { displayMode === "card" && <span className={styles.distance}>À {distance} km</span> }
                 </div>
             </div>
-            { displayMode === "list" && (
-                <div className={styles.containerIcon}>
-                    <FontAwesomeIcon className={styles.icon} icon={faHeart} />
-                </div>
-            )}
         </li>
     );
 }

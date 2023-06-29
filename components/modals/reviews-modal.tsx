@@ -6,9 +6,10 @@ import styles from "@styles/components/modals/reviews-modal.module.scss";
 import { Review } from "@lib/types";
 import Button from "@components/button";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Toast from "@components/toast";
 import ReviewsContent from "@components/reviews-content";
+import useDeviceType from "../../hooks/use-device-type";
 
 interface Props {
 	showModal: boolean;
@@ -31,6 +32,16 @@ const ReviewsModal = (
 	const [displayModerationToast, setDisplayModerationToast] = useState(false);
 
 
+	const deviceType = useDeviceType();
+
+	// close the modal if we switch to desktop
+
+	useEffect(() => {
+		if (deviceType === "desktop") {
+			onClose();
+		}
+	}, [deviceType]);
+
 	// render
 
 	return (
@@ -40,7 +51,7 @@ const ReviewsModal = (
 			onExitComplete={() => null}>
 			{
 				showModal &&
-				<Modal onClose={onClose} className={styles.modal} dark customHeader={
+				<Modal onClose={onClose} className={styles.modal} dark fitContent customHeader={
 					<div className={styles.header}>
 						<div className={styles.buttonContainer}>
 							<Button 

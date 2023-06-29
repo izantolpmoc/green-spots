@@ -32,11 +32,17 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
     // state
 
     const deviceType = useDeviceType();
-    const isMobile = deviceType === 'mobile';
+    const isTablet = deviceType !== 'desktop';
+
+
+    useEffect(() => {
+        console.log("device type: ", deviceType)
+    }, [deviceType])
+
     const currentUser = useSession().data?.user as SessionUser | undefined;
     const { userLocation } = useContext(Context)
 
-    // mobile details view
+    // tablet details view
     const [displayDetailsView, setDisplayDetailsView] = useState(false);
     const [distance, setDistance] = useState('0');
     const [shareableUrl, setShareableUrl] = useState('');
@@ -154,12 +160,19 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
         }
     }
 
+    const handleClose = () => {
+        setShowModal(false);
+        setDisplayDetailsView(false);
+        setOpenReviews(false);
+        setOpenDesktopReviews(false);
+    }
+
     const sideElement = spot ?
                         <div className={styles.desktopReviews}>
                             <div className={styles.sideHeader}>
                                 <div className={styles.buttonContainer}>
                                     <Button 
-                                        onClick={() => {setShowModal(false); setDisplayDetailsView(false)}}
+                                        onClick={handleClose}
                                         icon={faXmark}
                                         dark
                                         role="secondary"
@@ -190,7 +203,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                 key="modal" 
                 onSwipeRight={onSwipeRight} 
                 onSwipeLeft={onSwipeLeft} 
-                onClose={() => { setShowModal(false); setDisplayDetailsView(false) }} 
+                onClose={handleClose} 
                 removePadding 
                 className={styles.modal} 
                 sideElementClassName={styles.sideElementContent}
@@ -202,7 +215,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                             { !openDesktopReviews && 
                                 <Button
                                     onClick={() => { setShowModal(false); setDisplayDetailsView(false) }}
-                                    icon={isMobile ? faArrowLeft : faXmark}
+                                    icon={isTablet ? faArrowLeft : faXmark}
                                     action="big"
                                     role="secondary"
                                     className={styles.closeBtn}
@@ -221,7 +234,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                         dark
                                     />
                                     <Button
-                                        onClick={() => isMobile ? setOpenReviews(true) : setOpenDesktopReviews(!openDesktopReviews)}
+                                        onClick={() => isTablet ? setOpenReviews(true) : setOpenDesktopReviews(!openDesktopReviews)}
                                         icon={faComments}
                                         action="big"
                                         role="secondary"
@@ -253,11 +266,11 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                 <p>{spot.address}, {spot.postalCode} {spot.city}</p>
                                 <div className={styles.distanceRating}>
                                     <p>À {distance} km</p>
-                                    { isMobile && !displayDetailsView && <StarRating average={averageRating}/>  }
+                                    { isTablet && !displayDetailsView && <StarRating average={averageRating}/>  }
                                 </div>
                             </div>
 
-                            {isMobile &&
+                            {isTablet &&
                                 <div className={styles.actionButtons}>
                                     <a
                                         className={styles.mapLink}
@@ -278,10 +291,10 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                             }
                     </div>
                 }>
-                    {(!isMobile || displayDetailsView) && 
+                    {(!isTablet || displayDetailsView) && 
                         <div className={styles.detailsView}>
 
-                            {!isMobile &&
+                            {!isTablet &&
                                 <div className={styles.actionButtons}>
                                     <a
                                         className={styles.mapLink}
@@ -346,7 +359,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                 }
                         </div>
                     }
-                    { isMobile && !displayDetailsView && <div className={styles.swipeButtons}>
+                    { isTablet && !displayDetailsView && <div className={styles.swipeButtons}>
                         {swipeButtons}
                         </div>
                     }

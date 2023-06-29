@@ -58,12 +58,13 @@ const SearchFiltersModal = (
         >
             {showModal && 
                 <Modal 
+                    fitContent
                     isForm
                     btnRight 
                     onClose={onClose} 
                     className={styles.modal}
                     customHeader={
-                        deviceType !== "mobile" ?
+                        deviceType === "desktop" ?
                         <SearchBar 
                             className={styles.searchBar}
                             value={searchQuery}
@@ -74,7 +75,7 @@ const SearchFiltersModal = (
                     }>
                     <SectionTitle small>Filtres de recherche</SectionTitle>
                     {
-                        deviceType == "mobile" ?
+                        deviceType !== "desktop" ?
                         <SearchBar 
                             value={searchQuery}
                             onChange={setSearchQuery}

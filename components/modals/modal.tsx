@@ -15,6 +15,7 @@ type Props = {
     large?: boolean;
     fullWidth?: boolean;
     fullHeight?: boolean;
+    fitContent?: boolean;
     btnRight?: boolean;
     dark?: boolean;
     removePadding?: boolean;
@@ -25,7 +26,7 @@ type Props = {
     sideElement?: ReactNode;
 }
 
-const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark, removePadding, customHeader, sideElement, className, contentClassName, sideElementClassName, onSwipeRight, onSwipeLeft, isForm }: Props) => {
+const Modal = ({ onClose, children, large, fullWidth, fullHeight, fitContent, btnRight, dark, removePadding, customHeader, sideElement, className, contentClassName, sideElementClassName, onSwipeRight, onSwipeLeft, isForm }: Props) => {
 
     const handlers = useSwipeable({
         onSwipedRight: () => {
@@ -91,6 +92,7 @@ const Modal = ({ onClose, children, large, fullWidth, fullHeight, btnRight, dark
     const getModalContentClassNames = () => {
         let classNames = styles.modalContent;
         classNames += ' ' + (contentClassName ? contentClassName : '')
+        classNames += ' ' + (fitContent ? styles['fitContent'] : '')
         return classNames
     }
 
