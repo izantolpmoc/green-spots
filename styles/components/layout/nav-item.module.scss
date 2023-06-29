@@ -5,6 +5,7 @@
 
 .navItem {
 
+    cursor: pointer;
     @include flex-container(row, nowrap, flex-start, center);
     gap: 16px;
 
