@@ -17,16 +17,28 @@ import DynamicSpotsGrid from '@components/layout/dynamic-spots-grid'
 import { AnimatePresence } from 'framer-motion'
 import ScrollIndicator from '@components/layout/scroll-indicator'
 import SpotDetailsModal from '@components/modals/spot-details-modal'
+import prisma from '@lib/prisma'
 
 interface Props {
 	spots: SuperJSONResult,
 	open: boolean;
 	id: string | string[] | undefined;
+	tags: string[];
 }
 
 const Home = (
-	{ spots, open, id }: Props
+	{ spots, open, id, tags}: Props
 ) => {
+
+
+     // update the tags in the context
+
+     const { setTags } = useContext(Context)
+
+     useEffect(() => {
+         setTags(tags)
+     }, [])
+     
 	
 	// meta data
 
@@ -271,6 +283,14 @@ const Home = (
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
 
+    // get tags 
+
+    const tags = (await prisma.tag.findMany({
+        select: {
+            name: true
+        }
+    })).map(tag => tag.name)
+
 	const { id, open = 'false' } = context.query;
 
 	// get the spot by its id or the first one by default
@@ -282,7 +302,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 		props : {
 			spots,
 			open: open === 'true',
-			id
+			id,
+			tags
 		}
 	}
 }

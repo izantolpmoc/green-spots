@@ -5,11 +5,9 @@ import styles from "@styles/components/modals/add-spot-modal.module.scss"
 import SectionTitle from "@components/section-title"
 import TextInput from "@components/form-elements/text-input"
 import FilterLabel from "@components/form-elements/filter-label"
-import SectionHeader from "@components/layout/section-header"
 import Button from "@components/button"
 import MultiSelect from "@components/form-elements/multi-select"
-import { GetServerSideProps } from "next"
-import prisma from "@lib/prisma"
+
 import { Context } from "@lib/context"
 
 type Props = {
@@ -17,27 +15,62 @@ type Props = {
     onClose: () => void;
 }
 
-const AddSpotModal = ({ showModal, onClose }: Props) => {
+const AddSpotModal = ({ showModal, onClose}: Props) => {
 
     // state
 
     const [spotName, setSpotName] = useState("");
     const [description, setDescription] = useState("")
-    const [spotSite, setSpotSite] = useState("");
     const [spotStreet, setSpotStreet] = useState("");
     const [spotCity, setSpotCity] = useState("");
     const [spotZipCode, setSpotZipCode] = useState("");
+    const [image, setImage] = useState("")
+    const [imageMessage, setImageMessage] = useState("");
 
-    const onSubmit = () => {
-        console.log("SUBMIT")
-        // BLABLA
-    }
+    // get filters' state from context
 
     const {
         tags,
         selectedTags,
         setSelectedTags
     } = useContext(Context)
+
+    // handle Image
+
+    function handleImage(event: any) {
+        
+        setImageMessage("");
+
+        const file = event.target.files[0];
+        const reader = new FileReader();
+      
+        reader.onload = async function(e: any) {
+            const base64Image = e.target.result;
+
+            const response = await fetch('/api/image/service', {
+                method: 'POST',
+                body: JSON.stringify({
+                    base64: base64Image
+                })
+            })
+
+            const data = await response.json();
+
+            if (data.result == false) return setImageMessage("The image doesn't seem to be conforme or isn't in the right format. Please try again!");
+            else {
+                setImage(data.result);
+                return setImageMessage("The image seem to be conforme !")
+            }
+        };
+      
+        reader.readAsDataURL(file);
+    }
+
+    const onSubmit = () => {
+        console.log("SUBMIT")
+
+        console.log(spotName, description, spotStreet, spotCity, spotZipCode, image)
+    }
 
     // render
 
@@ -63,6 +96,7 @@ const AddSpotModal = ({ showModal, onClose }: Props) => {
                         <div className={styles.container}>
                             <FilterLabel>Nom du spot</FilterLabel>
                             <TextInput
+                                required
                                 className={styles.textInput}
                                 placeholder="Jardin des Tuileries"
                                 value={spotName}
@@ -77,6 +111,12 @@ const AddSpotModal = ({ showModal, onClose }: Props) => {
                                 value={description}
                                 onChange={setDescription}
                             />
+                            <FilterLabel>Image</FilterLabel>
+                            <input type="file" id="image" accept="image/*" onChange={(e) => handleImage(e)}></input>
+                            {imageMessage !== "" && <p> { imageMessage } </p>}
+                        </div>
+
+                        <div className={styles.container}>
                             <FilterLabel>Spécificités</FilterLabel>
                             <MultiSelect
                                 name="tags"
@@ -86,19 +126,10 @@ const AddSpotModal = ({ showModal, onClose }: Props) => {
                                 placeholder="Rechercher une spécificité..."
                                 noOptionsMessage="Aucune spécificité trouvée"
                             />
-                        </div>
-
-                        <div className={styles.container}>
-                        <FilterLabel>Nom du spot</FilterLabel>
-                            <TextInput
-                                className={styles.textInput}
-                                placeholder="https://super..site.fr"
-                                value={spotSite}
-                                onChange={setSpotSite}
-                            />
                             <FilterLabel>Adresse</FilterLabel>
                             <p>Rue et numéro</p>
                             <TextInput
+                                required
                                 className={styles.textInput}
                                 placeholder="Pl. de la Concorde"
                                 value={spotStreet}
@@ -107,12 +138,14 @@ const AddSpotModal = ({ showModal, onClose }: Props) => {
                             <p>Ville et code postal</p>
                             <div className={styles.group}>
                                 <TextInput
+                                    required
                                     className={styles.textInput}
                                     placeholder="Paris"
                                     value={spotCity}
                                     onChange={setSpotCity}
                                 />
                                 <TextInput
+                                    required
                                     className={styles.textInput}
                                     placeholder="75001"
                                     value={spotZipCode}
@@ -127,7 +160,6 @@ const AddSpotModal = ({ showModal, onClose }: Props) => {
                                 role="tertiary"
                                 fullWidth
                                 onClick={() => {
-                                    // onSubmit()
                                     onClose()
                                 }}>
                                 Abandonner

@@ -11,7 +11,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@pages/api/auth/[...nextauth]";
 import SpotDetailsModal from '@components/modals/spot-details-modal'
 import SpotCard from '@components/spot-card'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Spot } from '@lib/types'
 import prisma from "@lib/prisma";
 import PlaceHolder from "@components/placeholder";
@@ -19,15 +19,25 @@ import Button from "@components/button";
 import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import LoginModal from "@components/modals/login-modal";
 import DynamicSpotsGrid from "@components/layout/dynamic-spots-grid";
+import { Context } from "@lib/context";
 
 interface Props {
-	likedSpotsJSON: SuperJSONResult | null,
+	likedSpotsJSON: SuperJSONResult | null
+    tags: string[];
 }
 
 const Likes = (
-    { likedSpotsJSON }: Props
+    { likedSpotsJSON, tags }: Props
 ) => {
 
+     // update the tags in the context
+
+     const { setTags } = useContext(Context)
+
+     useEffect(() => {
+         setTags(tags)
+     }, [])
+     
     const { status } = useSession()
     const deviceType = useDeviceType()
     const [showModal, setShowModal] = useState(false)
@@ -106,6 +116,14 @@ const Likes = (
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
 
+    // get tags 
+
+    const tags = (await prisma.tag.findMany({
+        select: {
+            name: true
+        }
+    })).map(tag => tag.name)
+
     // getthe session to access the user's email
 
     const session = await getServerSession(context.req, context.res, authOptions)
@@ -144,7 +162,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     return {
         props : {
-            likedSpotsJSON
+            likedSpotsJSON,
+            tags
         }
     }
 }
