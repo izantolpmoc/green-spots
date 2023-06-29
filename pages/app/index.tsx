@@ -42,7 +42,7 @@ const Home = (
 
 	// manage scroll
 
-	// Up scroll indicator
+	// Scroll up indicator
 
 	const containerRef = useRef<HTMLElement>(null)
 
@@ -83,9 +83,7 @@ const Home = (
 	
 	useEffect(() => {
 		updateCardHeight(0);
-	  }, [sectionRef.current]);
-	  
-	  
+	}, [sectionRef.current]);
 
 	const getCurrentSpotPosition = (id: number) => {
         const currentSpotIdx = data.findIndex(spot => spot.id == data[id].id)
@@ -137,8 +135,6 @@ const Home = (
 	};
 
 	const scrollToStart = () => {
-
-		console.log('back to start baby')
 
 		if (!sectionRef.current) return;
 
@@ -201,26 +197,6 @@ const Home = (
 
 	}, [userLocation])
 
-	const CardHome = () => {
-		return (
-			<section className={styles.cardContainer} ref={sectionRef}>
-				{data.map((item, i) => (
-					<SpotCard
-						className={styles.minHeight}
-						displayMode="card"
-						spot={item}
-						onClick={() => openModal(i)}
-					/>
-				))}
-				
-				<div className={styles.fade} />
-				<ScrollIndicator mode="right" onClick={scrollToRight}>
-					<FontAwesomeIcon icon={faArrowRight} />
-				</ScrollIndicator>
-			</section>
-		)
-	};
-
 	// render
 
 	return (
@@ -251,7 +227,21 @@ const Home = (
 					<SectionTitle>Autour de moi</SectionTitle>
 					<p><FontAwesomeIcon icon={faLocationDot}/> &nbsp; Près de { userAddress }</p>
 				</SectionHeader>
-				<CardHome />
+				<section className={styles.cardContainer} ref={sectionRef}>
+					{data.map((item, i) => (
+						<SpotCard
+							className={styles.minHeight}
+							displayMode="card"
+							spot={item}
+							onClick={() => openModal(i)}
+						/>
+					))}
+					
+					<div className={styles.fade} />
+					<ScrollIndicator mode="right" onClick={scrollToRight}>
+						<FontAwesomeIcon icon={faArrowRight} />
+					</ScrollIndicator>
+				</section>
 
 				{data && <SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spots={data} currentSpotPosition={currentSpotPosition} setCurrentSpotPosition={setCurrentSpotPosition}></SpotDetailsModal>}
 
