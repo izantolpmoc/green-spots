@@ -1,13 +1,14 @@
 import { AnimatePresence } from "framer-motion"
 import Modal from "./modal"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styles from "@styles/components/modals/add-spot-modal.module.scss"
 import SectionTitle from "@components/section-title"
 import TextInput from "@components/form-elements/text-input"
 import FilterLabel from "@components/form-elements/filter-label"
 import Button from "@components/button"
 import MultiSelect from "@components/form-elements/multi-select"
-
+import InputImage from "@components/form-elements/input-image"
+import { getCoordinatesByAddress } from '@lib/open-street-map'
 import { Context } from "@lib/context"
 
 type Props = {
@@ -20,26 +21,24 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
     // state
 
     const [spotName, setSpotName] = useState("");
-    const [description, setDescription] = useState("")
+    const [spotDescription, setSpotDescription] = useState("")
     const [spotStreet, setSpotStreet] = useState("");
     const [spotCity, setSpotCity] = useState("");
-    const [spotZipCode, setSpotZipCode] = useState("");
+    const [spotPostalCode, setSpotPostalCode] = useState("");
     const [image, setImage] = useState("")
     const [imageMessage, setImageMessage] = useState("");
+    const [selectedTags, setSelectedTags] = useState<string[]>([])
 
     // get filters' state from context
 
-    const {
-        tags,
-        selectedTags,
-        setSelectedTags
-    } = useContext(Context)
+    const { tags } = useContext(Context)
 
     // handle Image
 
     function handleImage(event: any) {
         
         setImageMessage("");
+        setImage("");
 
         const file = event.target.files[0];
         const reader = new FileReader();
@@ -56,22 +55,71 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
 
             const data = await response.json();
 
-            if (data.result == false) return setImageMessage("The image doesn't seem to be conforme or isn't in the right format. Please try again!");
+            if (data.result == false) return setImageMessage("L'image semble ne pas être au bon format ou être inappropriée. Réessayez avec une autre !");
             else {
                 setImage(data.result);
-                return setImageMessage("The image seem to be conforme !")
+                return setImageMessage("Image validée !")
             }
         };
       
         reader.readAsDataURL(file);
     }
 
-    const onSubmit = () => {
-        console.log("SUBMIT")
+    const getInvalidFields = () => {
+        let fields: string[] = []
 
-        console.log(spotName, description, spotStreet, spotCity, spotZipCode, image)
+        if(!spotName) fields.push("name")
+        if(!spotStreet) fields.push("address")
+        if(!image) fields.push("image")
+        if(!spotCity) fields.push("city")
+        if(!spotPostalCode) fields.push("postalCode")
+
+        return fields
     }
 
+    const handleSubmit = async () => {
+
+        let localisation = await getCoordinatesByAddress(spotStreet)
+
+        if(!localisation) return;
+        // if(localisation == null) fields.push("address")
+
+        const currentInvalidFields = getInvalidFields()
+        setInvalidFields(currentInvalidFields)
+
+        if(currentInvalidFields.length > 0) return
+
+        let body = {
+            name: spotName,
+            description: spotDescription,
+            latitude: parseFloat(localisation.latitude),
+            longitude: parseFloat(localisation.longitude),
+            address: spotStreet,
+            city: spotCity,
+            postalCode: spotPostalCode,
+            tags: selectedTags,
+            image: image,
+        }
+
+        fetch("/api/spots/create", {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify(body)
+        }).then(res => res.json()).then(res => {
+            if(res) {
+                onClose();
+            }
+        })
+    }
+
+    // manage fields validation
+
+    const [invalidFields, setInvalidFields] = useState<string[]>([])
+
+    useEffect(() => {}, [image])
+    
     // render
 
     return (
@@ -97,6 +145,8 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
                             <FilterLabel>Nom du spot</FilterLabel>
                             <TextInput
                                 required
+                                name="name"
+                                isInvalid={invalidFields.includes("name")}
                                 className={styles.textInput}
                                 placeholder="Jardin des Tuileries"
                                 value={spotName}
@@ -105,14 +155,20 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
                             <FilterLabel>Description</FilterLabel>
                             <p>Description courte (max 140 caractères).</p>
                             <TextInput 
+                                name="description"
                                 className={styles.textInput}
                                 placeholder="Lorem ipsum..."
                                 isTextArea
-                                value={description}
-                                onChange={setDescription}
+                                value={spotDescription}
+                                onChange={setSpotDescription}
                             />
                             <FilterLabel>Image</FilterLabel>
-                            <input type="file" id="image" accept="image/*" onChange={(e) => handleImage(e)}></input>
+                            <InputImage
+                                required
+                                name="image"
+                                isInvalid={invalidFields.includes("image")}
+                                onChange={handleImage}
+                            />
                             {imageMessage !== "" && <p> { imageMessage } </p>}
                         </div>
 
@@ -130,6 +186,8 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
                             <p>Rue et numéro</p>
                             <TextInput
                                 required
+                                name="address"
+                                isInvalid={invalidFields.includes("address")}
                                 className={styles.textInput}
                                 placeholder="Pl. de la Concorde"
                                 value={spotStreet}
@@ -140,6 +198,7 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
                                 <TextInput
                                     required
                                     className={styles.textInput}
+                                    isInvalid={invalidFields.includes("city")}
                                     placeholder="Paris"
                                     value={spotCity}
                                     onChange={setSpotCity}
@@ -147,9 +206,10 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
                                 <TextInput
                                     required
                                     className={styles.textInput}
+                                    isInvalid={invalidFields.includes("postalCode")}
                                     placeholder="75001"
-                                    value={spotZipCode}
-                                    onChange={setSpotZipCode}
+                                    value={spotPostalCode}
+                                    onChange={setSpotPostalCode}
                                 />
                             </div>
                         </div>
@@ -167,13 +227,9 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
                             <Button 
                                 fullWidth
                                 type="submit"
-                                onClick={e => {
-                                    e.preventDefault()
-                                    onSubmit()
-                                    onClose()
-                                }}>
+                                onClick={handleSubmit}>
                                 Créer
-                            </Button>
+                            </Button> 
                         </div>
                  </Modal>
             }

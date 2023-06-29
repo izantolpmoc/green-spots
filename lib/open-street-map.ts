@@ -9,10 +9,13 @@ export const getCoordinatesByAddress = async (address: string): Promise<{ latitu
 
     const formattedAddress = encodeURIComponent(address);
 
-    const apiUrl = `https://nominatim.openstreetmap.org/search?q=17+${formattedAddress}&format=json`;
+    console.log(formattedAddress)
+
+    const apiUrl = `https://nominatim.openstreetmap.org/search?q=17${formattedAddress}&format=json`;
   
     try {
         const response = await fetch(apiUrl)
+        console.log(response)
 
         const data = await response.json()
 
