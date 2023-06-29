@@ -125,6 +125,14 @@ const Search = (
         })
     }
 
+    // utils
+
+    const updateSpot = (index: number, spot: Spot) => {
+        const newSpots = [...searchResults]
+        newSpots[index] = spot
+        setSearchResults(newSpots)
+    }
+
     // render
 
     return (
@@ -147,7 +155,7 @@ const Search = (
                         onClick={() => setShowSearchFiltersModal(true)}
                     />
                 </div>
-                <DynamicSpotsGrid spots={searchResults} />
+                <DynamicSpotsGrid spots={searchResults} updateSpot={updateSpot} />
                 <AnimatePresence
                     initial={false}
                     mode='wait'
