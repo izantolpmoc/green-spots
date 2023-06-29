@@ -5,7 +5,7 @@
 
 #main {
 
-    overflow: scroll;
+    overflow-y: scroll;
 
     .horizontalContainer {
         @include flex-container(row, nowrap, flex-start, center);
