@@ -1,7 +1,6 @@
-import Button from '@components/button'
 import SectionHeader from '@components/layout/section-header'
 import SectionTitle from '@components/section-title'
-import { faArrowLeft, faArrowRight, faArrowUp, faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faArrowUp, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Context } from '@lib/context'
 import { getSpots } from '@lib/helpers/spots'
@@ -48,7 +47,7 @@ const Home = (
 	const [showModal, setShowModal] = useState(open);
 	const [currentSpotPosition, setCurrentSpotPosition] = useState(0);
 
-	const [data] = useState<Spot[]>(spots ? deserialize(spots) : []);
+	const [data, setData] = useState<Spot[]>(spots ? deserialize(spots) : []);
 
 	useEffect(() => { }, [open])
 
@@ -209,6 +208,14 @@ const Home = (
 
 	}, [userLocation])
 
+	// utils
+
+	const updateSpot = (index: number, spot: Spot) => {
+		const newData = [...data]
+		newData[index] = spot
+		setData(newData)
+	}
+
 	// render
 
 	return (
@@ -242,6 +249,7 @@ const Home = (
 				<section className={styles.cardContainer} ref={sectionRef}>
 					{data.map((item, i) => (
 						<SpotCard
+							key={`around-me-section-spot-${i}`}
 							className={styles.minHeight}
 							displayMode="card"
 							spot={item}
@@ -255,14 +263,24 @@ const Home = (
 					</ScrollIndicator>
 				</section>
 
-				{data && <SpotDetailsModal showModal={showModal} setShowModal={setShowModal} spots={data} currentSpotPosition={currentSpotPosition} setCurrentSpotPosition={setCurrentSpotPosition}></SpotDetailsModal>}
+				{
+					data ?
+					<SpotDetailsModal 
+						showModal={showModal} 
+						setShowModal={setShowModal} 
+						spots={data} 
+						updateSpot={updateSpot}
+						currentSpotPosition={currentSpotPosition} 
+						setCurrentSpotPosition={setCurrentSpotPosition}
+					/> : <></>
+				}
 
 				<SectionHeader>
 					<SectionTitle>En vogue</SectionTitle>
 					<p>Les espaces verts les plus appréciés autour de vous !</p>
 				</SectionHeader>
 
-				<DynamicSpotsGrid spots={data} />
+				<DynamicSpotsGrid spots={data} updateSpot={updateSpot} />
 				<AnimatePresence
 					initial={false}
 					mode='wait'

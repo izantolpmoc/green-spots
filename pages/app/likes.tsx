@@ -1,6 +1,5 @@
 import SectionHeader from "@components/layout/section-header"
 import SectionTitle from "@components/section-title"
-import useDeviceType from "../../hooks/use-device-type";
 import { getUser } from '@lib/helpers/user'
 import { GetServerSideProps } from 'next'
 import { serialize, deserialize } from 'superjson'
@@ -43,16 +42,22 @@ const Likes = (
     const [showModal, setShowModal] = useState(false)
     const [currentSpotPosition, setCurrentSpotPosition] = useState(0)
     
-    const [likedSpots] = useState<Spot[]>(likedSpotsJSON ? deserialize(likedSpotsJSON) : [])
+    // get the user and the status from useSession
 
-    const getCurrentSpotPosition = (id: number) => {
-        const currentSpotIdx = likedSpots.findIndex(spot => spot.id == likedSpots[id].id)
-        return setCurrentSpotPosition(currentSpotIdx)
-	}
+    const { data: session, status } = useSession()
+    const sessionUser = session?.user as SessionUser | undefined
+    
+    const [likedSpots, setLikedSpots] = useState<Spot[]>(likedSpotsJSON ? deserialize(likedSpotsJSON) : [])
 
-    const openModal = (id: number) => {
-        getCurrentSpotPosition(id)
-        setShowModal(true)
+    // utils
+
+    const updateSpot = (index: number, spot: Spot) => {
+        const newSpots = [...likedSpots]
+        // if the spot is not liked by the user anymore, remove it from the list
+        if(!spot.likedBy.find(user => user.email === sessionUser?.email)) {
+            newSpots.splice(index, 1)
+        } else newSpots[index] = spot
+        setLikedSpots(newSpots)
     }
 
     // manage login modal
@@ -97,7 +102,7 @@ const Likes = (
 
                 {  
                     status === "authenticated" && likedSpots.length > 0 ?
-                    <DynamicSpotsGrid spots={likedSpots} displayListOnMobile />
+                    <DynamicSpotsGrid spots={likedSpots} displayListOnMobile updateSpot={updateSpot} />
                     : <></>
                 }   
                 
@@ -148,14 +153,16 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             },
             include: {
                 tags: true,
-                reviews: true,
+                reviews: {
+                    include: { user: true }
+                },
                 likedBy: true
             }
         }))
     }
 
     // serialize the liked spots to send them to the client
-      
+
     const likedSpotsJSON = serialize(likedSpots)
     
     // return 

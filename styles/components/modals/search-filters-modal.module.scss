@@ -15,6 +15,10 @@
         padding: 20px 16px;
     }
 
+    .sectionTitle {
+        margin-bottom: 16px;
+    }
+
     .buttonsContainer {
 
         @include flex-container(row, nowrap, center, center);

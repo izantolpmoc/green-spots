@@ -72,7 +72,7 @@ const SearchFiltersModal = (
                         />
                         : undefined
                     }>
-                    <SectionTitle small>Filtres de recherche</SectionTitle>
+                    <SectionTitle small className={styles.sectionTitle}>Filtres de recherche</SectionTitle>
                     {
                         deviceType !== "desktop" ?
                         <SearchBar 

@@ -8,6 +8,7 @@ import useDeviceType from "../../hooks/use-device-type";
 
 interface Props {
     spots: Spot[];
+    updateSpot: (index: number, spot: Spot) => void;
     displayListOnMobile?: boolean;
     className?: string;
 }
@@ -15,6 +16,7 @@ interface Props {
 const DynamicSpotsGrid = (
     {
         spots,
+        updateSpot,
         displayListOnMobile = false,
         className
     }: Props
@@ -65,6 +67,7 @@ const DynamicSpotsGrid = (
             <SpotDetailsModal 
                 showModal={showModal} 
                 setShowModal={setShowModal} 
+                updateSpot={updateSpot}
                 spots={spots} 
                 currentSpotPosition={currentSpotPosition} 
                 setCurrentSpotPosition={setCurrentSpotPosition} 

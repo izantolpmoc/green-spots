@@ -1,0 +1,23 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+.section {
+    flex: 1;
+
+    @include flex-container(column, nowrap);
+    gap: 16px;
+
+    span.caption {
+        @include text-md-regular;
+        color: $white-400;
+        text-align: center;
+        width: 100%;
+    }
+
+    .buttonsContainer {
+        @include flex-container(row, nowrap, center, center);
+        gap: 16px;
+    }
+}
