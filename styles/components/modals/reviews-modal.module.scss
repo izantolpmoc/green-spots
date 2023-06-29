@@ -8,9 +8,9 @@
     max-height: 80vh;
     overflow-x: scroll;
 
-    @media (max-width: $bp-sm) {
+    @media (max-width: $bp-md) {
         max-height: 100vh;
-        border-radius: 16px 16px 0 0;
+        border-radius: 16px 16px 0 0 !important;
         bottom: 0;
     }
 
@@ -95,7 +95,7 @@
 
     align-self: flex-end;
 
-    @media (min-width: $bp-sm) {
+    @media (min-width: $bp-md) {
         padding: 16px 16px 32px;
     }
     

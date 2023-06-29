@@ -6,20 +6,26 @@
 .dialog {
     background: $white;
     height: fit-content;
-    width: clamp(50%, 600px, 100%);
+    @include flex-container(column, nowrap, flex-start, stretch);
+    width: clamp(50%, $bp-md, 100%);
     border: none;
     margin: auto;
     border-radius: 16px;
     padding: 16px 16px 32px;
-    display: flex;
-    flex-direction: column;
 
     gap: 16px;
 
     .modalContent {
         @include flex-container(column, nowrap, flex-start, stretch);
-        height: 100%;
-        width: 100%
+        gap: 16px;
+        width: 100%;
+
+        @media (max-width: $bp-md) {
+
+            &:not(.fitContent) {
+                height: 100%;
+            }
+        }
     }
 
     form {
@@ -49,7 +55,7 @@
     }
 
     &.displaySideElement {
-        @media (min-width: $bp-sm) {
+        @media (min-width: $bp-md) {
             width: clamp(50%, 1000px, 100%);
             @include flex-container(row, nowrap);   
         }
@@ -71,7 +77,7 @@
     }
 
     .sideElement {
-        @media (max-width: $bp-sm) {
+        @media (max-width: $bp-md) {
             display: none;
         }
         &.hide {

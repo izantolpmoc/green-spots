@@ -20,13 +20,13 @@
         @include flex-container(row, nowrap, center, center);
         gap: 16px;
     
-        @media (max-width: $bp-sm) {
+        @media (max-width: $bp-md) {
             @include flex-container(column-reverse, nowrap, center, center);
             gap: 8px;
         }
     }
 
-    @media (max-width: $bp-sm) {
+    @media (max-width: $bp-md) {
         max-height: 80vh;
         bottom: 0;	
         border-radius: 16px 16px 0 0;
