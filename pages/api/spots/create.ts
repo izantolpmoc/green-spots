@@ -77,7 +77,7 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
     const newSpot = await prisma.spot.create({
         data: {
             name,
-            description,
+            description: description || "Non spécifiée",
             latitude,
             longitude,
             address,

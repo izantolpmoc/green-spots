@@ -82,7 +82,6 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
         let localisation = await getCoordinatesByAddress(spotStreet)
 
         if(!localisation) return;
-        // if(localisation == null) fields.push("address")
 
         const currentInvalidFields = getInvalidFields()
         setInvalidFields(currentInvalidFields)
