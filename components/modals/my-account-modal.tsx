@@ -67,7 +67,7 @@ const MyAccountModal = (
                 mode='wait'
                 onExitComplete={() => null}>
                 {showModal && 
-                    <Modal onClose={onClose} className={styles.modal} large>
+                    <Modal onClose={onClose} className={styles.modal} large btnRight>
 
                         <SectionTitle>Mon compte</SectionTitle>
 
