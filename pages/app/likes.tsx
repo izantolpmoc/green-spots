@@ -130,7 +130,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             },
             include: {
                 tags: true,
-                reviews: true
+                reviews: true,
+                likedBy: true
             }
         }))
     }
