@@ -8,10 +8,8 @@ import { useSession } from "next-auth/react";
 import styles from "@styles/pages/likes.module.scss";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@pages/api/auth/[...nextauth]";
-import SpotDetailsModal from '@components/modals/spot-details-modal'
-import SpotCard from '@components/spot-card'
 import { useContext, useEffect, useState } from 'react'
-import { Spot } from '@lib/types'
+import { SessionUser, Spot } from '@lib/types'
 import prisma from "@lib/prisma";
 import PlaceHolder from "@components/placeholder";
 import Button from "@components/button";
@@ -19,6 +17,7 @@ import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import LoginModal from "@components/modals/login-modal";
 import DynamicSpotsGrid from "@components/layout/dynamic-spots-grid";
 import { Context } from "@lib/context";
+import useDeviceType from "../../hooks/use-device-type"
 
 interface Props {
 	likedSpotsJSON: SuperJSONResult | null
@@ -37,7 +36,6 @@ const Likes = (
          setTags(tags)
      }, [])
      
-    const { status } = useSession()
     const deviceType = useDeviceType()
     const [showModal, setShowModal] = useState(false)
     const [currentSpotPosition, setCurrentSpotPosition] = useState(0)
@@ -133,7 +131,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     const session = await getServerSession(context.req, context.res, authOptions)
 
-    if(!session) return { props: { likedSpotsJSON: null } }
+    if(!session) return { props: { likedSpotsJSON: null, tags } }
 
     let email = session.user.email;
 
