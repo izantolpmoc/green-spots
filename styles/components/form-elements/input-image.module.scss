@@ -1,0 +1,35 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+
+
+.imageInput {
+
+    @include reset-form-input;
+
+
+    @include text-sm-medium;
+
+    padding: 16px;
+    border-radius: 8px;
+    background: $primary-100;
+
+    &::placeholder {
+        color: $primary-400;
+    }
+
+    &.fullWidth {
+        width: 100%;
+    }
+
+    &.invalid {
+        border: 1px solid $error;
+    }
+
+    &.textArea {
+        resize: vertical;
+        height: 100px;
+    }
+
+}

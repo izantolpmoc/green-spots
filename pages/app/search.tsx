@@ -45,7 +45,7 @@ const Search = (
     const [showSearchFiltersModal, setShowSearchFiltersModal] = useState(false)
 
     // trigger refresh of the search results when the search query changes
-
+ 
     const [refreshTrigger, setRefreshTrigger] = useState(false)
     const refresh = () => setRefreshTrigger(!refreshTrigger)
 

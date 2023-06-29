@@ -13,7 +13,7 @@ const spotSchema = z.object({
     // full address
     address: z.string().min(1).max(255),
     city: z.string().min(1).max(255),
-    region: z.string().min(1).max(255),
+    region: z.string().min(1).max(255).optional(),
     postalCode: z.string().min(1).max(255),
     country: z.string().min(1).max(255).optional(),
     // other
@@ -25,7 +25,7 @@ const spotSchema = z.object({
         closingTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
         startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
         endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-    }))
+    })).optional()
 })
 
 /**
@@ -77,12 +77,12 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
     const newSpot = await prisma.spot.create({
         data: {
             name,
-            description,
+            description: description || "Non spécifiée",
             latitude,
             longitude,
             address,
             city,
-            region,
+            region: region || "",
             postalCode,
             country,
             website,
@@ -92,7 +92,7 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
             },
             openingHours: {
                 // openingHours is an array of objects, so we need to map over it
-                create: openingHours.map(({openingTime, closingTime, startDate, endDate}) => ({
+                create: openingHours?.map(({openingTime, closingTime, startDate, endDate}) => ({
                     openingTime,
                     closingTime,
                     startDate: new Date(startDate),

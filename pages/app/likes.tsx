@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import styles from "@styles/pages/likes.module.scss";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@pages/api/auth/[...nextauth]";
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { SessionUser, Spot } from '@lib/types'
 import prisma from "@lib/prisma";
 import PlaceHolder from "@components/placeholder";
@@ -16,16 +16,30 @@ import Button from "@components/button";
 import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import LoginModal from "@components/modals/login-modal";
 import DynamicSpotsGrid from "@components/layout/dynamic-spots-grid";
+import { Context } from "@lib/context";
+import useDeviceType from "../../hooks/use-device-type"
 
 interface Props {
-	likedSpotsJSON: SuperJSONResult | null,
+	likedSpotsJSON: SuperJSONResult | null
+    tags: string[];
 }
 
 const Likes = (
-    { likedSpotsJSON }: Props
+    { likedSpotsJSON, tags }: Props
 ) => {
 
+     // update the tags in the context
 
+     const { setTags } = useContext(Context)
+
+     useEffect(() => {
+         setTags(tags)
+     }, [])
+     
+    const deviceType = useDeviceType()
+    const [showModal, setShowModal] = useState(false)
+    const [currentSpotPosition, setCurrentSpotPosition] = useState(0)
+    
     // get the user and the status from useSession
 
     const { data: session, status } = useSession()
@@ -105,11 +119,19 @@ const Likes = (
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
 
+    // get tags 
+
+    const tags = (await prisma.tag.findMany({
+        select: {
+            name: true
+        }
+    })).map(tag => tag.name)
+
     // getthe session to access the user's email
 
     const session = await getServerSession(context.req, context.res, authOptions)
 
-    if(!session) return { props: { likedSpotsJSON: null } }
+    if(!session) return { props: { likedSpotsJSON: null, tags } }
 
     let email = session.user.email;
 
@@ -145,7 +167,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     return {
         props : {
-            likedSpotsJSON
+            likedSpotsJSON,
+            tags
         }
     }
 }

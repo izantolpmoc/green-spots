@@ -3,15 +3,17 @@
 @import "@styles/abstracts/_colors.module.scss";
 
 
-.placeholder {
+.container {
+    width: 100%;
+}
 
+.placeholder {
     @include text-sm-medium;
     color: $black-400;
 }
 
 
 .control {
-
     border: 1px solid $black-100 !important;
     border-radius: 8px !important;
     box-shadow: none !important;
@@ -25,8 +27,6 @@
 }
 
 .multiValue {
-
-    
     background: $secondary-100 !important;
     color: $secondary;
     border-radius: 4px !important;
