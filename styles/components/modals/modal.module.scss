@@ -17,7 +17,7 @@
 
     .modalContent {
         @include flex-container(column, nowrap, flex-start, stretch);
-        gap: 16px;
+        gap: 32px;
         width: 100%;
 
         @media (max-width: $bp-md) {

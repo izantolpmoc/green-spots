@@ -1,6 +1,5 @@
 import SectionHeader from "@components/layout/section-header"
 import SectionTitle from "@components/section-title"
-import useDeviceType from "../../hooks/use-device-type";
 import { getUser } from '@lib/helpers/user'
 import { GetServerSideProps } from 'next'
 import { serialize, deserialize } from 'superjson'
@@ -9,10 +8,8 @@ import { useSession } from "next-auth/react";
 import styles from "@styles/pages/likes.module.scss";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@pages/api/auth/[...nextauth]";
-import SpotDetailsModal from '@components/modals/spot-details-modal'
-import SpotCard from '@components/spot-card'
 import { useState } from 'react'
-import { Spot } from '@lib/types'
+import { SessionUser, Spot } from '@lib/types'
 import prisma from "@lib/prisma";
 import PlaceHolder from "@components/placeholder";
 import Button from "@components/button";
@@ -28,21 +25,22 @@ const Likes = (
     { likedSpotsJSON }: Props
 ) => {
 
-    const { status } = useSession()
-    const deviceType = useDeviceType()
-    const [showModal, setShowModal] = useState(false)
-    const [currentSpotPosition, setCurrentSpotPosition] = useState(0)
+    // get the user and the status from useSession
+
+    const { data: session, status } = useSession()
+    const sessionUser = session?.user as SessionUser | undefined
     
-    const [likedSpots] = useState<Spot[]>(likedSpotsJSON ? deserialize(likedSpotsJSON) : [])
+    const [likedSpots, setLikedSpots] = useState<Spot[]>(likedSpotsJSON ? deserialize(likedSpotsJSON) : [])
 
-    const getCurrentSpotPosition = (id: number) => {
-        const currentSpotIdx = likedSpots.findIndex(spot => spot.id == likedSpots[id].id)
-        return setCurrentSpotPosition(currentSpotIdx)
-	}
+    // utils
 
-    const openModal = (id: number) => {
-        getCurrentSpotPosition(id)
-        setShowModal(true)
+    const updateSpot = (index: number, spot: Spot) => {
+        const newSpots = [...likedSpots]
+        // if the spot is not liked by the user anymore, remove it from the list
+        if(!spot.likedBy.find(user => user.email === sessionUser?.email)) {
+            newSpots.splice(index, 1)
+        } else newSpots[index] = spot
+        setLikedSpots(newSpots)
     }
 
     // manage login modal
@@ -87,7 +85,7 @@ const Likes = (
 
                 {  
                     status === "authenticated" && likedSpots.length > 0 ?
-                    <DynamicSpotsGrid spots={likedSpots} displayListOnMobile />
+                    <DynamicSpotsGrid spots={likedSpots} displayListOnMobile updateSpot={updateSpot} />
                     : <></>
                 }   
                 
