@@ -34,7 +34,7 @@ const NavBar = () => {
             action: () => setShowAddSpotModal(!showAddSpotModal)
         },
         {
-            name: "J'aimes",
+            name: "Favoris",
             icon: faHeart,
             path: "/app/likes"
         },
