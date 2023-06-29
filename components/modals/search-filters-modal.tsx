@@ -11,7 +11,6 @@ import useDeviceType from "../../hooks/use-device-type";
 import FilterLabel from "@components/form-elements/filter-label";
 import DistanceFilter from "@components/search-filters/distance-filter";
 import MultiSelect from "@components/form-elements/multi-select";
-import { set } from "zod";
 
 interface Props {
     showModal: boolean;

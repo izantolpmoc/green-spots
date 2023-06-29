@@ -1,0 +1,63 @@
+@import "@styles/base/_reset.scss";
+@import "@styles/base/_mixins.scss";
+@import "@styles/base/_typography.scss";
+@import "@styles/abstracts/_colors.module.scss";
+@import "@styles/abstracts/_variables.module.scss";
+
+.modal {
+
+	@media (max-width: 600px) {	
+		height: clamp(400px, 80vh, 600px);
+		bottom: 0;	
+	}
+		
+}
+
+/* PROFIL SECTION */
+
+.main {
+	@include flex-container(row, nowrap, space-between, flex-start);
+	gap: 16px;
+	overflow: scroll;
+
+	@media (max-width: $bp-sm) {
+		@include flex-container(column, nowrap, space-between, flex-start);
+	}
+
+    .container {
+        @include flex-container(column, nowrap, center, flex-start);
+		gap: 16px;
+		width: 100%;
+        flex: 1;
+
+		.textInput {
+			width: 100%;
+		}
+
+		p {
+			padding: 0 !important;
+			@include text-sm-medium;
+			color: $black-400;
+			text-align: center;
+			padding: 0 16px;
+		}
+
+		.group {
+			@include flex-container(row, nowrap, center, flex-start);
+			width: 100%;
+			gap: 8px;
+		}
+    }
+
+}
+
+.buttonsContainer {
+
+	@include flex-container(row, nowrap, center, center);
+	gap: 16px;
+
+	@media (max-width: $bp-md) {
+		@include flex-container(column-reverse, nowrap, center, center);
+		gap: 8px;
+	}
+}

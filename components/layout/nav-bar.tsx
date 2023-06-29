@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import LoginModal from "@components/modals/login-modal";
 import MyAccountModal from "@components/modals/my-account-modal";
+import AddSpotModal from "@components/modals/add-spot-modal";
 
 const NavBar = () => {
 
@@ -30,7 +31,7 @@ const NavBar = () => {
         {
             name: "Ajouter un spot",
             icon: faPlus,
-            action: () => console.log("add spot")
+            action: () => setShowAddSpotModal(!showAddSpotModal)
         },
         {
             name: "J'aimes",
@@ -57,7 +58,7 @@ const NavBar = () => {
     const [currentId, setCurrentId] = useState<number>(getInitialId())
     const [prevCurrentId, setPrevCurrentId] = useState<number>(currentId)
     const [showAccountModal, setShowAccountModal] = useState<boolean>(false)
-
+    const [showAddSpotModal, setShowAddSpotModal] = useState<boolean>(false)
     
 
     // utils
@@ -86,6 +87,10 @@ const NavBar = () => {
         setCurrentId(prevCurrentId)
     }
 
+    const handlerAddSpotClose = () => {
+        setShowAddSpotModal(false)
+        setCurrentId(prevCurrentId)
+    }
 
     // render
 
@@ -112,6 +117,8 @@ const NavBar = () => {
                 :
                 <LoginModal showModal={showAccountModal} onClose={handlerAccountModalClose}/>
             }
+
+            <AddSpotModal showModal={showAddSpotModal} onClose={handlerAddSpotClose} />
         </>
     )
 }
