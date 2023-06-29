@@ -42,7 +42,7 @@ const LoginModal = ({ showModal, onClose }: Props) => {
             onExitComplete={() => null}
         >
             {showModal && 
-                <Modal onClose={() => {onClose(); setShowButtons(false)}} removePadding className={styles.modal} customHeader={
+                <Modal fitContent onClose={() => {onClose(); setShowButtons(false)}} removePadding className={styles.modal} customHeader={
                     <div className={getHeaderClassNames()}>
                             <Button
                                 onClick={() => {onClose(); setShowButtons(false)}}
