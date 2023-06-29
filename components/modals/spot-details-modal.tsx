@@ -153,7 +153,8 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
             const response = await fetch(`/api/spots/${spot.id}`, {
                 method: 'GET',
             }).then(res => res.json());
-            updateSpot(currentSpotPosition, response.spot);
+
+           updateSpot(currentSpotPosition, response.spot);
 
         } catch (error) {
             console.log(error)
