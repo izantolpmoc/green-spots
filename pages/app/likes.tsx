@@ -25,6 +25,7 @@ const Likes = (
     { likedSpotsJSON }: Props
 ) => {
 
+
     // get the user and the status from useSession
 
     const { data: session, status } = useSession()
@@ -128,14 +129,16 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             },
             include: {
                 tags: true,
-                reviews: true,
+                reviews: {
+                    include: { user: true }
+                },
                 likedBy: true
             }
         }))
     }
 
     // serialize the liked spots to send them to the client
-      
+
     const likedSpotsJSON = serialize(likedSpots)
     
     // return 
