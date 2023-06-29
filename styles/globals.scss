@@ -58,7 +58,9 @@ div#__next {
 
 	@include flex-container(column, nowrap, center, stretch);
 	
-	padding-bottom: 60px;
+	@media (max-width: $bp-md) {
+		padding-bottom: 60px;
+    }
 
 	& > main {
 		margin-top: 16px;

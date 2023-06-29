@@ -9,7 +9,7 @@ import styles from "@styles/pages/likes.module.scss";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@pages/api/auth/[...nextauth]";
 import { useState } from 'react'
-import { Spot } from '@lib/types'
+import { SessionUser, Spot } from '@lib/types'
 import prisma from "@lib/prisma";
 import PlaceHolder from "@components/placeholder";
 import Button from "@components/button";
@@ -25,9 +25,24 @@ const Likes = (
     { likedSpotsJSON }: Props
 ) => {
 
-    const { status } = useSession()
+
+    // get the user and the status from useSession
+
+    const { data: session, status } = useSession()
+    const sessionUser = session?.user as SessionUser | undefined
     
-    const [likedSpots] = useState<Spot[]>(likedSpotsJSON ? deserialize(likedSpotsJSON) : [])
+    const [likedSpots, setLikedSpots] = useState<Spot[]>(likedSpotsJSON ? deserialize(likedSpotsJSON) : [])
+
+    // utils
+
+    const updateSpot = (index: number, spot: Spot) => {
+        const newSpots = [...likedSpots]
+        // if the spot is not liked by the user anymore, remove it from the list
+        if(!spot.likedBy.find(user => user.email === sessionUser?.email)) {
+            newSpots.splice(index, 1)
+        } else newSpots[index] = spot
+        setLikedSpots(newSpots)
+    }
 
     // manage login modal
 
@@ -71,7 +86,7 @@ const Likes = (
 
                 {  
                     status === "authenticated" && likedSpots.length > 0 ?
-                    <DynamicSpotsGrid spots={likedSpots} displayListOnMobile />
+                    <DynamicSpotsGrid spots={likedSpots} displayListOnMobile updateSpot={updateSpot} />
                     : <></>
                 }   
                 

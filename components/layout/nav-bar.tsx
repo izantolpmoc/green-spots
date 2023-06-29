@@ -91,6 +91,7 @@ const NavBar = () => {
 
     return (
         <>
+        
             <nav id={styles.navBar}>
                 <ul>
                 {
