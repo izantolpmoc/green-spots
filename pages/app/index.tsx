@@ -17,6 +17,7 @@ import { AnimatePresence } from 'framer-motion'
 import ScrollIndicator from '@components/layout/scroll-indicator'
 import SpotDetailsModal from '@components/modals/spot-details-modal'
 import prisma from '@lib/prisma'
+import smoothscroll from 'smoothscroll-polyfill';
 
 interface Props {
 	spots: SuperJSONResult,
@@ -135,7 +136,9 @@ const Home = (
 		// @ts-ignore
 		const cardWidthWithGap = cardContainer.children[1].offsetWidth + parseInt(getComputedStyle(cardContainer).gap);
 
-		const scrollLeft = cardPositionRef.current * cardWidthWithGap;	  
+		const scrollLeft = cardPositionRef.current * cardWidthWithGap;	
+		
+		smoothscroll.polyfill();
 
 		cardContainer.scrollTo({
 			left: scrollLeft,
@@ -156,6 +159,8 @@ const Home = (
 
 		const scrollLeft = cardContainer.children.length * cardWidthWithGap;
 
+		smoothscroll.polyfill();
+
 		cardContainer.scrollTo({
 			left: - scrollLeft,
 			behavior: 'smooth'
@@ -164,7 +169,6 @@ const Home = (
 		updateCardHeight(cardPositionRef.current);
 	};
 	
-
 	const updateCardHeight = (i: number, old?: number) => {
 		if(!sectionRef.current) return
 
