@@ -68,7 +68,7 @@ const Likes = (
         <>
             <main id={styles.main}>
                 <SectionHeader>
-                    <SectionTitle>J&apos;aimes</SectionTitle>
+                    <SectionTitle>Favoris</SectionTitle>
                     <p>Les spots qui vous ont tapé dans l&apos;œil</p>
                 </SectionHeader>
                 {  
@@ -92,7 +92,7 @@ const Likes = (
                 {  
                     status === "authenticated" && likedSpots.length === 0 ?
                     <PlaceHolder illustrationURL="/assets/no-like.svg">
-                        <h3>Vous n&apos;avez pas encore de j&apos;aime</h3>
+                        <h3>Vous n&apos;avez pas encore de favoris</h3>
                         <p>Explorez sans attendre et laissez votre curiosité s&apos;épanouir</p>
                     </PlaceHolder>
                     : <></>
