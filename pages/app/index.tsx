@@ -18,17 +18,22 @@ import ScrollIndicator from '@components/layout/scroll-indicator'
 import SpotDetailsModal from '@components/modals/spot-details-modal'
 import prisma from '@lib/prisma'
 import smoothscroll from 'smoothscroll-polyfill';
+import { useRouter } from 'next/router'
 
 interface Props {
-	spots: SuperJSONResult,
-	open: boolean;
-	id: string | string[] | undefined;
+	spots: SuperJSONResult;
 	tags: string[];
 }
 
 const Home = (
-	{ spots, open, id, tags}: Props
+	{ spots, tags}: Props
 ) => {
+
+	// get id & open from the URLquery
+
+	const router = useRouter()
+
+	const { id, open } = router.query
 
 
      // update the tags in the context
@@ -45,12 +50,78 @@ const Home = (
 	const metaTitle = "GREEN SPOTS"
 	const metaDescription = "GREEN SPOTS permet de trouver les meilleurs spots de nature autour de vous."
 
-	const [showModal, setShowModal] = useState(open);
-	const [currentSpotPosition, setCurrentSpotPosition] = useState(0);
+	const [showModal, setShowModal] = useState(open === "true");
+	const [currentSpotPosition, setCurrentSpotPosition] = useState(0)
 
-	const [data, setData] = useState<Spot[]>(spots ? deserialize(spots) : []);
+	// sort the spots in data by highest rating
 
-	useEffect(() => { }, [open])
+	const getSpotRating = (spot: Spot) => spot.reviews.length > 0 ? spot.reviews.reduce((acc, review) => acc + review.rating, 0) / spot.reviews.length : 0
+
+
+	const [data, setData] = useState<Spot[]>((deserialize(spots) as Spot[]).sort((a, b) => getSpotRating(b) - getSpotRating(a)))
+
+
+	// update the current spot position when the id is provided
+
+	useEffect(() => {
+		if(!data || !id) return
+
+		const currentSpotIdx = data.findIndex(spot => spot.id == id)
+		setCurrentSpotPosition(currentSpotIdx)
+	}, [data, id])
+
+	const [nearBySpots, setNearBySpots] = useState<Spot[]>([])
+
+	// user location
+
+	const { userLocation } = useContext(Context)
+
+	const [userAddress, setUserAddress] = useState<string>("")
+	
+	// update the user address when the user location changes
+
+	useEffect(() => {
+
+		if(!userLocation) return
+
+		const { latitude, longitude } = userLocation.coords
+
+		// make a call to the open street map api to get the user address
+
+		fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&accept-language=fr`)
+		.then(response => response.json()).then(data => {
+			console.log(data)
+			const { amenity, road, city, country } = data.address
+			setUserAddress(
+				`${amenity ? amenity + ', ' : ''}${road ? road + ', ' : ''}${city ? city + ', ' : ''}${country}`
+			)
+		})
+
+
+	}, [userLocation])
+
+	useEffect(() => {
+		// only keep spots in nearBySpots that are in a 10km radius
+
+		if(!data || !userLocation) return
+
+		const { latitude, longitude } = userLocation.coords
+
+		const newNearBySpots = data.filter(spot => {
+			const distance = Math.sqrt(Math.pow(spot.latitude - latitude, 2) + Math.pow(spot.longitude - longitude, 2))
+			return distance < 0.1
+		})
+		// sort them by distance
+		.sort((a, b) => {
+			const distanceA = Math.sqrt(Math.pow(a.latitude - latitude, 2) + Math.pow(a.longitude - longitude, 2))
+			const distanceB = Math.sqrt(Math.pow(b.latitude - latitude, 2) + Math.pow(b.longitude - longitude, 2))
+			return distanceA - distanceB
+		})
+
+		setNearBySpots(newNearBySpots)
+
+	}, [data, userLocation])
+
 
 	// manage scroll
 
@@ -183,34 +254,6 @@ const Home = (
 			}
 		}
 	};
-	  
-	// user location
-
-	const { userLocation } = useContext(Context)
-
-	const [userAddress, setUserAddress] = useState<string>("")
-	
-	// update the user address when the user location changes
-
-	useEffect(() => {
-
-		if(!userLocation) return
-
-		const { latitude, longitude } = userLocation.coords
-
-		// make a call to the open street map api to get the user address
-
-		fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&accept-language=fr`)
-		.then(response => response.json()).then(data => {
-			console.log(data)
-			const { amenity, road, city, country } = data.address
-			setUserAddress(
-				`${amenity ? amenity + ', ' : ''}${road ? road + ', ' : ''}${city ? city + ', ' : ''}${country}`
-			)
-		})
-
-
-	}, [userLocation])
 
 	// utils
 
@@ -251,7 +294,7 @@ const Home = (
 					<p><FontAwesomeIcon icon={faLocationDot}/> &nbsp; Près de { userAddress }</p>
 				</SectionHeader>
 				<section className={styles.cardContainer} ref={sectionRef}>
-					{data.map((item, i) => (
+					{nearBySpots.map((item, i) => (
 						<SpotCard
 							key={`around-me-section-spot-${i}`}
 							className={styles.minHeight}
@@ -313,18 +356,14 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         }
     })).map(tag => tag.name)
 
-	const { id, open = 'false' } = context.query;
-
 	// get the spot by its id or the first one by default
-	const rawData = id ? [(await getSpots()).find(spot => spot.id == id)] : (await getSpots());
+	const rawData = await getSpots() 
 
 	const spots = serialize(rawData);
 
 	return {
 		props : {
 			spots,
-			open: open === 'true',
-			id,
 			tags
 		}
 	}
