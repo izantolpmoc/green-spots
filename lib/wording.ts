@@ -79,4 +79,3 @@ const translateText = async (text: string): Promise<string> => {
     return '';
 }
 
-
