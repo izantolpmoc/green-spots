@@ -1,9 +1,11 @@
 {
     "lang": "fr",
     "name": "GREEN SPOTS",
-    "short_name": "GREEN SPOTS",
+    "short_name": "Green Spots",
     "display": "standalone",
     "orientation": "portrait",
+    "background_color": "#ffffff",
+    "theme_color": "#588157",
     "scope": "/app",
     "start_url": "/app",
     "icons": [
