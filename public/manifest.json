@@ -4,8 +4,6 @@
     "short_name": "GREEN SPOTS",
     "display": "standalone",
     "description": "GREEN SPOTS est une application qui vous permet de trouver des endroits verts autour de vous.",
-    "theme_color": "#4DBA87",
-    "background_color": "#F7F8F9",
     "orientation": "portrait",
     "scope": "/app",
     "start_url": "/app",
