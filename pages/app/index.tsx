@@ -50,7 +50,7 @@ const Home = (
 	const metaTitle = "GREEN SPOTS"
 	const metaDescription = "GREEN SPOTS permet de trouver les meilleurs spots de nature autour de vous."
 
-	const [showModal, setShowModal] = useState(open === "true");
+	const [showModal, setShowModal] = useState(open === "true")
 	const [currentSpotPosition, setCurrentSpotPosition] = useState(0)
 
 	// sort the spots in data by highest rating
