@@ -34,7 +34,7 @@ const ReviewDeletionModal = (
 					<section className={styles.section}>
 						<SectionTitle dark>Confirmation</SectionTitle>
 						<span className={styles.caption}>
-							Êtes-vous sûr de vouloir supprimer cet avis ?
+							Do you want to delete this review?
 						</span>
 						<div className={styles.buttonsContainer}>
 							<Button 
@@ -42,14 +42,14 @@ const ReviewDeletionModal = (
 								fullWidth
                                 dark
 								onClick={onClose}>
-								Annuler
+								Cancel
 							</Button>
 							<Button 
 								error
 								fullWidth
 								icon={faTrash}
 								onClick={onConfirm}>
-								Supprimer
+								Delete
 							</Button>
 						</div>
 					</section>

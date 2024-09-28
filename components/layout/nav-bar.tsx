@@ -19,27 +19,27 @@ const NavBar = () => {
 
     const navItems: NavItemType[] = [
         {
-            name: "Accueil",
+            name: "Home",
             icon: faHome,
             path: "/app"
         },
         {
-            name: "Recherche",
+            name: "Search",
             icon: faMagnifyingGlass,
             path: "/app/search"
         },
         {
-            name: "Ajouter un spot",
+            name: "Add a spot",
             icon: faPlus,
             action: () => setShowAddSpotModal(!showAddSpotModal)
         },
         {
-            name: "Favoris",
+            name: "Likes",
             icon: faHeart,
             path: "/app/likes"
         },
         {
-            name: "Mon compte",
+            name: "My account",
             icon: faUser,
             action: () => setShowAccountModal(!showAccountModal)
         }
@@ -67,7 +67,7 @@ const NavBar = () => {
         // don't display the add spot button 
         // if the user is not a moderator or an admin
         if (!user?.isModerator &&!user?.isAdmin ) {
-            return navItems.filter(item => item.name !== "Ajouter un spot")
+            return navItems.filter(item => item.name !== "Add a spot")
         }
         return navItems
     }

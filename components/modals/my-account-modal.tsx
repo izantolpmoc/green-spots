@@ -69,7 +69,7 @@ const MyAccountModal = (
                 {showModal && 
                     <Modal onClose={onClose} className={styles.modal} large btnRight fitContent>
 
-                        <SectionTitle>Mon compte</SectionTitle>
+                        <SectionTitle>My Account</SectionTitle>
 
                         <section className={styles.container}>
                             <section className={styles.userInfo}>
@@ -83,7 +83,7 @@ const MyAccountModal = (
                                         <></> 
                                     }
                                 </div>
-                                <div className={styles.subInfo}>{ user.email} </div>
+                                <div className={styles.subInfo}>{user.email}</div>
                             </section>
 
                             <div className={styles.buttons}>
@@ -93,7 +93,7 @@ const MyAccountModal = (
                                     fullWidth
                                     onClick={signOut}
                                 >
-                                    Se déconnecter
+                                    Log out
                                 </Button>
 
                                 <Button 
@@ -102,7 +102,7 @@ const MyAccountModal = (
                                     fullWidth
                                     onClick={() => handleDeleteAccount()}
                                 >
-                                    Supprimer mon compte
+                                    Delete my account
                                 </Button>
                             </div>
                         </section>
@@ -117,13 +117,13 @@ const MyAccountModal = (
             <Toast 
                 showToast={showDeletionSuccessToast}
                 onHide={() => setShowDeletionSuccessToast(false)}>
-                Votre compte a bien été supprimé.
+                Your account was successfully deleted.
             </Toast>
             <Toast
                 status="error"
                 showToast={showDeletionErrorToast}
                 onHide={() => setShowDeletionErrorToast(false)}>
-                Une erreur est survenue.
+                An error occured.
             </Toast>
 
         </>

@@ -68,8 +68,8 @@ const Likes = (
         <>
             <main id={styles.main}>
                 <SectionHeader>
-                    <SectionTitle>Favoris</SectionTitle>
-                    <p>Les spots qui vous ont tapé dans l&apos;œil</p>
+                    <SectionTitle>Likes</SectionTitle>
+                    <p>The spots that caught your eye</p>
                 </SectionHeader>
                 {  
                     status !== "authenticated" ?
@@ -79,12 +79,12 @@ const Likes = (
                                 icon={faArrowRightToBracket}
                                 role="primary"
                                 onClick = {() => setShowLoginModal(true) }>
-                                Connexion
+                                Log in
                             </Button>
                         )}
                         illustrationURL="/assets/not-connected.svg">
-                        <h3>Vous n&apos;êtes pas connecté</h3>
-                        <p>Connectez-vous pour accéder à cette page</p>
+                        <h3>You are not logged in</h3>
+                        <p>Log in to access this page</p>
                     </PlaceHolder>
                     : <></>
                 }
@@ -92,8 +92,8 @@ const Likes = (
                 {  
                     status === "authenticated" && likedSpots.length === 0 ?
                     <PlaceHolder illustrationURL="/assets/no-like.svg">
-                        <h3>Vous n&apos;avez pas encore de favoris</h3>
-                        <p>Explorez sans attendre et laissez votre curiosité s&apos;épanouir</p>
+                        <h3>You did not like any spot yet</h3>
+                        <p>Start exploring and let your curiosity grow</p>
                     </PlaceHolder>
                     : <></>
                 }

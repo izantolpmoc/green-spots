@@ -72,7 +72,7 @@ const SearchFiltersModal = (
                         />
                         : undefined
                     }>
-                    <SectionTitle small className={styles.sectionTitle}>Filtres de recherche</SectionTitle>
+                    <SectionTitle small className={styles.sectionTitle}>Search filters</SectionTitle>
                     {
                         deviceType !== "desktop" ?
                         <SearchBar 
@@ -81,21 +81,21 @@ const SearchFiltersModal = (
                             onSubmit={onSubmit}
                         /> : <></>
                     }
-                    <FilterLabel>Distance max</FilterLabel>
+                    <FilterLabel>Max. distance</FilterLabel>
                     <DistanceFilter
                         name="maxDistance"
                         value={maxDistance}
                         onChange={setMaxDistance}
                         max={20}
                     />
-                    <FilterLabel>Spécificités</FilterLabel>
+                    <FilterLabel>Features</FilterLabel>
                     <MultiSelect
                         name="tags"
                         value={selectedTags}
                         onChange={setSelectedTags}
                         options={tags}
-                        placeholder="Rechercher une spécificité..."
-                        noOptionsMessage="Aucune spécificité trouvée"
+                        placeholder="Find a feature..."
+                        noOptionsMessage="No feature found"
                     />
                     <div className={styles.buttonsContainer}>
                         <Button
@@ -107,7 +107,7 @@ const SearchFiltersModal = (
                                 setSelectedTags([])
                                 onSubmit()
                             }}>
-                            Tout Effacer
+                            Clear all
                         </Button>
                         <Button 
                             fullWidth
@@ -117,7 +117,7 @@ const SearchFiltersModal = (
                                 onSubmit()
                                 onClose()
                             }}>
-                            Appliquer
+                            Apply
                         </Button>
                     </div>
                 </Modal>

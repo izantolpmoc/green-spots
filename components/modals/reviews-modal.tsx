@@ -62,7 +62,7 @@ const ReviewsModal = (
 								className={styles.closeBtn}
 							/>
 						</div>
-						<SectionTitle dark>Avis</SectionTitle>
+						<SectionTitle dark>Review</SectionTitle>
 					</div>
 				}>
 					<ReviewsContent 
@@ -77,7 +77,7 @@ const ReviewsModal = (
 				status='error'
 				showToast={displayModerationToast}
 				onHide={() => setDisplayModerationToast(false)}>
-				Certains termes utilisés ne peuvent être acceptés.
+				Some words are inappropriate.
 			</Toast>
 		</AnimatePresence>
 	)

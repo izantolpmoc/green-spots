@@ -141,8 +141,8 @@ const Search = (
                 ref={containerRef} 
                 id={styles.main}>
                 <SectionHeader>
-                    <SectionTitle>Recherche</SectionTitle>
-                    <p>Trouver le spot qui vous convient !</p>
+                    <SectionTitle>Search</SectionTitle>
+                    <p>Find the spot that suits you!</p>
                 </SectionHeader>
                 <div className={styles.horizontalContainer} id="search-bar-container">
                     <SearchBar 

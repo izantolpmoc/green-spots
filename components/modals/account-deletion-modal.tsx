@@ -34,21 +34,21 @@ const AccountDeletionModal = (
 					<section className={styles.section}>
 						<SectionTitle>Confirmation</SectionTitle>
 						<span className={styles.caption}>
-							Êtes-vous sûr de vouloir supprimer votre compte ?
+							Are you certain you wish to delete your account?
 						</span>
 						<div className={styles.buttonsContainer}>
 							<Button 
 								role="secondary"
 								fullWidth
 								onClick={onClose}>
-								Annuler
+								Cancel
 							</Button>
 							<Button 
 								error
 								fullWidth
 								icon={faTrash}
 								onClick={onConfirm}>
-								Supprimer
+								Delete
 							</Button>
 						</div>
 					</section>

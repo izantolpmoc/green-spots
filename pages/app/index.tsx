@@ -48,7 +48,7 @@ const Home = (
 	// meta data
 
 	const metaTitle = "GREEN SPOTS"
-	const metaDescription = "GREEN SPOTS permet de trouver les meilleurs spots de nature autour de vous."
+	const metaDescription = "GREEN SPOTS allows you to find the best nature spots around you."
 
 	const [showModal, setShowModal] = useState(open === "true")
 	const [currentSpotPosition, setCurrentSpotPosition] = useState(0)
@@ -88,7 +88,7 @@ const Home = (
 
 		// make a call to the open street map api to get the user address
 
-		fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&accept-language=fr`)
+		fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&accept-language=en`)
 		.then(response => response.json()).then(data => {
 			console.log(data)
 			const { amenity, road, city, country } = data.address
@@ -290,8 +290,8 @@ const Home = (
 				id={styles.main}
 			>
 				<SectionHeader>
-					<SectionTitle>Autour de moi</SectionTitle>
-					<p><FontAwesomeIcon icon={faLocationDot}/> &nbsp; Près de { userAddress }</p>
+					<SectionTitle>Around me</SectionTitle>
+					<p><FontAwesomeIcon icon={faLocationDot}/> &nbsp; Near { userAddress }</p>
 				</SectionHeader>
 				<section className={styles.cardContainer} ref={sectionRef}>
 					{nearBySpots.map((item, i) => (
@@ -323,8 +323,8 @@ const Home = (
 				}
 
 				<SectionHeader>
-					<SectionTitle>En vogue</SectionTitle>
-					<p>Les espaces verts les plus appréciés autour de vous !</p>
+					<SectionTitle>Popular</SectionTitle>
+					<p>The most liked green spots around you!</p>
 				</SectionHeader>
 
 				<DynamicSpotsGrid spots={data} updateSpot={updateSpot} />

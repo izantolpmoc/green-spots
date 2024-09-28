@@ -45,18 +45,18 @@ const Home = () => {
 				<h1 className={styles.title}>GREEN SPOTS</h1>
 				{
 					status === 'loading' ? (
-						<p>Chargement...</p>
+						<p>Loading...</p>
 					) : status === 'authenticated' ? (
 						<>
-							<p>Bonjour {session.user?.name} ! ({session.user?.email})</p>
+							<p>Hello {session.user?.name} ! ({session.user?.email})</p>
 							<img src={session.user?.image || ""} alt="avatar" />
 							<Link href="/api/auth/signout">
-								Se déconnecter
+								Log out
 							</Link>
 						</>
 					) : (
 						<Link href="/api/auth/signin">
-							Se connecter
+							Log in
 						</Link>
 					)
 				}

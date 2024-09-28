@@ -154,7 +154,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                 method: 'GET',
             }).then(res => res.json());
 
-           updateSpot(currentSpotPosition, response.spot);
+            updateSpot(currentSpotPosition, response.spot);
 
         } catch (error) {
             console.log(error)
@@ -180,7 +180,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                         className={styles.closeBtn}
                                     />
                                 </div>
-                                <SectionTitle dark>Avis</SectionTitle>
+                                <SectionTitle dark>Reviews</SectionTitle>
                             </div>
                                 <ReviewsContent 
                                     className={styles.reviewsContent}
@@ -266,7 +266,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                 <h1>{spot.name}</h1>
                                 <p>{spot.address}, {spot.postalCode} {spot.city}</p>
                                 <div className={styles.distanceRating}>
-                                    <p>À {distance} km</p>
+                                    <p>{distance} km from you</p>
                                     { isTablet && !displayDetailsView && <StarRating average={averageRating}/>  }
                                 </div>
                             </div>
@@ -278,7 +278,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                         target="_blank"
                                         href={`https://maps.google.com/?q=${spot.name} ${spot.address} ${spot.postalCode} ${spot.city}`}>
                                         <FontAwesomeIcon icon={faMap} />
-                                        <span>Y aller</span>
+                                        <span>Open in Google Maps</span>
                                     </a>
                                     
                                     <Button
@@ -286,7 +286,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                         role="secondary"
                                         dark
                                         fullWidth>
-                                        {displayDetailsView ? "Minimiser" : "Plus d'informations"}
+                                        {displayDetailsView ? "Hide" : "More information"}
                                     </Button>
                                 </div>
                             }
@@ -302,7 +302,7 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                                         target="_blank"
                                         href={`https://maps.google.com/?q=${spot.name} ${spot.address} ${spot.postalCode} ${spot.city}`}>
                                         <FontAwesomeIcon icon={faMap} />
-                                        <span>Y aller</span>
+                                        <span>Open in Google Maps</span>
                                     </a>
                                 </div>
                             }
@@ -371,13 +371,13 @@ const SpotDetailsModal = ({ showModal, setShowModal, spots, updateSpot, currentS
                 status='info'
                 showToast={displayAddToFavoritesErrorToast}
                 onHide={() => setDisplayAddToFavoritesErrorToast(false)}>
-                Connectez vous pour effectuer cette action.
+                Log in to access this feature.
             </Toast>
             <Toast 
 				status='error'
 				showToast={displayModerationToast}
 				onHide={() => setDisplayModerationToast(false)}>
-				Certains termes utilisés ne peuvent être acceptés.
+				Some words used were deemed inappropriate.
 			</Toast>
             <ReviewsModal showModal={openReviews} onClose={() => setOpenReviews(false)} onReload={reloadCurrentSpot} spotId={spot.id} reviews={spot.reviews}></ReviewsModal>
         </AnimatePresence>

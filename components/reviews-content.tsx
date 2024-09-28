@@ -157,30 +157,30 @@ return (
                     {cards}
                     </div>
                 :
-                <p className={styles.empty}>Aucun avis pour l&apos;instant.</p>
+                <p className={styles.empty}>No reviews for the moment.</p>
                 }
             </section>
             {displayReviewForm &&
                 <form className={styles.form}>
-                <StarRatingInput 
-                    value={rating}
-                    onChange={setRating} 
-                />
-                <TextInput 
-                    isTextArea 
-                    className={styles.textInput} 
-                    maxLength={240} 
-                    isInvalid={invalidField} 
-                    placeholder="Laissez une note et un avis..." 
-                    value={review} 
-                    onChange={setReview}/>
-                <Button
-                    fullWidth
-                    onClick={validateForm}
-                    dark
-                    role="secondary">
-                    Ajouter
-                </Button>
+                    <StarRatingInput 
+                        value={rating}
+                        onChange={setRating} 
+                    />
+                    <TextInput 
+                        isTextArea 
+                        className={styles.textInput} 
+                        maxLength={240} 
+                        isInvalid={invalidField} 
+                        placeholder="Leave a review and a comment..." 
+                        value={review} 
+                        onChange={setReview}/>
+                    <Button
+                        fullWidth
+                        onClick={validateForm}
+                        dark
+                        role="secondary">
+                        Add
+                    </Button>
                 </form>
             }
         </div>
@@ -192,13 +192,13 @@ return (
         <Toast 
             showToast={showDeletionSuccessToast}
             onHide={() => setShowDeletionSuccessToast(false)}>
-            Votre avis a bien été supprimé.
+            Your review was successfully deleted.
         </Toast>
         <Toast
             status="error"
             showToast={showDeletionErrorToast}
             onHide={() => setShowDeletionErrorToast(false)}>
-            Une erreur est survenue.
+            An error occured.
         </Toast>
     </>
 );

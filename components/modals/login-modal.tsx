@@ -60,21 +60,21 @@ const LoginModal = ({ showModal, onClose }: Props) => {
                                     <img className={styles.logo} src="/icons/icon-white.svg" alt="green-spots-logo" />
                                 }
                                 <h1 className={styles.title}>GREEN SPOTS</h1>
-                                <p className={styles.subtitle}>LA NATURE EN VILLE</p>
+                                <p className={styles.subtitle}>NATURE IN TOWN</p>
                             </div>
                     </div>
                 }>
                     {
                         !showButtons ?
                             <div className={styles.content}>
-                                <p className={styles.contentText}>Connectez-vous pour profiter pleinement de l’application !</p>
+                                <p className={styles.contentText}>Log in to fully access the app!</p>
                                 <Button
                                     icon={faSignIn}
                                     onClick={() => setShowButtons(true)}>
-                                    Se connecter
+                                    Log in
                                 </Button>
                                 <FooterAction onClick={() => {onClose(); setShowButtons(false)}}>
-                                    Plus tard
+                                    Later
                                 </FooterAction>
                             </div>
                         :
@@ -90,7 +90,7 @@ const LoginModal = ({ showModal, onClose }: Props) => {
                                     </Button>
                                 </div>
                                 <FooterAction onClick={() => setShowButtons(false)}>
-                                    Annuler
+                                    Cancel
                                 </FooterAction>
                             </div>
                     }

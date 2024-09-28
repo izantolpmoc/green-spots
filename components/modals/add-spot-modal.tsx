@@ -55,10 +55,10 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
 
             const data = await response.json();
 
-            if (data.result == false) return setImageMessage("L'image semble ne pas être au bon format ou être inappropriée. Réessayez avec une autre !");
+            if (data.result == false) return setImageMessage("The image does not seem to be in the right format or is inappropriate. Try again with another one!");
             else {
                 setImage(data.result);
-                return setImageMessage("Image validée !")
+                return setImageMessage("Image approved!")
             }
         };
       
@@ -136,12 +136,12 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
             {showModal && 
                  <Modal onClose={onClose} className={styles.modal} large>
 
-                    <SectionTitle>Ajouter un spot</SectionTitle>
+                    <SectionTitle>Add a spot</SectionTitle>
 
                     <section className={styles.main}>
 
                         <div className={styles.container}>
-                            <FilterLabel>Nom du spot</FilterLabel>
+                            <FilterLabel>Spot name</FilterLabel>
                             <TextInput
                                 required
                                 name="name"
@@ -152,7 +152,7 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
                                 onChange={setSpotName}
                             />
                             <FilterLabel>Description</FilterLabel>
-                            <p>Description courte (max 140 caractères).</p>
+                            <p>Short description (max. 140 characters).</p>
                             <TextInput 
                                 name="description"
                                 className={styles.textInput}
@@ -172,27 +172,27 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
                         </div>
 
                         <div className={styles.container}>
-                            <FilterLabel>Spécificités</FilterLabel>
+                            <FilterLabel>Features</FilterLabel>
                             <MultiSelect
                                 name="tags"
                                 value={selectedTags}
                                 onChange={setSelectedTags}
                                 options={tags}
-                                placeholder="Rechercher une spécificité..."
-                                noOptionsMessage="Aucune spécificité trouvée"
+                                placeholder="Find a feature..."
+                                noOptionsMessage="No feature found"
                             />
-                            <FilterLabel>Adresse</FilterLabel>
-                            <p>Rue et numéro</p>
+                            <FilterLabel>Adress</FilterLabel>
+                            <p>Street and number</p>
                             <TextInput
                                 required
                                 name="address"
                                 isInvalid={invalidFields.includes("address")}
                                 className={styles.textInput}
-                                placeholder="Pl. de la Concorde"
+                                placeholder="Nishi-shinjuku 3-6-4"
                                 value={spotStreet}
                                 onChange={setSpotStreet}
                             />
-                            <p>Ville et code postal</p>
+                            <p>City and postal code</p>
                             <div className={styles.group}>
                                 <TextInput
                                     required
@@ -206,7 +206,7 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
                                     required
                                     className={styles.textInput}
                                     isInvalid={invalidFields.includes("postalCode")}
-                                    placeholder="75001"
+                                    placeholder="145-1002"
                                     value={spotPostalCode}
                                     onChange={setSpotPostalCode}
                                 />
@@ -221,13 +221,13 @@ const AddSpotModal = ({ showModal, onClose}: Props) => {
                                 onClick={() => {
                                     onClose()
                                 }}>
-                                Abandonner
+                                Cancel
                             </Button>
                             <Button 
                                 fullWidth
                                 type="submit"
                                 onClick={handleSubmit}>
-                                Créer
+                                Create
                             </Button> 
                         </div>
                  </Modal>
