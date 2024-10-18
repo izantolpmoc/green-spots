@@ -296,7 +296,7 @@ const Home = (
 				<section className={styles.cardContainer} ref={sectionRef}>
 					{nearBySpots.map((item, i) => (
 						<SpotCard
-							key={`around-me-section-spot-${i}`}
+							key={`around-me-section-spot-${item.id + i}`}
 							className={styles.minHeight}
 							displayMode="card"
 							spot={item}
@@ -311,11 +311,11 @@ const Home = (
 				</section>
 
 				{
-					data ?
+					nearBySpots ?
 					<SpotDetailsModal 
 						showModal={showModal} 
 						setShowModal={setShowModal} 
-						spots={data} 
+						spots={nearBySpots} 
 						updateSpot={updateSpot}
 						currentSpotPosition={currentSpotPosition} 
 						setCurrentSpotPosition={setCurrentSpotPosition}

@@ -55,7 +55,7 @@ const DynamicSpotsGrid = (
             {
                 spots.map((item, i) => (
                     <SpotCard
-                        key={i}
+                        key={item.id+i}
                         onClick={() => handleSpotClick(i)}
                         className={deviceType !== 'mobile' || !displayListOnMobile ? styles.card : ''}
                         displayMode={deviceType == 'mobile' && displayListOnMobile ? 'list' : 'card'}
